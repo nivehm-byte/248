@@ -1,0 +1,1166 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Two Four Eight | Multiplying Jesus Movements in Cities</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+
+/* ── RESET & BASE ── */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body {
+  font-family: 'Inter', -apple-system, sans-serif;
+  color: #232322;
+  background: #fff;
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ────────────────────────────────────
+   BRAND TOKENS
+──────────────────────────────────── */
+:root {
+  --linen:      #D4C8B8;
+  --sage:       #6B775B;
+  --slate:      #4F6375;
+  --ink:        #232322;
+  --brown:      #8B5936;
+  --brown-lt:   #A06A44;
+
+  --bg:         #FAF8F5;
+  --sand:       #F0EBE3;
+  --stone:      #E3DDD5;
+  --muted:      #6A6560;
+
+  --radius:     12px;
+  --radius-sm:  6px;
+  --radius-lg:  18px;
+}
+
+/* ── TYPOGRAPHY ── */
+h1 {
+  font-size: clamp(2.4rem, 5vw, 3.4rem);
+  font-weight: 300;
+  line-height: 1.14;
+  letter-spacing: -0.03em;
+}
+h2 {
+  font-size: clamp(1.7rem, 3.2vw, 2.4rem);
+  font-weight: 300;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+h3 {
+  font-size: clamp(1.05rem, 1.8vw, 1.15rem);
+  font-weight: 500;
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+}
+p { max-width: 640px; }
+
+/* ── LAYOUT ── */
+.container { max-width: 1100px; margin: 0 auto; padding: 0 2.5rem; }
+section    { padding: 6.5rem 0; }
+
+/* ────────────────────────────────────
+   NAV
+──────────────────────────────────── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: rgba(35,35,34,0.97);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+nav .container {
+  display: flex; align-items: center; justify-content: space-between; height: 60px;
+}
+.logo {
+  font-size: 0.72rem; font-weight: 600;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: #fff; text-decoration: none;
+}
+.logo span { color: var(--brown); }
+
+nav ul { list-style: none; display: flex; gap: 2rem; align-items: center; }
+nav ul a {
+  color: rgba(255,255,255,0.55); text-decoration: none;
+  font-size: 0.75rem; font-weight: 500;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  transition: color 0.2s;
+}
+nav ul a:hover { color: #fff; }
+
+.nav-cta {
+  background: var(--brown) !important;
+  color: #fff !important;
+  padding: 0.4rem 1.1rem !important;
+  border-radius: var(--radius-sm);
+  transition: background 0.2s !important;
+}
+.nav-cta:hover { background: var(--brown-lt) !important; }
+
+.hamburger { display: none; background: none; border: none; cursor: pointer; padding: 0.4rem; }
+.hamburger span { display: block; width: 20px; height: 1.5px; background: #fff; margin: 5px 0; }
+
+.mobile-menu {
+  display: none; position: fixed; top: 60px; left: 0; right: 0;
+  background: var(--ink); padding: 1.2rem 2.5rem;
+  border-bottom: 1px solid rgba(255,255,255,0.06); z-index: 99;
+}
+.mobile-menu.open { display: block; }
+.mobile-menu a {
+  display: block; color: rgba(255,255,255,0.65); text-decoration: none;
+  font-size: 0.88rem; padding: 0.65rem 0;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  transition: color 0.2s;
+}
+.mobile-menu a:hover { color: #fff; }
+
+/* ── PAGE VISIBILITY ── */
+.page        { display: none; }
+.page.active { display: block; }
+
+/* ────────────────────────────────────
+   CITY BANNER
+──────────────────────────────────── */
+.city-banner {
+  width: 100%; height: 56vh; min-height: 340px;
+  position: relative; overflow: hidden;
+  background: var(--ink);
+}
+.city-banner img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+.banner-placeholder {
+  width: 100%; height: 100%;
+  display: flex; align-items: center; justify-content: center;
+  background: linear-gradient(150deg, #1a1a19 0%, #2e2c29 55%, #232322 100%);
+  color: rgba(212,200,184,0.15);
+  font-size: 0.70rem; letter-spacing: 0.18em; text-transform: uppercase; font-weight: 500;
+}
+.banner-placeholder::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(ellipse 60% 70% at 70% 30%, rgba(139,89,54,0.11) 0%, transparent 70%);
+}
+.city-banner::after {
+  content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 62%;
+  background: linear-gradient(to top, var(--ink), transparent);
+  pointer-events: none;
+}
+
+/* ────────────────────────────────────
+   HERO
+──────────────────────────────────── */
+.hero {
+  padding: 4.5rem 0 6.5rem;
+  background: var(--ink); color: #fff;
+  position: relative; overflow: hidden;
+}
+.hero::before {
+  content: ''; position: absolute; top: -20%; right: -5%; width: 50%; height: 120%;
+  background: radial-gradient(ellipse, rgba(139,89,54,0.09) 0%, transparent 65%);
+  pointer-events: none;
+}
+.hero .container  { position: relative; z-index: 1; }
+
+.hero-layout {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 5rem;
+  align-items: start;
+}
+.hero-content { padding-top: 0.5rem; }
+
+.hero-tag {
+  display: inline-block;
+  font-size: 0.68rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--linen); opacity: 0.6;
+  margin-bottom: 1.5rem; padding-bottom: 0.6rem;
+  border-bottom: 1px solid rgba(212,200,184,0.2);
+}
+.hero h1         { color: #fff; margin-bottom: 1.5rem; }
+.hero-lead       {
+  color: rgba(255,255,255,0.50); font-size: 1.05rem; font-weight: 300;
+  line-height: 1.9;
+}
+
+.hero-stats-col {
+  display: flex; flex-direction: column;
+  border-left: 1px solid rgba(255,255,255,0.07);
+  padding-left: 3rem;
+  padding-top: 0.5rem;
+}
+.hero-stat-item {
+  padding: 1.8rem 0;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+.hero-stat-item:last-child { border-bottom: none; }
+.hero-stat-item .number {
+  font-size: 2.8rem; font-weight: 300; color: var(--linen);
+  display: block; line-height: 1; letter-spacing: -0.03em;
+  margin-bottom: 0.5rem;
+}
+.hero-stat-item .label {
+  font-size: 0.72rem; color: rgba(255,255,255,0.36);
+  text-transform: uppercase; letter-spacing: 0.05em;
+  display: block; line-height: 1.6;
+}
+
+/* ────────────────────────────────────
+   VIDEO SECTION
+──────────────────────────────────── */
+.video-section { padding: 6rem 0; background: var(--bg); }
+.video-section-header { text-align: center; margin-bottom: 2.5rem; }
+
+.video-wrap {
+  max-width: 800px; margin: 0 auto;
+  border-radius: var(--radius-lg); overflow: hidden;
+  box-shadow: 0 24px 64px rgba(35,35,34,0.12);
+  aspect-ratio: 16/9; background: var(--ink); position: relative;
+}
+.video-wrap iframe { width: 100%; height: 100%; border: none; display: block; }
+
+.video-placeholder {
+  width: 100%; height: 100%;
+  display: flex; align-items: center; justify-content: center;
+  background: linear-gradient(145deg, #1a1a19, #232322);
+  text-align: center; padding: 2rem;
+}
+.play-icon {
+  width: 56px; height: 56px; border-radius: 50%;
+  border: 1px solid rgba(212,200,184,0.25);
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 1rem;
+  color: rgba(212,200,184,0.4); font-size: 1rem; padding-left: 4px;
+}
+.video-placeholder p {
+  max-width: 200px; margin: 0 auto;
+  font-size: 0.78rem; color: rgba(212,200,184,0.25);
+  line-height: 1.6; letter-spacing: 0.04em;
+}
+
+/* ────────────────────────────────────
+   SECTION VARIANTS
+──────────────────────────────────── */
+.section-bg    { background: var(--bg); }
+.section-sand  { background: var(--sand); }
+.section-white { background: #fff; }
+.section-dark  { background: var(--ink); color: #fff; }
+.section-slate { background: var(--slate); color: #fff; }
+
+.section-label {
+  display: block; font-size: 0.65rem; font-weight: 600;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--brown); margin-bottom: 0.75rem;
+}
+.section-dark  .section-label { color: var(--linen); opacity: 0.48; }
+.section-sand  .section-label { color: var(--sage); }
+.section-slate .section-label { color: rgba(212,200,184,0.55); }
+
+.section-intro {
+  font-size: 1rem; color: var(--muted); line-height: 1.9;
+  margin-top: 0.5rem; margin-bottom: 3rem;
+  max-width: 500px; font-weight: 300;
+}
+.section-dark  .section-intro { color: rgba(255,255,255,0.42); }
+.section-slate .section-intro { color: rgba(255,255,255,0.5); }
+
+/* ────────────────────────────────────
+   PROBLEM GRID
+──────────────────────────────────── */
+.problem-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 1px; background: var(--stone);
+  border-radius: var(--radius); overflow: hidden;
+  margin-top: 2.5rem;
+}
+.problem-card {
+  padding: 2.4rem 1.8rem;
+  background: #fff;
+}
+.problem-num {
+  display: block;
+  font-size: 0.65rem; font-weight: 600; letter-spacing: 0.14em;
+  color: var(--brown); margin-bottom: 1rem;
+}
+.problem-card h3 { color: var(--ink); margin-bottom: 0.6rem; }
+.problem-card p  { color: var(--muted); font-size: 0.875rem; line-height: 1.85; }
+
+.pull-quote {
+  font-size: clamp(1.05rem, 2vw, 1.2rem);
+  font-weight: 300; font-style: italic;
+  color: var(--ink); line-height: 1.7;
+  max-width: 660px; margin-top: 3rem !important;
+  padding: 1.8rem 2rem;
+  border-left: 3px solid var(--linen);
+  background: var(--sand);
+  border-radius: 0 var(--radius) var(--radius) 0;
+}
+
+/* ────────────────────────────────────
+   MULTIPLICATION
+──────────────────────────────────── */
+.mult-section { text-align: center; padding: 6.5rem 0; background: var(--sand); }
+.mult-sequence {
+  font-size: clamp(2.2rem, 4.5vw, 3.4rem);
+  font-weight: 300; letter-spacing: 0.06em;
+  color: var(--ink); margin: 2.2rem 0 1.8rem;
+}
+.mult-sequence span { color: var(--brown); }
+.mult-lead {
+  color: var(--muted); font-size: 1rem; font-weight: 300;
+  max-width: 560px; margin: 0 auto; line-height: 1.9;
+}
+
+/* ────────────────────────────────────
+   FIVE SIGNS — HOME
+──────────────────────────────────── */
+.signs-section { padding: 6.5rem 0; background: var(--ink); color: #fff; }
+
+.signs-home-grid {
+  display: grid; grid-template-columns: repeat(5, 1fr);
+  gap: 1px; background: rgba(255,255,255,0.06);
+  border-radius: var(--radius); overflow: hidden;
+  margin-top: 3rem;
+}
+.sign-home-card {
+  padding: 2.4rem 1.6rem;
+  background: rgba(255,255,255,0.025);
+  text-align: center;
+}
+.sign-home-num {
+  font-size: 2rem; font-weight: 300; color: var(--brown);
+  display: block; line-height: 1; margin-bottom: 1rem;
+}
+.sign-home-card h3 { font-size: 1rem; color: var(--linen); margin-bottom: 0.5rem; font-weight: 500; }
+.sign-home-card p  { font-size: 0.82rem; color: rgba(255,255,255,0.38); line-height: 1.7; max-width: 100%; }
+
+/* ────────────────────────────────────
+   SA PROOF
+──────────────────────────────────── */
+.proof-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem; margin-top: 2.5rem;
+}
+.proof-stat {
+  text-align: center; padding: 2.2rem 1rem;
+  background: rgba(255,255,255,0.035);
+  border-radius: var(--radius);
+  border: 1px solid rgba(212,200,184,0.08);
+}
+.proof-stat .number {
+  font-size: 2.4rem; font-weight: 300;
+  color: var(--linen); display: block; line-height: 1;
+  letter-spacing: -0.025em; margin-bottom: 0.5rem;
+}
+.proof-stat .label {
+  font-size: 0.72rem; color: rgba(255,255,255,0.38);
+  display: block; line-height: 1.55; letter-spacing: 0.03em;
+}
+
+/* SA Timeline */
+.sa-timeline {
+  display: flex; gap: 0; margin-top: 2.5rem; margin-bottom: 0.5rem;
+  position: relative;
+}
+.sa-timeline::before {
+  content: ''; position: absolute;
+  top: 7px; left: calc(10% + 4px); right: calc(10% + 4px); height: 1px;
+  background: rgba(212,200,184,0.12);
+  z-index: 0;
+}
+.timeline-point {
+  flex: 1; text-align: center; position: relative; padding-top: 0;
+}
+.timeline-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--brown); margin: 0 auto 0.9rem;
+  border: 2px solid rgba(139,89,54,0.6);
+  position: relative; z-index: 1;
+  box-shadow: 0 0 0 3px rgba(139,89,54,0.15);
+}
+.timeline-year {
+  font-size: 0.72rem; font-weight: 600; color: var(--brown);
+  letter-spacing: 0.06em; display: block; margin-bottom: 0.35rem;
+}
+.timeline-label {
+  font-size: 0.78rem; color: rgba(255,255,255,0.42); line-height: 1.5;
+}
+
+.story-block {
+  margin-top: 2.5rem; padding: 1.8rem 2.2rem;
+  background: rgba(255,255,255,0.04);
+  border-radius: var(--radius);
+  border: 1px solid rgba(212,200,184,0.08);
+}
+.story-block p {
+  color: rgba(255,255,255,0.58); font-size: 1rem;
+  line-height: 1.9; font-weight: 300; max-width: 100%;
+}
+.story-block .hl { color: var(--linen); font-weight: 500; }
+
+/* ────────────────────────────────────
+   STAT BAND
+──────────────────────────────────── */
+.stat-band { padding: 5.5rem 0; background: var(--slate); color: #fff; }
+.stat-band-header { text-align: center; margin-bottom: 3.5rem; }
+.stat-band-header h2 { color: #fff; }
+
+.stat-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 2rem; text-align: center;
+}
+.stat-item .number {
+  font-size: 2.6rem; font-weight: 300;
+  color: var(--linen); display: block; line-height: 1;
+  letter-spacing: -0.025em; margin-bottom: 0.5rem;
+}
+.stat-item .label {
+  font-size: 0.72rem; color: rgba(255,255,255,0.45);
+  display: block; line-height: 1.55;
+  text-transform: uppercase; letter-spacing: 0.05em;
+}
+
+/* ────────────────────────────────────
+   CTA
+──────────────────────────────────── */
+.cta-section {
+  background: var(--sand); padding: 7.5rem 0; text-align: center;
+}
+.cta-section h2 { color: var(--ink); margin-bottom: 1rem; }
+.cta-section > .container > .cta-body {
+  color: var(--muted); font-size: 1.02rem; font-weight: 300;
+  line-height: 1.9; margin: 0 auto 2.8rem; max-width: 420px;
+}
+
+.cta-engage {
+  display: flex; gap: 1.5rem; justify-content: center;
+  margin-bottom: 3rem;
+}
+.cta-engage-item {
+  text-align: center; padding: 1.6rem 1.8rem;
+  background: rgba(35,35,34,0.04); border-radius: var(--radius);
+  border: 1px solid var(--stone); min-width: 150px; max-width: 180px;
+}
+.cta-engage-num {
+  font-size: 0.65rem; font-weight: 600; letter-spacing: 0.14em;
+  color: var(--brown); display: block; margin-bottom: 0.5rem;
+}
+.cta-engage-item h3 { font-size: 1.05rem; color: var(--ink); margin-bottom: 0.35rem; font-weight: 500; }
+.cta-engage-item p  { font-size: 0.8rem; color: var(--muted); line-height: 1.65; max-width: 100%; }
+
+.cta-btn {
+  display: inline-block; background: var(--brown); color: #fff;
+  text-decoration: none; padding: 0.95rem 2.6rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem; font-weight: 500; letter-spacing: 0.05em;
+  transition: background 0.2s, transform 0.15s;
+}
+.cta-btn:hover { background: var(--brown-lt); transform: translateY(-1px); }
+
+.cta-details {
+  margin-top: 1.8rem; font-size: 0.80rem; color: var(--muted);
+}
+.cta-details a {
+  color: var(--muted); text-decoration: underline; text-underline-offset: 3px;
+}
+.cta-details a:hover { color: var(--ink); }
+
+/* ────────────────────────────────────
+   ABOUT — MODEL CARDS
+──────────────────────────────────── */
+.team-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem; margin-top: 2.5rem;
+}
+.team-card {
+  padding: 2.2rem 1.8rem; background: #fff;
+  border: 1px solid var(--stone); border-radius: var(--radius);
+}
+.team-card h3 { margin-bottom: 0.55rem; }
+.team-card p  { color: var(--muted); font-size: 0.875rem; line-height: 1.85; max-width: 100%; }
+
+/* Signs — about page */
+.signs-row {
+  display: grid; grid-template-columns: repeat(5, 1fr);
+  gap: 1.5rem; margin-top: 2.5rem;
+}
+.sign-card {
+  padding: 1.8rem 1.4rem;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(212,200,184,0.08);
+  border-radius: var(--radius); text-align: center;
+}
+.sign-num {
+  font-size: 1.8rem; font-weight: 300; color: var(--brown);
+  display: block; margin-bottom: 0.6rem;
+}
+.sign-card h3 { font-size: 0.95rem; color: #fff; margin-bottom: 0.4rem; }
+.sign-card p  { font-size: 0.82rem; color: rgba(255,255,255,0.42); line-height: 1.7; max-width: 100%; }
+
+/* Members */
+.members-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem; margin-top: 2.5rem;
+}
+.member-card {
+  padding: 1.8rem 1.5rem;
+  border: 1px solid var(--stone);
+  border-radius: var(--radius); background: #fff;
+}
+.member-avatar {
+  width: 42px; height: 42px; border-radius: 50%;
+  background: var(--sand); border: 1px solid var(--stone);
+  color: var(--muted); font-weight: 600; font-size: 0.72rem; letter-spacing: 0.04em;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 1rem;
+}
+.member-card h3 { font-size: 0.95rem; color: var(--ink); margin-bottom: 0.2rem; }
+.member-role {
+  display: inline-block; font-size: 0.68rem; font-weight: 600;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--sage); margin-bottom: 0.7rem;
+}
+.member-card p { font-size: 0.845rem; color: var(--muted); line-height: 1.8; max-width: 100%; }
+
+/* ────────────────────────────────────
+   DONATE
+──────────────────────────────────── */
+.donate-hero {
+  min-height: 360px;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center; text-align: center;
+  background: var(--ink); color: #fff;
+  padding: 7rem 2rem 5.5rem;
+}
+.donate-hero h1 { color: #fff; margin-bottom: 1.1rem; }
+.donate-hero p  {
+  color: rgba(255,255,255,0.48); font-size: 1.05rem;
+  font-weight: 300; line-height: 1.9; max-width: 500px;
+}
+
+.invest-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem; margin-top: 2.5rem;
+}
+.invest-card {
+  padding: 2.4rem 2rem;
+  border: 1px solid var(--stone); border-radius: var(--radius);
+  background: #fff; display: flex; flex-direction: column; gap: 0.4rem;
+}
+.invest-card.featured {
+  border-color: var(--sage);
+  box-shadow: 0 0 0 2px rgba(107,119,91,0.12);
+}
+.invest-card .amount {
+  font-size: 2rem; font-weight: 300; color: var(--ink);
+  line-height: 1; letter-spacing: -0.025em;
+}
+.invest-card .period {
+  font-size: 0.72rem; color: var(--muted);
+  text-transform: uppercase; letter-spacing: 0.07em; font-weight: 500;
+}
+.invest-card .desc {
+  font-size: 0.875rem; color: var(--muted);
+  line-height: 1.85; margin-top: 0.6rem; max-width: 100%;
+}
+
+.city-cards {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem; margin-top: 2.5rem;
+}
+.city-card {
+  padding: 2.2rem 1.8rem;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(212,200,184,0.08);
+  border-radius: var(--radius);
+}
+.city-card .stage {
+  display: inline-block; font-size: 0.64rem; font-weight: 600;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--brown); margin-bottom: 0.7rem;
+}
+.city-card h3 { color: #fff; margin-bottom: 0.6rem; font-size: 1.2rem; font-weight: 400; }
+.city-card p  { font-size: 0.875rem; color: rgba(255,255,255,0.45); line-height: 1.85; max-width: 100%; }
+
+/* ────────────────────────────────────
+   FOOTER
+──────────────────────────────────── */
+footer {
+  background: var(--ink);
+  border-top: 1px solid rgba(255,255,255,0.05);
+  padding: 2.5rem 0;
+}
+footer p {
+  font-size: 0.76rem; color: rgba(255,255,255,0.22);
+  text-align: center; max-width: 100%; letter-spacing: 0.03em;
+}
+
+/* ────────────────────────────────────
+   RESPONSIVE
+──────────────────────────────────── */
+@media (max-width: 1000px) {
+  .hero-layout { grid-template-columns: 1fr; gap: 3rem; }
+  .hero-stats-col {
+    flex-direction: row;
+    border-left: none; padding-left: 0;
+    border-top: 1px solid rgba(255,255,255,0.07); padding-top: 2rem;
+  }
+  .hero-stat-item {
+    flex: 1; padding: 0 1.5rem 0 0;
+    border-bottom: none; border-right: 1px solid rgba(255,255,255,0.07);
+  }
+  .hero-stat-item:last-child { border-right: none; padding-right: 0; padding-left: 1.5rem; }
+  .signs-home-grid { grid-template-columns: repeat(3, 1fr); }
+  .problem-grid    { grid-template-columns: repeat(2, 1fr); }
+  .proof-grid      { grid-template-columns: repeat(2, 1fr); }
+  .stat-grid       { grid-template-columns: repeat(2, 1fr); }
+  .signs-row       { grid-template-columns: repeat(3, 1fr); }
+  .members-grid    { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 700px) {
+  nav ul       { display: none; }
+  .hamburger   { display: block; }
+  .team-grid   { grid-template-columns: 1fr; }
+  .invest-grid { grid-template-columns: 1fr; }
+  .city-cards  { grid-template-columns: 1fr; }
+  .signs-row   { grid-template-columns: repeat(2, 1fr); }
+  .signs-home-grid { grid-template-columns: repeat(2, 1fr); }
+  .members-grid { grid-template-columns: 1fr; }
+  .cta-engage  { flex-direction: column; align-items: center; }
+  .sa-timeline { flex-wrap: wrap; gap: 1.5rem; }
+  .sa-timeline::before { display: none; }
+  .timeline-point { flex: 0 0 40%; }
+}
+@media (max-width: 480px) {
+  .container       { padding: 0 1.5rem; }
+  .problem-grid    { grid-template-columns: 1fr; }
+  .proof-grid      { grid-template-columns: repeat(2, 1fr); }
+  .stat-grid       { grid-template-columns: 1fr 1fr; }
+  .signs-home-grid { grid-template-columns: 1fr 1fr; }
+  .hero-stats-col  { flex-direction: column; }
+  .hero-stat-item  { border-right: none !important; border-bottom: 1px solid rgba(255,255,255,0.07); padding: 1.5rem 0; padding-left: 0 !important; }
+}
+
+</style>
+</head>
+<body>
+
+<!-- ════════════════════ NAV ════════════════════ -->
+<nav>
+  <div class="container">
+    <a href="#" class="logo" onclick="showPage('home'); return false;">
+      T W O &nbsp; F O U R &nbsp; <span>E I G H T</span>
+    </a>
+    <ul>
+      <li><a href="#" onclick="showPage('home'); return false;">Home</a></li>
+      <li><a href="#" onclick="showPage('about'); return false;">About</a></li>
+      <li><a href="#" onclick="showPage('donate'); return false;" class="nav-cta">Give</a></li>
+    </ul>
+    <button class="hamburger" onclick="document.getElementById('mobileMenu').classList.toggle('open')" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#" onclick="showPage('home'); closeMobile();">Home</a>
+  <a href="#" onclick="showPage('about'); closeMobile();">About</a>
+  <a href="#" onclick="showPage('donate'); closeMobile();">Give</a>
+</div>
+
+
+<!-- ════════════════════════════════════════════ -->
+<!--               HOME PAGE                      -->
+<!-- ════════════════════════════════════════════ -->
+<div id="page-home" class="page active">
+
+  <div class="city-banner">
+    <img src="AD9A2271.jpg" alt="Two people looking over a city" style="object-position: center 70%;">
+  </div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-layout">
+        <div class="hero-content">
+          <span class="hero-tag">Multiplying Jesus Movements in Cities</span>
+          <h1>We find local leaders.<br>We invest in them.<br>Movements follow.</h1>
+          <p class="hero-lead">Two Four Eight develops the kind of leaders who multiply disciples, form communities, and raise up the next generation — without depending on us to keep going.</p>
+        </div>
+        <div class="hero-stats-col">
+          <div class="hero-stat-item">
+            <span class="number">70%</span>
+            <span class="label">Of the World Will Live in Cities by 2050</span>
+          </div>
+          <div class="hero-stat-item">
+            <span class="number">90%</span>
+            <span class="label">Of Net Population Growth This Decade Will Be Urban</span>
+          </div>
+          <div class="hero-stat-item">
+            <span class="number">78</span>
+            <span class="label">Cities Where We're Building Movements Right Now</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VIDEO -->
+  <section class="video-section">
+    <div class="container">
+      <div class="video-section-header">
+        <span class="section-label">Watch</span>
+        <h2 style="color: var(--ink);">Why cities are the most urgent frontier in global missions</h2>
+      </div>
+      <div class="video-wrap">
+        <!-- Replace with: <iframe src="https://www.youtube.com/embed/YOUR_ID" allowfullscreen></iframe> -->
+        <div class="video-placeholder">
+          <div>
+            <div class="play-icon">▶</div>
+            <p>Video coming soon</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- THE PROBLEM -->
+  <section class="section-white">
+    <div class="container">
+      <span class="section-label">The Problem</span>
+      <h2 style="color: var(--ink);">Most ministry models were not built for cities</h2>
+      <p class="section-intro">Urban populations are growing faster than any organisation can plan for. Most traditional mission approaches share four structural weaknesses.</p>
+      <div class="problem-grid">
+        <div class="problem-card">
+          <span class="problem-num">01</span>
+          <h3>Too Slow</h3>
+          <p>Cities grow faster than trained professionals can keep up. Our systems cannot match the pace of urbanisation.</p>
+        </div>
+        <div class="problem-card">
+          <span class="problem-num">02</span>
+          <h3>Too Expensive</h3>
+          <p>Buildings, salaries and programs create overhead that limits how far the work can go.</p>
+        </div>
+        <div class="problem-card">
+          <span class="problem-num">03</span>
+          <h3>Too Centralised</h3>
+          <p>Growth depends on outside leaders and funding to function. When they leave, momentum leaves with them.</p>
+        </div>
+        <div class="problem-card">
+          <span class="problem-num">04</span>
+          <h3>Too Fragile</h3>
+          <p>When the context changes, the movement stalls. Local ownership was never built.</p>
+        </div>
+      </div>
+      <p class="pull-quote">The issue is not commitment. It is a model that does not consistently develop local leaders who can develop others.</p>
+    </div>
+  </section>
+
+  <!-- MULTIPLICATION -->
+  <section class="mult-section">
+    <div class="container">
+      <span class="section-label">The Answer</span>
+      <h2 style="color: var(--ink);">Multiplication, not addition</h2>
+      <div class="mult-sequence">2 → <span>4</span> → <span>8</span> → 16 → 32…</div>
+      <p class="mult-lead">The only way to reach cities is not to add — one program at a time — but to multiply. We develop leaders, who invest in other leaders, who multiply Jesus movements in cities. We don't launch programs. We multiply the multipliers.</p>
+    </div>
+  </section>
+
+  <!-- FIVE SIGNS — HOME -->
+  <section class="signs-section">
+    <div class="container">
+      <span class="section-label">The Model</span>
+      <h2>How a city comes alive</h2>
+      <p class="section-intro">We track five signs of life across every city, every quarter. These stages develop in parallel — not in sequence.</p>
+      <div class="signs-home-grid">
+        <div class="sign-home-card">
+          <span class="sign-home-num">1</span>
+          <h3>Rooted</h3>
+          <p>A local leader with a strong, committed team</p>
+        </div>
+        <div class="sign-home-card">
+          <span class="sign-home-num">2</span>
+          <h3>Multiplying</h3>
+          <p>Disciples make disciples through their own networks</p>
+        </div>
+        <div class="sign-home-card">
+          <span class="sign-home-num">3</span>
+          <h3>Transforming</h3>
+          <p>Lives change. Communities begin to heal.</p>
+        </div>
+        <div class="sign-home-card">
+          <span class="sign-home-num">4</span>
+          <h3>Gathering</h3>
+          <p>Simple faith communities form in homes and workplaces</p>
+        </div>
+        <div class="sign-home-card">
+          <span class="sign-home-num">5</span>
+          <h3>Replicating</h3>
+          <p>Cities invest in and raise up other cities</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOUTH AFRICA -->
+  <section class="section-dark">
+    <div class="container">
+      <span class="section-label">Proof of Concept</span>
+      <h2>South Africa: seven years. Built by locals.</h2>
+      <p class="section-intro">In 2019, we began investing in the first leaders in South African townships. Today the movement is self-led and multiplying on its own.</p>
+
+      <div class="sa-timeline">
+        <div class="timeline-point">
+          <div class="timeline-dot"></div>
+          <span class="timeline-year">2019</span>
+          <span class="timeline-label">First leaders equipped</span>
+        </div>
+        <div class="timeline-point">
+          <div class="timeline-dot"></div>
+          <span class="timeline-year">2021</span>
+          <span class="timeline-label">Multiplying &amp; transforming</span>
+        </div>
+        <div class="timeline-point">
+          <div class="timeline-dot"></div>
+          <span class="timeline-year">2025</span>
+          <span class="timeline-label">Nonprofit launched</span>
+        </div>
+        <div class="timeline-point">
+          <div class="timeline-dot"></div>
+          <span class="timeline-year">2026</span>
+          <span class="timeline-label">Self-led</span>
+        </div>
+        <div class="timeline-point">
+          <div class="timeline-dot"></div>
+          <span class="timeline-year">2028</span>
+          <span class="timeline-label">Fully independent</span>
+        </div>
+      </div>
+
+      <div style="margin-top: 2.5rem;">
+        <div class="video-wrap" style="max-width: 720px;">
+          <!-- Replace with: <iframe src="https://www.youtube.com/embed/YOUR_ID" allowfullscreen></iframe> -->
+          <div class="video-placeholder">
+            <div>
+              <div class="play-icon">▶</div>
+              <p>South Africa story</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCALE -->
+  <section class="stat-band">
+    <div class="container">
+      <div class="stat-band-header">
+        <span class="section-label">The Bigger Picture</span>
+        <h2>78 cities. One model. Led by locals — not by us.</h2>
+      </div>
+      <div class="stat-grid">
+        <div class="stat-item">
+          <span class="number">78</span>
+          <span class="label">Cities Engaged</span>
+        </div>
+        <div class="stat-item">
+          <span class="number">20</span>
+          <span class="label">Rooted Leaders</span>
+        </div>
+        <div class="stat-item">
+          <span class="number">45,000</span>
+          <span class="label">Communities Since 2010</span>
+        </div>
+        <div class="stat-item">
+          <span class="number">2,000</span>
+          <span class="label">Active Communities Engaged</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="container">
+      <h2>An invitation.</h2>
+      <p class="cta-body">We'd welcome 30 minutes to share what we're seeing in cities and hear what matters to you.</p>
+      <div class="cta-engage">
+        <div class="cta-engage-item">
+          <span class="cta-engage-num">01</span>
+          <h3>Fund</h3>
+          <p>Support coaching and leader development across cities</p>
+        </div>
+        <div class="cta-engage-item">
+          <span class="cta-engage-num">02</span>
+          <h3>Partner</h3>
+          <p>Open your network, expertise, and relationships</p>
+        </div>
+        <div class="cta-engage-item">
+          <span class="cta-engage-num">03</span>
+          <h3>Experience</h3>
+          <p>See the work firsthand through an exposure visit</p>
+        </div>
+      </div>
+      <a href="mailto:david@twofoureight.org" class="cta-btn">Start a Conversation</a>
+      <div class="cta-details">
+        <p>David Broodryk · <a href="mailto:david@twofoureight.org">david@twofoureight.org</a></p>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+
+<!-- ════════════════════════════════════════════ -->
+<!--               ABOUT PAGE                     -->
+<!-- ════════════════════════════════════════════ -->
+<div id="page-about" class="page">
+
+  <section class="section-dark" style="padding-top: 7rem;">
+    <div class="container">
+      <span class="section-label">Who We Are</span>
+      <h1 style="color: #fff; margin-bottom: 1.1rem;">Developing leaders who multiply Jesus movements in the cities of the world</h1>
+      <p style="color: rgba(255,255,255,0.48); font-size: 1.02rem; font-weight: 300; max-width: 580px; line-height: 1.9;">We find local leaders already positioned to start movements in their cities. We invest in them. We coach them. And when the movement no longer needs us, we step back.</p>
+    </div>
+  </section>
+
+  <section class="section-bg">
+    <div class="container">
+      <span class="section-label">The Model</span>
+      <h2 style="color: var(--ink);">Every leader we invest in receives three things</h2>
+      <p class="section-intro">We act as catalyst and coach. We ignite what could not start without us — then step back as local ownership grows.</p>
+      <div class="team-grid">
+        <div class="team-card">
+          <h3>A Movement Guide</h3>
+          <p>An experienced practitioner who walks alongside the leader long-term — coaching through real challenges on the ground.</p>
+        </div>
+        <div class="team-card">
+          <h3>A Growth Environment</h3>
+          <p>Communities of practice — cohorts, cross-city learning, and exposure to other movement leaders that stretch vision and sharpen work.</p>
+        </div>
+        <div class="team-card">
+          <h3>Developmental Content</h3>
+          <p>A structured coaching pathway covering team health, mission clarity, outreach, and leader multiplication. Practical tools, not academic curriculum.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-dark">
+    <div class="container">
+      <span class="section-label">What We Measure</span>
+      <h2>Five signs of life</h2>
+      <p class="section-intro">We track five signs that tell us whether a leader, team, and movement are alive, healthy, and built to outlast us.</p>
+      <div class="signs-row">
+        <div class="sign-card">
+          <span class="sign-num">1</span>
+          <h3>Rooted</h3>
+          <p>A local leader with deep roots and a vision for their city.</p>
+        </div>
+        <div class="sign-card">
+          <span class="sign-num">2</span>
+          <h3>Multiplying</h3>
+          <p>Disciples make disciples through their own networks.</p>
+        </div>
+        <div class="sign-card">
+          <span class="sign-num">3</span>
+          <h3>Transforming</h3>
+          <p>Lives change. Communities begin to heal.</p>
+        </div>
+        <div class="sign-card">
+          <span class="sign-num">4</span>
+          <h3>Gathering</h3>
+          <p>Simple faith communities form in homes and workplaces.</p>
+        </div>
+        <div class="sign-card">
+          <span class="sign-num">5</span>
+          <h3>Replicating</h3>
+          <p>Leaders develop the next generation beyond their own city.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-bg">
+    <div class="container">
+      <span class="section-label">Our Team</span>
+      <h2 style="color: var(--ink);">A core team of 7. Supported by 28 Movement Guides worldwide.</h2>
+      <p class="section-intro">We keep overhead low and coaching capacity high. Every person on this team is here because they've done the work on the ground.</p>
+      <div class="members-grid">
+        <div class="member-card">
+          <div class="member-avatar">DB</div>
+          <h3>David Broodryk</h3>
+          <span class="member-role">Executive Chairman</span>
+          <p>International movement strategist. Has trained leaders across Africa, Europe, the Americas, Asia, and Australasia. Based in Durban, South Africa.</p>
+        </div>
+        <div class="member-card">
+          <div class="member-avatar">MB</div>
+          <h3>Michelle Broodryk</h3>
+          <span class="member-role">Co-Founder</span>
+          <p>Co-leads hospitality and leader development from Durban. Founded Umfundi Education to address the education crisis in South Africa.</p>
+        </div>
+        <div class="member-card">
+          <div class="member-avatar">—</div>
+          <h3>—</h3>
+          <span class="member-role">Regional Coach — Africa</span>
+          <p>Coaches city leaders across Sub-Saharan Africa. Oversees the South Africa proof of concept and expansion into two additional countries.</p>
+        </div>
+        <div class="member-card">
+          <div class="member-avatar">—</div>
+          <h3>—</h3>
+          <span class="member-role">Regional Coach — Europe</span>
+          <p>Supports movement leaders across European cities including the Turku multiplication work in Finland.</p>
+        </div>
+        <div class="member-card">
+          <div class="member-avatar">—</div>
+          <h3>—</h3>
+          <span class="member-role">Regional Coach — Asia</span>
+          <p>Coaches leaders across South and Southeast Asia, including the Singapore venture-stage opportunity.</p>
+        </div>
+        <div class="member-card">
+          <div class="member-avatar">—</div>
+          <h3>—</h3>
+          <span class="member-role">Operations &amp; Research</span>
+          <p>Manages evaluation systems, adaptive cycle reporting, and donor communications across the portfolio.</p>
+        </div>
+        <div class="member-card">
+          <div class="member-avatar">—</div>
+          <h3>—</h3>
+          <span class="member-role">Movement Guide Lead</span>
+          <p>Coordinates and trains the network of 28 Movement Guides working across 78 cities globally.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-section">
+    <div class="container">
+      <h2>An invitation.</h2>
+      <p class="cta-body">If anything here resonates, reach out. No pressure — just a conversation about whether this is something you'd want to be part of.</p>
+      <a href="mailto:david@twofoureight.org" class="cta-btn">Start a Conversation</a>
+      <div class="cta-details">
+        <p>David Broodryk · <a href="mailto:david@twofoureight.org">david@twofoureight.org</a></p>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+
+<!-- ════════════════════════════════════════════ -->
+<!--               GIVE PAGE                      -->
+<!-- ════════════════════════════════════════════ -->
+<div id="page-donate" class="page">
+
+  <div class="donate-hero">
+    <h1>Invest in what's already working</h1>
+    <p>You are not funding a program. You are funding a multiplier — a system that outlasts and outgrows our involvement.</p>
+  </div>
+
+  <section class="section-bg">
+    <div class="container">
+      <span class="section-label">Why Invest</span>
+      <h2 style="color: var(--ink);">Leverage. Accountability. Legacy.</h2>
+      <p class="section-intro">Every investment targets a specific leader at the point of greatest impact. Our expertise is knowing the right catalyst for the right moment to unlock momentum.</p>
+      <div class="team-grid">
+        <div class="team-card">
+          <h3>Leverage</h3>
+          <p>You're funding a multiplier. A system that outlasts and outgrows our involvement. Addition reaches hundreds. Multiplication reaches cities.</p>
+        </div>
+        <div class="team-card">
+          <h3>Accountability</h3>
+          <p>We measure five dimensions across every city, every quarter. AI-informed evaluation means you always know what your investment is strengthening and why.</p>
+        </div>
+        <div class="team-card">
+          <h3>Legacy</h3>
+          <p>Our role as catalyst ends when local leaders no longer need us. The measure of success is movements that outlast our involvement.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-sand">
+    <div class="container">
+      <span class="section-label">Investment Options</span>
+      <h2 style="color: var(--ink);">What your giving strengthens</h2>
+      <div class="invest-grid">
+        <div class="invest-card">
+          <span class="amount">$5,000</span>
+          <span class="period">per month</span>
+          <p class="desc">Funds one Movement Guide coaching 2–3 city leaders across a region.</p>
+        </div>
+        <div class="invest-card featured">
+          <span class="amount">$25,000</span>
+          <span class="period">per year</span>
+          <p class="desc">Funds the full coaching infrastructure for one early-stage city.</p>
+        </div>
+        <div class="invest-card">
+          <span class="amount">$50,000</span>
+          <span class="period">per year</span>
+          <p class="desc">Funds a Venture: launching a new local organisation with capacity to reach multiple cities.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-dark">
+    <div class="container">
+      <span class="section-label">Live Opportunities</span>
+      <h2>Where your investment goes right now</h2>
+      <p class="section-intro">We are currently investing in leaders at different points of this journey. Different cities at different thresholds.</p>
+      <div class="city-cards">
+        <div class="city-card">
+          <span class="stage">Stage 1 · Rooted</span>
+          <h3>Cape Town</h3>
+          <p>A leader identified, a core team forming. Ready to be strengthened with a Movement Guide.</p>
+        </div>
+        <div class="city-card">
+          <span class="stage">Stage 2 · Multiplying</span>
+          <h3>Turku</h3>
+          <p>A multiplying movement at a critical threshold, needing coaching infrastructure to sustain momentum.</p>
+        </div>
+        <div class="city-card">
+          <span class="stage">Stage 5 · Replicating</span>
+          <h3>Singapore</h3>
+          <p>A venture-stage opportunity with local leaders ready to launch a new organisation and hub.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-section">
+    <div class="container">
+      <h2>An invitation.</h2>
+      <p class="cta-body">Fund a city. Partner with us. Or come and experience the work firsthand.</p>
+      <a href="mailto:david@twofoureight.org" class="cta-btn">Start a Conversation</a>
+      <div class="cta-details">
+        <p>David Broodryk · <a href="mailto:david@twofoureight.org">david@twofoureight.org</a></p>
+        <p style="margin-top: 0.3rem;">Two Four Eight is supported in partnership with New Generations and Sixteen32 (US 501(c)(3)).</p>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+
+<!-- ════════════════════ FOOTER ════════════════════ -->
+<footer>
+  <div class="container">
+    <p>© 2026 Two Four Eight · In partnership with New Generations and Sixteen32 (US 501(c)(3))</p>
+  </div>
+</footer>
+
+<script>
+function showPage(name) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-' + name).classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+function closeMobile() {
+  document.getElementById('mobileMenu').classList.remove('open');
+}
+</script>
+
+</body>
+</html>

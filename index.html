@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Two Four Eight — Multiplying Jesus Movements in Cities</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&display=swap" rel="stylesheet">
+
+  <style>
+
+    /* ════════════════════════════════════════
+       RESET
+    ════════════════════════════════════════ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--off-white);
+      color: var(--charcoal);
+      font-family: 'Inter', -apple-system, sans-serif;
+      font-weight: 400;
+      line-height: 1.7;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ════════════════════════════════════════
+       DESIGN TOKENS — Brand palette
+    ════════════════════════════════════════ */
+    :root {
+      /* ── Five brand colours ── */
+      --sand:          #D4C8B8;
+      --olive:         #6B775B;
+      --slate:         #4F6375;
+      --charcoal:      #232322;
+      --earth:         #8B5936;
+
+      /* ── White / off-white ── */
+      --white:         #FFFFFF;
+      --off-white:     #F5F2EE;
+
+      /* ── Functional derivations (opacity only — no new hues) ── */
+      --charcoal-deep: #161514;          /* darkest gradient stop / loader bg  */
+      --earth-lt:      #A97043;          /* earth hover state                  */
+      --earth-pale:    #EDD6C0;          /* earth very light tint              */
+
+      /* ── On-dark surface text (sand at opacity) ── */
+      --on-dark:       rgba(212, 200, 184, 0.90);
+      --on-dark-muted: rgba(212, 200, 184, 0.42);
+
+      /* ── Motion ── */
+      --ease-out:      cubic-bezier(0.22, 1, 0.36, 1);
+      --ease-in-out:   cubic-bezier(0.65, 0, 0.35, 1);
+    }
+
+    /* ════════════════════════════════════════
+       FILM GRAIN OVERLAY
+    ════════════════════════════════════════ */
+    .grain {
+      position: fixed;
+      inset: -50%;
+      width: 200%;
+      height: 200%;
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.038;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='512' height='512' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 180px 180px;
+      animation: grain-drift 0.5s steps(2) infinite;
+    }
+
+    @keyframes grain-drift {
+      0%, 100% { transform: translate(0, 0); }
+      25%       { transform: translate(-3%, -2%); }
+      50%       { transform: translate(2%,  3%); }
+      75%       { transform: translate(-1%, 2%); }
+    }
+
+    /* ════════════════════════════════════════
+       FLOATING ISLAND NAV
+    ════════════════════════════════════════ */
+    #nav {
+      position: fixed;
+      top: 1.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1000;
+      background: rgba(35, 35, 34, 0.76);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 9999px;
+      box-shadow:
+        0 8px 32px rgba(0, 0, 0, 0.30),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+      transition: background 0.4s var(--ease-in-out), box-shadow 0.4s var(--ease-in-out);
+      white-space: nowrap;
+    }
+
+    #nav.scrolled {
+      background: rgba(35, 35, 34, 0.95);
+      box-shadow:
+        0 12px 44px rgba(0, 0, 0, 0.42),
+        inset 0 1px 0 rgba(255, 255, 255, 0.04);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      gap: 1.75rem;
+      padding: 0.5rem 0.5rem 0.5rem 1.75rem;
+      height: 52px;
+    }
+
+    .nav-logo {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.67rem;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--on-dark);
+      text-decoration: none;
+      flex-shrink: 0;
+      transition: opacity 0.22s;
+    }
+
+    .nav-logo:hover { opacity: 0.75; }
+    .nav-logo span { color: var(--earth-lt); }
+
+    .nav-divider {
+      width: 1px;
+      height: 18px;
+      background: rgba(255, 255, 255, 0.1);
+      flex-shrink: 0;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1.75rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      color: var(--on-dark-muted);
+      text-decoration: none;
+      transition: color 0.22s;
+    }
+
+    .nav-links a:hover { color: var(--on-dark); }
+
+    .nav-cta {
+      background: var(--earth);
+      color: var(--white);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 0.6rem 1.25rem;
+      border-radius: 9999px;
+      flex-shrink: 0;
+      display: inline-flex;
+      align-items: center;
+      overflow: hidden;
+      position: relative;
+      transition: background 0.22s;
+    }
+
+    .nav-cta:hover { background: var(--earth-lt); }
+
+    /* Button text scroll — stacked track, overflow hidden clips both spans */
+    .nav-cta-track {
+      display: block;
+      overflow: hidden;
+      height: 1.1em;
+      line-height: 1.1;
+    }
+
+    .nav-cta .t1,
+    .nav-cta .t2 {
+      display: block;
+      line-height: 1.1;
+      transition: transform 0.38s var(--ease-in-out);
+    }
+
+    .nav-cta:hover .t1 { transform: translateY(-100%); }
+    .nav-cta:hover .t2 { transform: translateY(-100%); }
+
+    /* Hamburger button (mobile) */
+    .nav-hamburger {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0.4rem 0.25rem;
+      margin-right: 0.5rem;
+    }
+
+    .nav-hamburger span {
+      display: block;
+      width: 18px;
+      height: 1.5px;
+      background: var(--on-dark);
+      margin: 4px 0;
+      transition: transform 0.28s var(--ease-out), opacity 0.28s;
+    }
+
+    /* Mobile dropdown */
+    .mobile-menu {
+      position: fixed;
+      top: 5rem;
+      left: 50%;
+      transform: translateX(-50%) translateY(-10px);
+      z-index: 998;
+      background: rgba(18, 16, 14, 0.97);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 18px;
+      min-width: 230px;
+      padding: 0.625rem 0;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.28s var(--ease-out), transform 0.28s var(--ease-out);
+    }
+
+    .mobile-menu.open {
+      opacity: 1;
+      pointer-events: all;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .mobile-menu a {
+      display: block;
+      padding: 0.75rem 1.75rem;
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--on-dark-muted);
+      text-decoration: none;
+      transition: color 0.18s;
+    }
+
+    .mobile-menu a:last-child {
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      margin-top: 0.25rem;
+      padding-top: 1rem;
+      color: var(--earth-pale);
+    }
+
+    .mobile-menu a:hover { color: var(--on-dark); }
+
+    /* ════════════════════════════════════════
+       HERO
+    ════════════════════════════════════════ */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      overflow: hidden;
+    }
+
+    /* Background city image */
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 70%;
+      display: block;
+    }
+
+    /* Atmospheric gradient: photo breathes at top, fades to charcoal at base */
+    .hero-gradient {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(35, 35, 34, 0.20) 0%,
+        rgba(35, 35, 34, 0.10) 25%,
+        rgba(35, 35, 34, 0.50) 58%,
+        rgba(35, 35, 34, 0.90) 80%,
+        var(--charcoal-deep) 100%
+      );
+    }
+
+    /* Content — asymmetric: pushed left, generous bottom room */
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      padding: 0 clamp(2rem, 6vw, 7rem) 8rem;
+    }
+
+    .hero-layout {
+      display: grid;
+      grid-template-columns: 1.4fr 220px;
+      gap: 6rem;
+      align-items: end;
+    }
+
+    /* Hero tag / eyebrow */
+    .hero-tag {
+      display: inline-block;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--earth-pale);
+      opacity: 0.65;
+      margin-bottom: 1.75rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid rgba(237, 214, 192, 0.2);
+    }
+
+    /* Main headline — Inter at display size */
+    .hero-h1 {
+      font-family: 'Inter', sans-serif;
+      font-size: clamp(1.76rem, 3.52vw, 3.2rem);
+      font-weight: 600;
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+      color: var(--on-dark);
+      margin-bottom: 2rem;
+    }
+
+    /* Lead paragraph */
+    .hero-lead {
+      font-size: 0.95rem;
+      font-weight: 300;
+      color: var(--on-dark-muted);
+      line-height: 1.9;
+      max-width: 480px;
+    }
+
+    /* Stats sidebar */
+    .hero-stats {
+      display: flex;
+      flex-direction: column;
+      border-left: 1px solid rgba(212, 200, 184, 0.12);
+      padding-left: 2.5rem;
+    }
+
+    .hero-stat {
+      padding: 1.75rem 0;
+      border-bottom: 1px solid rgba(212, 200, 184, 0.08);
+    }
+
+    .hero-stat:last-child { border-bottom: none; }
+
+    .stat-number {
+      display: block;
+      font-family: 'Inter', sans-serif;
+      font-size: 2.75rem;
+      font-weight: 300;
+      color: var(--on-dark);
+      line-height: 1;
+      letter-spacing: -0.04em;
+      margin-bottom: 0.6rem;
+    }
+
+    .stat-label {
+      display: block;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.67rem;
+      font-weight: 500;
+      color: var(--on-dark-muted);
+      line-height: 1.65;
+      letter-spacing: 0.02em;
+    }
+
+    /* Scroll indicator */
+    .hero-scroll {
+      position: absolute;
+      bottom: 2.25rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 3;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .scroll-line {
+      width: 1px;
+      height: 44px;
+      background: linear-gradient(to bottom, rgba(237, 231, 220, 0.55), transparent);
+      animation: scroll-pulse 2.4s ease-in-out infinite;
+    }
+
+    @keyframes scroll-pulse {
+      0%, 100% { opacity: 0.35; transform: scaleY(1); }
+      50%       { opacity: 0.75; transform: scaleY(1.18); }
+    }
+
+    .scroll-label {
+      font-size: 0.58rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--on-dark-muted);
+    }
+
+    /* ════════════════════════════════════════
+       HERO ENTRANCE ANIMATIONS
+    ════════════════════════════════════════ */
+    .hero-reveal {
+      opacity: 0;
+      transform: translateY(36px);
+      will-change: opacity, transform;
+    }
+
+    #site.visible .hero-reveal {
+      opacity: 1;
+      transform: translateY(0);
+      transition:
+        opacity  1.1s var(--ease-out),
+        transform 1.1s var(--ease-out);
+    }
+
+    /* Stats column gets a more emphatic lift from further below */
+    .hero-stats.hero-reveal {
+      transform: translateY(70px);
+    }
+
+    #site.visible .hero-stats.hero-reveal {
+      transform: translateY(0);
+      transition:
+        opacity  1.4s var(--ease-out),
+        transform 1.4s var(--ease-out);
+    }
+
+    /* ════════════════════════════════════════
+       SCROLL REVEAL (future sections)
+    ════════════════════════════════════════ */
+    .reveal {
+      opacity: 0;
+      transform: translateY(52px);
+      transition:
+        opacity  1.1s var(--ease-out),
+        transform 1.1s var(--ease-out);
+      will-change: opacity, transform;
+    }
+
+    .reveal.in { opacity: 1; transform: translateY(0); }
+
+    /* ════════════════════════════════════════
+       PAGE LOADER
+    ════════════════════════════════════════ */
+    #loader {
+      position: fixed;
+      inset: 0;
+      z-index: 99999;
+      background: var(--charcoal-deep);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      will-change: clip-path, opacity;
+    }
+
+    #loader.exit {
+      animation: iris-dissolve 0.7s cubic-bezier(0.7, 0, 1, 0.45) forwards;
+    }
+
+    @keyframes iris-dissolve {
+      0%   { clip-path: inset(0% 0% 0% 0% round 0px);  opacity: 1; }
+      80%  { clip-path: inset(47% 47% 47% 47% round 6px); opacity: 1; }
+      100% { clip-path: inset(50% 50% 50% 50% round 2px); opacity: 0; }
+    }
+
+    .loader-video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      opacity: 0;
+      animation: loader-in 0.4s ease 0.05s forwards;
+    }
+
+    @keyframes loader-in {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    /* ════════════════════════════════════════
+       SITE WRAPPER
+    ════════════════════════════════════════ */
+    #site {
+      opacity: 0;
+      transition: opacity 0.55s ease;
+    }
+    #site.visible { opacity: 1; }
+
+    /* ════════════════════════════════════════
+       PLACEHOLDER (sections not yet built)
+    ════════════════════════════════════════ */
+    .placeholder {
+      min-height: 25vh;
+      background: var(--charcoal-deep);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .placeholder p {
+      font-size: 0.62rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(212, 200, 184, 0.12);
+    }
+
+    /* ════════════════════════════════════════
+       RESPONSIVE
+    ════════════════════════════════════════ */
+
+    /* Tablet: hide nav links, show hamburger */
+    @media (max-width: 900px) {
+      .nav-links,
+      .nav-divider { display: none; }
+      .nav-hamburger { display: block; }
+      .nav-inner { gap: 1rem; padding: 0.5rem 0.5rem 0.5rem 1.25rem; }
+
+      .hero-layout {
+        grid-template-columns: 1fr;
+        gap: 2.75rem;
+      }
+
+      .hero-stats {
+        flex-direction: row;
+        border-left: none;
+        border-top: 1px solid rgba(212, 200, 184, 0.12);
+        padding-left: 0;
+        padding-top: 1.5rem;
+      }
+
+      .hero-stat {
+        flex: 1;
+        padding: 0 1.25rem 0 0;
+        border-bottom: none;
+        border-right: 1px solid rgba(212, 200, 184, 0.08);
+      }
+
+      .hero-stat:last-child {
+        border-right: none;
+        padding-right: 0;
+        padding-left: 1.25rem;
+      }
+    }
+
+    /* Mobile */
+    @media (max-width: 580px) {
+      #nav { max-width: calc(100vw - 2rem); }
+      .hero-content { padding-bottom: 5rem; }
+      .hero-h1 { font-size: 2.6rem; }
+      .nav-cta { display: none; } /* CTA lives in mobile menu on small screens */
+
+      .hero-stats {
+        flex-direction: column;
+        gap: 0;
+      }
+
+      .hero-stat {
+        border-right: none;
+        border-bottom: 1px solid rgba(212, 200, 184, 0.08);
+        padding: 1.1rem 0;
+        padding-left: 0 !important;
+      }
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <!-- ─────────────────────────────────────
+       PAGE LOADER
+  ───────────────────────────────────── -->
+  <div id="loader" aria-hidden="true">
+    <video
+      class="loader-video"
+      src="248_Dots_Logo.mp4"
+      autoplay
+      muted
+      playsinline
+    ></video>
+  </div>
+
+  <!-- ─────────────────────────────────────
+       SITE WRAPPER
+  ───────────────────────────────────── -->
+  <div id="site">
+
+    <!-- Film grain -->
+    <div class="grain" aria-hidden="true"></div>
+
+    <!-- ─── Floating Island Nav ─── -->
+    <nav id="nav" aria-label="Main navigation">
+      <div class="nav-inner">
+
+        <!-- Wordmark -->
+        <a href="#" class="nav-logo" onclick="showPage('home'); return false;">
+          T W O &nbsp; F O U R &nbsp; <span>E I G H T</span>
+        </a>
+
+        <!-- Divider -->
+        <div class="nav-divider" aria-hidden="true"></div>
+
+        <!-- Links -->
+        <ul class="nav-links">
+          <li><a href="#" onclick="showPage('home'); return false;">Home</a></li>
+          <li><a href="#" onclick="showPage('about'); return false;">About</a></li>
+          <li><a href="#" onclick="showPage('donate'); return false;">Give</a></li>
+        </ul>
+
+        <!-- Mobile hamburger -->
+        <button class="nav-hamburger" aria-label="Open menu" onclick="toggleMobile()">
+          <span></span><span></span><span></span>
+        </button>
+
+        <!-- CTA pill -->
+        <a href="mailto:david@twofoureight.org" class="nav-cta">
+          <span class="nav-cta-track">
+            <span class="t1">Start a Conversation</span>
+            <span class="t2" aria-hidden="true">Start a Conversation</span>
+          </span>
+        </a>
+
+      </div>
+    </nav>
+
+    <!-- Mobile dropdown -->
+    <div class="mobile-menu" id="mobileMenu" role="menu">
+      <a href="#" onclick="showPage('home'); closeMobile(); return false;">Home</a>
+      <a href="#" onclick="showPage('about'); closeMobile(); return false;">About</a>
+      <a href="#" onclick="showPage('donate'); closeMobile(); return false;">Give</a>
+      <a href="mailto:david@twofoureight.org" onclick="closeMobile();">Start a Conversation</a>
+    </div>
+
+    <!-- ─── Hero ─── -->
+    <section class="hero" id="home">
+
+      <!-- Background video fills the hero — started by JS when loader exits -->
+      <video
+        id="hero-video"
+        class="hero-bg"
+        src="hero-video.mp4"
+        muted
+        loop
+        playsinline
+        preload="auto"
+      ></video>
+
+      <!-- Gradient overlay — breathes at top, rich dark at base -->
+      <div class="hero-gradient" aria-hidden="true"></div>
+
+      <!-- Content anchored to the dark base -->
+      <div class="hero-content">
+        <div class="hero-layout">
+
+          <!-- Left column: tagline + headline + lead -->
+          <div class="hero-text-col">
+            <span class="hero-tag hero-reveal" style="transition-delay: 0.1s">
+              Multiplying Jesus Movements in Cities
+            </span>
+            <h1 class="hero-h1 hero-reveal" style="transition-delay: 0.28s">
+              We find local leaders.<br>
+              We invest in them.<br>
+              Movements follow.
+            </h1>
+            <p class="hero-lead hero-reveal" style="transition-delay: 0.48s">
+              Two Four Eight develops the kind of leaders who multiply disciples,
+              form communities, and raise up the next generation — without
+              depending on us to keep going.
+            </p>
+          </div>
+
+          <!-- Right column: stat sidebar -->
+          <div class="hero-stats hero-reveal" style="transition-delay: 0.68s">
+            <div class="hero-stat">
+              <span class="stat-number" data-target="70" data-suffix="%">0%</span>
+              <span class="stat-label">Of the World Will Live<br>in Cities by 2050</span>
+            </div>
+            <div class="hero-stat">
+              <span class="stat-number" data-target="90" data-suffix="%">0%</span>
+              <span class="stat-label">Of Net Population Growth<br>This Decade Will Be Urban</span>
+            </div>
+            <div class="hero-stat">
+              <span class="stat-number" data-target="78" data-suffix="">0</span>
+              <span class="stat-label">Cities Where We're Building<br>Movements Right Now</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+
+    </section>
+
+    <!-- Placeholder — remaining sections built next -->
+    <div class="placeholder">
+      <p>Remaining sections — coming next</p>
+    </div>
+
+  </div><!-- /#site -->
+
+  <script>
+
+    // ── Sticky nav: darken on scroll ──
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 60);
+    }, { passive: true });
+
+    // ── Mobile menu toggle ──
+    function toggleMobile() {
+      document.getElementById('mobileMenu').classList.toggle('open');
+    }
+
+    function closeMobile() {
+      document.getElementById('mobileMenu').classList.remove('open');
+    }
+
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('#nav') && !e.target.closest('#mobileMenu')) {
+        closeMobile();
+      }
+    });
+
+    // ── Page switcher stub (full SPA built later) ──
+    function showPage(name) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // ── Scroll reveal ──
+    const revealEls = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('in');
+        revealObserver.unobserve(entry.target);
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+
+    revealEls.forEach(el => revealObserver.observe(el));
+
+    // ── Counter animation ──
+    function runCounters() {
+      const counters = document.querySelectorAll('.stat-number[data-target]');
+      const DURATION = 1800; // ms — how long each count runs
+
+      counters.forEach((el, i) => {
+        const target = parseInt(el.dataset.target, 10);
+        const suffix = el.dataset.suffix || '';
+        // Stagger start times to match each stat's visual reveal (0.68s base + 0.18s per item)
+        const delay  = 680 + i * 180;
+        const tStart = performance.now();
+
+        function easeOut(t) { return 1 - Math.pow(1 - t, 3); }
+
+        function tick(now) {
+          const elapsed  = now - tStart - delay;
+          if (elapsed < 0) { el.textContent = '0' + suffix; requestAnimationFrame(tick); return; }
+          const progress = Math.min(elapsed / DURATION, 1);
+          const value    = Math.round(easeOut(progress) * target);
+          el.textContent = value + suffix;
+          if (progress < 1) requestAnimationFrame(tick);
+        }
+
+        requestAnimationFrame(tick);
+      });
+    }
+
+    // ── Page loader ──
+    (function () {
+      const loader = document.getElementById('loader');
+      const site   = document.getElementById('site');
+      const video  = loader.querySelector('.loader-video');
+
+      let pageReady  = false;
+      let videoEnded = false;
+
+      function dismiss() {
+        loader.classList.add('exit');
+        site.classList.add('visible');
+        document.getElementById('hero-video').play();
+        runCounters();
+        setTimeout(() => loader.remove(), 750);
+      }
+
+      function tryDismiss() {
+        if (pageReady && videoEnded) dismiss();
+      }
+
+      // Page load gate
+      if (document.readyState === 'complete') {
+        pageReady = true;
+      } else {
+        window.addEventListener('load', () => { pageReady = true; tryDismiss(); });
+      }
+
+      // Dismiss 0.5s before the video finishes
+      video.addEventListener('timeupdate', () => {
+        if (video.duration && video.currentTime >= video.duration - 0.5) {
+          videoEnded = true;
+          tryDismiss();
+        }
+      });
+
+      // Safety cap — dismiss after 8s regardless
+      setTimeout(() => { pageReady = true; videoEnded = true; tryDismiss(); }, 8000);
+
+      // Kick tryDismiss in case page is already ready
+      tryDismiss();
+    })();
+
+  </script>
+
+</body>
+</html>
