@@ -304,10 +304,7 @@
     }
 
     .hero-layout {
-      display: grid;
-      grid-template-columns: 1.4fr 220px;
-      gap: 6rem;
-      align-items: end;
+      display: block;
     }
 
     /* Hero tag / eyebrow */
@@ -394,41 +391,6 @@
       transform: translateY(-1px);
     }
 
-    /* Stats sidebar */
-    .hero-stats {
-      display: flex;
-      flex-direction: column;
-      border-left: 1px solid rgba(212, 200, 184, 0.12);
-      padding-left: 2.5rem;
-    }
-
-    .hero-stat {
-      padding: 1.75rem 0;
-      border-bottom: 1px solid rgba(212, 200, 184, 0.08);
-    }
-
-    .hero-stat:last-child { border-bottom: none; }
-
-    .stat-number {
-      display: block;
-      font-family: 'Inter', sans-serif;
-      font-size: 2.75rem;
-      font-weight: 300;
-      color: var(--on-dark);
-      line-height: 1;
-      letter-spacing: -0.04em;
-      margin-bottom: 0.6rem;
-    }
-
-    .stat-label {
-      display: block;
-      font-family: 'Inter', sans-serif;
-      font-size: 0.67rem;
-      font-weight: 500;
-      color: var(--on-dark-muted);
-      line-height: 1.65;
-      letter-spacing: 0.02em;
-    }
 
     /* Scroll indicator */
     .hero-scroll {
@@ -479,17 +441,6 @@
         transform 1.1s var(--ease-out);
     }
 
-    /* Stats column gets a more emphatic lift from further below */
-    .hero-stats.hero-reveal {
-      transform: translateY(70px);
-    }
-
-    #site.visible .hero-stats.hero-reveal {
-      transform: translateY(0);
-      transition:
-        opacity  1.4s var(--ease-out),
-        transform 1.4s var(--ease-out);
-    }
 
     /* ════════════════════════════════════════
        SCROLL REVEAL (future sections)
@@ -587,26 +538,6 @@
         gap: 2.75rem;
       }
 
-      .hero-stats {
-        flex-direction: row;
-        border-left: none;
-        border-top: 1px solid rgba(212, 200, 184, 0.12);
-        padding-left: 0;
-        padding-top: 1.5rem;
-      }
-
-      .hero-stat {
-        flex: 1;
-        padding: 0 1.25rem 0 0;
-        border-bottom: none;
-        border-right: 1px solid rgba(212, 200, 184, 0.08);
-      }
-
-      .hero-stat:last-child {
-        border-right: none;
-        padding-right: 0;
-        padding-left: 1.25rem;
-      }
     }
 
     /* Mobile */
@@ -617,17 +548,6 @@
       .hero-ctas { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
       .nav-cta { display: none; } /* CTA lives in mobile menu on small screens */
 
-      .hero-stats {
-        flex-direction: column;
-        gap: 0;
-      }
-
-      .hero-stat {
-        border-right: none;
-        border-bottom: 1px solid rgba(212, 200, 184, 0.08);
-        padding: 1.1rem 0;
-        padding-left: 0 !important;
-      }
     }
 
   </style>
@@ -641,8 +561,7 @@
   <div id="loader" aria-hidden="true">
     <video
       class="loader-video"
-      src="248_Dots_Logo.mp4"
-      autoplay
+      src="TFE_Dots_Logo_V2.mp4"
       muted
       playsinline
     ></video>
@@ -706,7 +625,7 @@
       <video
         id="hero-video"
         class="hero-bg"
-        src="TFE_hero.mp4"
+        src="248_hero.mp4"
         muted
         loop
         playsinline
@@ -738,21 +657,6 @@
             </div>
           </div>
 
-          <!-- Right column: stat sidebar -->
-          <div class="hero-stats hero-reveal" style="transition-delay: 0.68s">
-            <div class="hero-stat">
-              <span class="stat-number" data-target="70" data-suffix="%">0%</span>
-              <span class="stat-label">Of the World Will Live<br>in Cities by 2050</span>
-            </div>
-            <div class="hero-stat">
-              <span class="stat-number" data-target="90" data-suffix="%">0%</span>
-              <span class="stat-label">Of Net Population Growth<br>This Decade Will Be Urban</span>
-            </div>
-            <div class="hero-stat">
-              <span class="stat-number" data-target="78" data-suffix="">0</span>
-              <span class="stat-label">Cities Where We're Building<br>Movements Right Now</span>
-            </div>
-          </div>
 
         </div>
       </div>
@@ -862,16 +766,19 @@
         window.addEventListener('load', () => { pageReady = true; tryDismiss(); });
       }
 
-      // Dismiss 0.5s before the video finishes
+      // Dismiss at exactly 4 seconds
       video.addEventListener('timeupdate', () => {
-        if (video.duration && video.currentTime >= video.duration - 0.5) {
+        if (video.currentTime >= 4) {
           videoEnded = true;
           tryDismiss();
         }
       });
 
-      // Safety cap — dismiss after 8s regardless
-      setTimeout(() => { pageReady = true; videoEnded = true; tryDismiss(); }, 8000);
+      // Safety cap — dismiss after 6s regardless
+      setTimeout(() => { pageReady = true; videoEnded = true; tryDismiss(); }, 6000);
+
+      // Delay video start by 1s so the opening frame is visible
+      setTimeout(() => video.play(), 1000);
 
       // Kick tryDismiss in case page is already ready
       tryDismiss();
