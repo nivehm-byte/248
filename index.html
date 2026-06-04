@@ -17,8 +17,8 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
     body {
-      background: var(--off-white);
-      color: var(--charcoal);
+      background: var(--charcoal-deep);
+      color: var(--sand);
       font-family: 'Inter', -apple-system, sans-serif;
       font-weight: 400;
       line-height: 1.7;
@@ -241,6 +241,7 @@
       flex-direction: column;
       justify-content: flex-end;
       overflow: hidden;
+      background: var(--charcoal-deep);
     }
 
     .hero-bg {
@@ -397,14 +398,14 @@
       opacity: 0;
       transform: translateY(36px);
       will-change: opacity, transform;
+      transition:
+        opacity  1.1s var(--ease-out),
+        transform 1.1s var(--ease-out);
     }
 
     #site.visible .hero-reveal {
       opacity: 1;
       transform: translateY(0);
-      transition:
-        opacity  1.1s var(--ease-out),
-        transform 1.1s var(--ease-out);
     }
 
     /* ════════════════════════════════════════
@@ -483,9 +484,9 @@
     /* ════════════════════════════════════════
        SECTION FOUNDATIONS
     ════════════════════════════════════════ */
-    .s-light { background: var(--off-white); padding: 7rem 0; }
-    .s-white { background: var(--white); padding: 7rem 0; }
-    .s-warm  { background: #EFE9DF; padding: 7rem 0; }
+    .s-light { background: var(--charcoal); padding: 7rem 0; }
+    .s-white { background: var(--charcoal-deep); padding: 7rem 0; }
+    .s-warm  { background: #1c1b1a; padding: 7rem 0; }
     .s-dark  { background: var(--charcoal); padding: 7rem 0; }
     .s-slate { background: var(--slate); padding: 6rem 0; }
 
@@ -498,7 +499,7 @@
       font-weight: 600;
       letter-spacing: 0.16em;
       text-transform: uppercase;
-      color: var(--earth);
+      color: var(--earth-lt);
       margin-bottom: 0.9rem;
     }
 
@@ -513,7 +514,7 @@
       font-weight: 700;
       letter-spacing: -0.04em;
       line-height: 1.12;
-      color: var(--charcoal);
+      color: var(--on-dark);
     }
 
     .s-dark .s-h2,
@@ -523,7 +524,7 @@
       font-size: 1rem;
       font-weight: 300;
       line-height: 1.9;
-      color: rgba(35, 35, 34, 0.52);
+      color: var(--on-dark-muted);
       max-width: 520px;
       margin-top: 0.75rem;
     }
@@ -540,8 +541,8 @@
       aspect-ratio: 16 / 9;
       border-radius: 14px;
       overflow: hidden;
-      background: var(--charcoal);
-      box-shadow: 0 24px 72px rgba(35, 35, 34, 0.13);
+      background: var(--charcoal-deep);
+      box-shadow: 0 24px 72px rgba(0, 0, 0, 0.40);
     }
 
     .video-wrap iframe { width: 100%; height: 100%; border: none; display: block; }
@@ -688,8 +689,8 @@
     .prob-img {
       min-height: 260px;
       border-radius: 14px;
-      background: rgba(35, 35, 34, 0.05);
-      border: 1px solid rgba(35, 35, 34, 0.07);
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(212, 200, 184, 0.08);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -704,13 +705,13 @@
     .prob-card {
       display: flex;
       align-items: stretch;
-      background: var(--off-white);
+      background: rgba(255, 255, 255, 0.05);
       border-radius: 12px;
       overflow: hidden;
       transition: background 0.25s var(--ease-out);
     }
 
-    .prob-card:hover { background: #ece8e2; }
+    .prob-card:hover { background: rgba(255, 255, 255, 0.09); }
 
     .prob-card-vis {
       width: 88px;
@@ -744,7 +745,7 @@
       font-size: 0.95rem;
       font-weight: 600;
       letter-spacing: -0.01em;
-      color: var(--charcoal);
+      color: var(--on-dark);
       margin-bottom: 0.4rem;
     }
 
@@ -752,7 +753,7 @@
       font-size: 0.82rem;
       font-weight: 300;
       line-height: 1.75;
-      color: rgba(35, 35, 34, 0.55);
+      color: var(--on-dark-muted);
       margin: 0;
     }
 
@@ -879,12 +880,12 @@
       margin-top: 3rem;
       padding: 1.8rem 2.2rem;
       border-left: 2px solid var(--sand);
-      background: var(--white);
+      background: rgba(255, 255, 255, 0.04);
       border-radius: 0 12px 12px 0;
       font-size: clamp(0.98rem, 1.6vw, 1.12rem);
       font-weight: 300;
       font-style: italic;
-      color: var(--charcoal);
+      color: var(--on-dark);
       line-height: 1.75;
       max-width: 680px;
     }
@@ -899,7 +900,7 @@
       font-size: clamp(2.4rem, 5vw, 4rem);
       font-weight: 600;
       letter-spacing: 0.04em;
-      color: var(--charcoal);
+      color: var(--on-dark);
       line-height: 1;
       margin: 2.5rem 0 2rem;
     }
@@ -910,7 +911,7 @@
       font-size: 1rem;
       font-weight: 300;
       line-height: 1.9;
-      color: rgba(35, 35, 34, 0.52);
+      color: var(--on-dark-muted);
       max-width: 580px;
       margin: 0 auto;
     }
@@ -1091,7 +1092,7 @@
       font-size: 1rem;
       font-weight: 300;
       line-height: 1.9;
-      color: rgba(35, 35, 34, 0.52);
+      color: var(--on-dark-muted);
       max-width: 400px;
       margin: 0.75rem auto 2.5rem;
     }
@@ -1106,8 +1107,8 @@
 
     .cta-card {
       padding: 1.8rem 1.6rem;
-      background: var(--white);
-      border: 1px solid rgba(35, 35, 34, 0.09);
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(212, 200, 184, 0.10);
       border-radius: 12px;
       min-width: 150px;
       max-width: 172px;
@@ -1125,14 +1126,14 @@
     .cta-card h3 {
       font-size: 1rem;
       font-weight: 500;
-      color: var(--charcoal);
+      color: var(--on-dark);
       margin-bottom: 0.35rem;
     }
 
     .cta-card p {
       font-size: 0.8rem;
       font-weight: 300;
-      color: rgba(35, 35, 34, 0.50);
+      color: var(--on-dark-muted);
       line-height: 1.65;
     }
 
@@ -1159,17 +1160,155 @@
     .cta-contact {
       margin-top: 1.4rem;
       font-size: 0.78rem;
-      color: rgba(35, 35, 34, 0.38);
+      color: rgba(212, 200, 184, 0.38);
       line-height: 1.8;
     }
 
     .cta-contact a {
-      color: rgba(35, 35, 34, 0.52);
+      color: var(--on-dark-muted);
       text-decoration: underline;
       text-underline-offset: 3px;
     }
 
-    .cta-contact a:hover { color: var(--charcoal); }
+    .cta-contact a:hover { color: var(--on-dark); }
+
+    /* ════════════════════════════════════════
+       AN INVITATION — CARD STACK
+    ════════════════════════════════════════ */
+    .stack-outer {
+      margin-top: 3.5rem;
+      max-width: 520px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .stack-wrap {
+      position: relative;
+      height: 380px;
+      overflow: hidden;
+    }
+
+    .stack-card {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      width: 100%;
+      max-width: 480px;
+      height: 300px;
+      background: rgba(255, 255, 255, 0.90);
+      border: 1px solid rgba(212, 200, 184, 0.10);
+      border-bottom: none;
+      border-radius: 14px 14px 0 0;
+      padding: 2rem 2.2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      will-change: transform, opacity;
+      box-shadow: 0 -12px 40px rgba(0, 0, 0, 0.30);
+      cursor: pointer;
+    }
+
+    .stack-card-num {
+      display: block;
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--slate);
+      margin-bottom: 1rem;
+    }
+
+    .stack-card h3 {
+      font-size: clamp(1.5rem, 2.8vw, 2rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      color: var(--charcoal);
+      margin-bottom: 0.7rem;
+    }
+
+    .stack-card p {
+      font-size: 0.9rem;
+      font-weight: 300;
+      line-height: 1.85;
+      color: rgba(35, 35, 34, 0.55);
+    }
+
+    .stack-card-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--slate);
+      text-decoration: none;
+      transition: color 0.2s var(--ease-out), gap 0.2s var(--ease-out);
+    }
+
+    .stack-card-link:hover {
+      color: var(--charcoal);
+      gap: 0.6rem;
+    }
+
+    .stack-card-link svg {
+      width: 14px;
+      height: 14px;
+      flex-shrink: 0;
+    }
+
+    .stack-floor {
+      border-top: 1px solid rgba(212, 200, 184, 0.08);
+      padding: 1.25rem 0 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .stack-dots {
+      display: flex;
+      gap: 0.45rem;
+      align-items: center;
+    }
+
+    .stack-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: rgba(212, 200, 184, 0.20);
+      transition: background 0.35s var(--ease-out), transform 0.35s var(--ease-out);
+    }
+
+    .stack-dot.active {
+      background: var(--earth-lt);
+      transform: scale(1.3);
+    }
+
+    .stack-next-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(212, 200, 184, 0.12);
+      color: var(--on-dark-muted);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      padding: 0.65rem 1.25rem;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s, border-color 0.2s;
+    }
+
+    .stack-next-btn:hover {
+      background: rgba(255, 255, 255, 0.10);
+      color: var(--on-dark);
+      border-color: rgba(212, 200, 184, 0.28);
+    }
+
+    .stack-next-btn svg {
+      width: 14px;
+      height: 14px;
+    }
 
     /* ════════════════════════════════════════
        MODEL / TEAM CARDS (3-col)
@@ -1183,8 +1322,8 @@
 
     .model-card {
       padding: 2.4rem 2rem;
-      background: var(--white);
-      border: 1px solid rgba(35, 35, 34, 0.08);
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(212, 200, 184, 0.10);
       border-radius: 14px;
     }
 
@@ -1192,7 +1331,7 @@
       font-size: 1.05rem;
       font-weight: 600;
       letter-spacing: -0.01em;
-      color: var(--charcoal);
+      color: var(--on-dark);
       margin-bottom: 0.7rem;
     }
 
@@ -1200,7 +1339,7 @@
       font-size: 0.875rem;
       font-weight: 300;
       line-height: 1.85;
-      color: rgba(35, 35, 34, 0.52);
+      color: var(--on-dark-muted);
     }
 
     /* ════════════════════════════════════════
@@ -1256,17 +1395,17 @@
 
     .member-card {
       padding: 1.8rem 1.5rem;
-      background: var(--white);
-      border: 1px solid rgba(35, 35, 34, 0.08);
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(212, 200, 184, 0.10);
       border-radius: 12px;
     }
 
     .member-avatar {
       width: 40px; height: 40px;
       border-radius: 50%;
-      background: #EEE9E2;
-      border: 1px solid rgba(35, 35, 34, 0.08);
-      color: rgba(35, 35, 34, 0.45);
+      background: rgba(255, 255, 255, 0.10);
+      border: 1px solid rgba(212, 200, 184, 0.12);
+      color: var(--on-dark-muted);
       font-weight: 600;
       font-size: 0.68rem;
       letter-spacing: 0.04em;
@@ -1279,7 +1418,7 @@
     .member-card h3 {
       font-size: 0.95rem;
       font-weight: 600;
-      color: var(--charcoal);
+      color: var(--on-dark);
       margin-bottom: 0.2rem;
     }
 
@@ -1297,7 +1436,7 @@
       font-size: 0.845rem;
       font-weight: 300;
       line-height: 1.8;
-      color: rgba(35, 35, 34, 0.52);
+      color: var(--on-dark-muted);
     }
 
     /* ════════════════════════════════════════
@@ -1364,8 +1503,8 @@
 
     .invest-card {
       padding: 2.4rem 2rem;
-      background: var(--white);
-      border: 1px solid rgba(35, 35, 34, 0.08);
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(212, 200, 184, 0.10);
       border-radius: 14px;
     }
 
@@ -1379,7 +1518,7 @@
       font-size: 2.2rem;
       font-weight: 300;
       letter-spacing: -0.025em;
-      color: var(--charcoal);
+      color: var(--on-dark);
       line-height: 1;
       margin-bottom: 0.25rem;
     }
@@ -1390,7 +1529,7 @@
       font-weight: 600;
       letter-spacing: 0.10em;
       text-transform: uppercase;
-      color: rgba(35, 35, 34, 0.38);
+      color: rgba(212, 200, 184, 0.38);
       margin-bottom: 1.1rem;
     }
 
@@ -1398,7 +1537,7 @@
       font-size: 0.875rem;
       font-weight: 300;
       line-height: 1.85;
-      color: rgba(35, 35, 34, 0.52);
+      color: var(--on-dark-muted);
     }
 
     /* ════════════════════════════════════════
@@ -1802,6 +1941,17 @@
   <!-- ─────────────────────────────────────
        PAGE LOADER
   ───────────────────────────────────── -->
+  <div id="loader">
+    <video
+      id="loader-video"
+      class="loader-video"
+      src="TFE_Loading_Final.mp4"
+      autoplay
+      muted
+      playsinline
+      preload="auto"
+    ></video>
+  </div>
 
   <!-- ─────────────────────────────────────
        SITE WRAPPER
@@ -2114,27 +2264,61 @@
           <span class="eyebrow reveal">An Invitation</span>
           <h2 class="s-h2 reveal">Thirty minutes to change the trajectory of a city.</h2>
           <p class="cta-body reveal">We'd welcome 30 minutes to share what we're seeing in cities and hear what matters to you.</p>
-          <div class="cta-engage reveal">
-            <div class="cta-card">
-              <span class="cta-card-num">01</span>
-              <h3>Fund</h3>
-              <p>Support coaching and leader development across cities</p>
+
+          <div class="stack-outer reveal">
+            <div class="stack-wrap" id="inv-stack">
+
+              <div class="stack-card">
+                <div>
+                  <span class="stack-card-num">01 — Fund</span>
+                  <h3>Fuel the movement</h3>
+                  <p>Your investment goes directly to coaching and developing leaders in cities where the church is least present.</p>
+                </div>
+                <a href="mailto:david@twofoureight.org" class="stack-card-link">
+                  Talk to David
+                  <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="square" aria-hidden="true"><path d="M3.5 8h9M9 4.5l3.5 3.5-3.5 3.5"/></svg>
+                </a>
+              </div>
+
+              <div class="stack-card">
+                <div>
+                  <span class="stack-card-num">02 — Partner</span>
+                  <h3>Open your network</h3>
+                  <p>Bring your relationships, expertise, and credibility to leaders already positioned in cities across the world.</p>
+                </div>
+                <a href="mailto:david@twofoureight.org" class="stack-card-link">
+                  Talk to David
+                  <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="square" aria-hidden="true"><path d="M3.5 8h9M9 4.5l3.5 3.5-3.5 3.5"/></svg>
+                </a>
+              </div>
+
+              <div class="stack-card">
+                <div>
+                  <span class="stack-card-num">03 — Experience</span>
+                  <h3>See it firsthand</h3>
+                  <p>Visit the work, walk the cities, and meet the leaders. An exposure visit changes how you see the world.</p>
+                </div>
+                <a href="mailto:david@twofoureight.org" class="stack-card-link">
+                  Talk to David
+                  <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="square" aria-hidden="true"><path d="M3.5 8h9M9 4.5l3.5 3.5-3.5 3.5"/></svg>
+                </a>
+              </div>
+
             </div>
-            <div class="cta-card">
-              <span class="cta-card-num">02</span>
-              <h3>Partner</h3>
-              <p>Open your network, expertise, and relationships</p>
-            </div>
-            <div class="cta-card">
-              <span class="cta-card-num">03</span>
-              <h3>Experience</h3>
-              <p>See the work firsthand through an exposure visit</p>
+
+            <div class="stack-floor">
+              <div class="stack-dots" aria-hidden="true">
+                <span class="stack-dot active"></span>
+                <span class="stack-dot"></span>
+                <span class="stack-dot"></span>
+              </div>
+              <button class="stack-next-btn" id="inv-next" aria-label="See next option">
+                Next
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="square" aria-hidden="true"><path d="M3.5 8h9M9 4.5l3.5 3.5-3.5 3.5"/></svg>
+              </button>
             </div>
           </div>
-          <a href="mailto:david@twofoureight.org" class="btn-primary reveal">
-            <span class="btn-label">Start a Conversation</span>
-            <span class="btn-fill" aria-hidden="true">Start a Conversation</span>
-          </a>
+
           <p class="cta-contact reveal">David Broodryk · <a href="mailto:david@twofoureight.org">david@twofoureight.org</a></p>
         </div>
       </section>
@@ -2503,8 +2687,6 @@
       root.querySelectorAll('.reveal:not(.in)').forEach(el => revealObserver.observe(el));
     }
 
-    observeReveals(document);
-
     // ── Problem card animations: network collapse + layer fragment ──
     (function() {
       const net = document.querySelector('.pc-network');
@@ -2652,8 +2834,10 @@
     // ── South Africa hover-play card ──
     (function () {
       const card        = document.getElementById('sa-video-card');
-      const video       = document.getElementById('sa-video');
       const btn         = document.getElementById('sa-hpc-btn');
+      if (!card || !btn) return;
+
+      const video       = document.getElementById('sa-video');
       const badge       = document.getElementById('sa-hpc-badge');
       const placeholder = document.getElementById('sa-hpc-placeholder');
       const iconPlay    = btn.querySelector('.hpc-icon-play');
@@ -2724,9 +2908,122 @@
       });
     })();
 
-    // ── Hero video autoplay + reveal ──
-    document.getElementById('hero-video').play().catch(() => {});
-    setTimeout(() => document.getElementById('site').classList.add('visible'), 150);
+    // ── An Invitation card stack ──
+    (function () {
+      const wrap    = document.getElementById('inv-stack');
+      const nextBtn = document.getElementById('inv-next');
+      if (!wrap || !nextBtn) return;
+
+      const cards = Array.from(wrap.querySelectorAll('.stack-card'));
+      const dots  = Array.from(document.querySelectorAll('.stack-dot'));
+      if (cards.length < 3) return;
+
+      const pos = [
+        { y: '12px',  scale: 1,    z: 3 },
+        { y: '-16px', scale: 0.95, z: 2 },
+        { y: '-44px', scale: 0.90, z: 1 },
+      ];
+
+      let order = [0, 1, 2];
+      let busy  = false;
+
+      function place(card, p, animate) {
+        card.style.transition = animate
+          ? 'transform 0.85s cubic-bezier(0.22, 1, 0.36, 1)'
+          : 'none';
+        card.style.transform  = `translateX(-50%) translateY(${p.y}) scale(${p.scale})`;
+        card.style.zIndex     = p.z;
+      }
+
+      function refreshDots() {
+        dots.forEach((d, i) => d.classList.toggle('active', i === order[0]));
+      }
+
+      // Set initial positions without animation
+      order.forEach((ci, pi) => place(cards[ci], pos[pi], false));
+      refreshDots();
+
+      function cycle() {
+        if (busy) return;
+        busy = true;
+
+        const [fi, mi, bi] = order;
+        const front = cards[fi], mid = cards[mi], back = cards[bi];
+
+        // Front card exits downward
+        front.style.transition = 'transform 0.55s cubic-bezier(0.22, 1, 0.36, 1)';
+        front.style.transform  = `translateX(-50%) translateY(380px) scale(1)`;
+        front.style.zIndex     = '10';
+
+        // Remaining two cards shift forward
+        place(mid,  pos[0], true);
+        place(back, pos[1], true);
+
+        // After exit: recycle front card as new back
+        setTimeout(() => {
+          // Teleport off-screen (no transition), invisible
+          front.style.transition = 'none';
+          front.style.opacity    = '0';
+          front.style.transform  = `translateX(-50%) translateY(-44px) scale(0.9)`;
+          front.style.zIndex     = '1';
+
+          // Force reflow so next transition registers the change
+          front.getBoundingClientRect();
+
+          // Fade back in at the back position
+          front.style.transition = 'opacity 0.45s cubic-bezier(0.22, 1, 0.36, 1)';
+          front.style.opacity    = '1';
+
+          order = [mi, bi, fi];
+          refreshDots();
+
+          setTimeout(() => { busy = false; }, 450);
+        }, 560);
+      }
+
+      nextBtn.addEventListener('click', cycle);
+
+      // Clicking the front card (not its link) also cycles
+      cards.forEach(card => {
+        card.addEventListener('click', e => {
+          if (e.target.closest('a')) return;
+          cycle();
+        });
+      });
+    })();
+
+    // ── Loader → hero reveal ──
+    (function () {
+      const loader     = document.getElementById('loader');
+      const lv         = document.getElementById('loader-video');
+      const heroVideo  = document.getElementById('hero-video');
+      const site       = document.getElementById('site');
+      let exited = false;
+      let fallback;
+
+      // Start hero video immediately so it's ready when loader exits
+      heroVideo.play().catch(() => {});
+
+      function exitLoader() {
+        if (exited) return;
+        exited = true;
+        clearTimeout(fallback);
+        // Reveal hero content immediately — text fades in during the swipe
+        site.classList.add('visible');
+        loader.classList.add('exit');
+        setTimeout(() => {
+          loader.style.display = 'none';
+          observeReveals(document);
+        }, 920);
+      }
+
+      lv.addEventListener('ended', exitLoader);
+      lv.addEventListener('error', exitLoader);
+      lv.addEventListener('timeupdate', () => {
+        if (lv.duration && lv.currentTime >= lv.duration - 0.15) exitLoader();
+      });
+      fallback = setTimeout(exitLoader, 15000);
+    })();
 
   </script>
 
