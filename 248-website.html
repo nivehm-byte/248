@@ -876,18 +876,28 @@
     .pc-frag.fr-collapse .fr-l2 { transform: translateX(14px)  translateY(2px);                opacity: 0.08; }
     .pc-frag.fr-collapse .fr-l3 { transform: translateX(-10px) translateY(7px)  rotate(3deg);  opacity: 0.08; }
 
-    .pull-quote {
-      margin-top: 3rem;
-      padding: 1.8rem 2.2rem;
-      border-left: 2px solid var(--sand);
-      background: rgba(255, 255, 255, 0.04);
-      border-radius: 0 12px 12px 0;
-      font-size: clamp(0.98rem, 1.6vw, 1.12rem);
-      font-weight: 300;
-      font-style: italic;
-      color: var(--on-dark);
-      line-height: 1.75;
-      max-width: 680px;
+    /* ── Problem section: scroll-driven sticky wrapper ── */
+    .prob-wrapper {
+      position: relative;
+      height: 500vh;
+    }
+
+    .prob-sticky {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow: hidden;
+      background: var(--charcoal-deep);
+      display: flex;
+      align-items: center;
+    }
+
+    .prob-sticky .prob-layout { margin-top: 0; }
+
+    .prob-wrapper .prob-card {
+      opacity: 0;
+      transform: translateY(36px);
+      will-change: opacity, transform;
     }
 
     /* ════════════════════════════════════════
@@ -959,7 +969,7 @@
     }
 
     /* ════════════════════════════════════════
-       SOUTH AFRICA — TIMELINE
+       SOUTH AFRICA — TIMELINE STEPPER
     ════════════════════════════════════════ */
     .sa-timeline {
       display: flex;
@@ -968,8 +978,7 @@
       position: relative;
     }
 
-    .sa-timeline::before {
-      content: '';
+    .timeline-track {
       position: absolute;
       top: 6px;
       left: calc(10% + 4px);
@@ -977,39 +986,85 @@
       height: 1px;
       background: rgba(212, 200, 184, 0.12);
       z-index: 0;
+      border-radius: 1px;
+    }
+
+    .timeline-track-fill {
+      position: absolute;
+      left: 0; top: 0;
+      height: 100%;
+      width: 0%;
+      background: var(--earth-lt);
+      border-radius: 1px;
+      transition: width 600ms var(--ease-out);
     }
 
     .timeline-point {
       flex: 1;
       text-align: center;
       position: relative;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      font-family: inherit;
+    }
+
+    .timeline-point:focus-visible {
+      outline: 2px solid var(--earth-lt);
+      outline-offset: 6px;
+      border-radius: 6px;
     }
 
     .timeline-dot {
       width: 8px; height: 8px;
       border-radius: 50%;
-      background: var(--earth);
+      background: rgba(79, 99, 117, 0.35);
       margin: 0 auto 1rem;
-      border: 2px solid rgba(79, 99, 117, 0.5);
+      border: 2px solid rgba(79, 99, 117, 0.35);
       position: relative; z-index: 1;
-      box-shadow: 0 0 0 3px rgba(79, 99, 117, 0.15);
+      box-shadow: none;
+      transition: background 350ms var(--ease-out),
+                  border-color 350ms var(--ease-out),
+                  box-shadow 350ms var(--ease-out),
+                  transform 350ms var(--ease-out);
+      will-change: transform, box-shadow;
+    }
+
+    .timeline-point[data-state="active"] .timeline-dot {
+      background: var(--sand);
+      border-color: var(--sand);
+      box-shadow: 0 0 0 5px rgba(212, 200, 184, 0.15);
+      transform: scale(1.3);
+    }
+
+    .timeline-point[data-state="completed"] .timeline-dot {
+      background: var(--earth-lt);
+      border-color: var(--earth-lt);
     }
 
     .timeline-year {
       display: block;
       font-size: 0.7rem;
       font-weight: 600;
-      color: var(--earth-lt);
+      color: var(--on-dark-muted);
       letter-spacing: 0.06em;
       margin-bottom: 0.35rem;
+      transition: color 350ms var(--ease-out);
     }
+
+    .timeline-point[data-state="active"] .timeline-year   { color: var(--sand); }
+    .timeline-point[data-state="completed"] .timeline-year { color: var(--earth-lt); }
 
     .timeline-label {
       font-size: 0.78rem;
       font-weight: 300;
       color: var(--on-dark-muted);
       line-height: 1.5;
+      transition: color 350ms var(--ease-out);
     }
+
+    .timeline-point[data-state="active"] .timeline-label { color: var(--on-dark); }
 
     .story-block {
       margin-bottom: 2.5rem;
@@ -1017,16 +1072,30 @@
       background: rgba(255, 255, 255, 0.04);
       border: 1px solid rgba(212, 200, 184, 0.08);
       border-radius: 12px;
+      display: grid;
     }
 
-    .story-block p {
+    .step-content {
+      grid-row: 1;
+      grid-column: 1;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 400ms var(--ease-out);
+    }
+
+    .step-content.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .step-content p {
       font-size: 1rem;
       font-weight: 300;
       line-height: 1.9;
       color: rgba(212, 200, 184, 0.55);
     }
 
-    .story-block .hl {
+    .step-content .hl {
       color: var(--on-dark);
       font-weight: 500;
     }
@@ -1195,7 +1264,7 @@
       width: 100%;
       max-width: 480px;
       height: 300px;
-      background: rgba(255, 255, 255, 0.90);
+      background: var(--off-white);
       border: 1px solid rgba(212, 200, 184, 0.10);
       border-bottom: none;
       border-radius: 14px 14px 0 0;
@@ -1883,6 +1952,9 @@
       .nav-hamburger { display: block; }
       .nav-inner    { gap: 1rem; padding: 0.5rem 0.5rem 0.5rem 1.25rem; }
 
+      .prob-wrapper               { height: auto; }
+      .prob-sticky                { position: relative; height: auto; padding: 5rem 0; }
+      .prob-wrapper .prob-card    { opacity: 1 !important; transform: none !important; }
       .prob-layout                { grid-template-columns: 1fr; grid-template-rows: auto; }
       .prob-layout > .eyebrow,
       .prob-layout > .s-h2,
@@ -1927,7 +1999,7 @@
       .members-grid      { grid-template-columns: 1fr; }
       .cta-engage        { flex-direction: column; align-items: center; }
       .sa-timeline       { flex-wrap: wrap; gap: 1.5rem; }
-      .sa-timeline::before { display: none; }
+      .timeline-track    { display: none; }
       .timeline-point    { flex: 0 0 40%; }
       .video-wrap        { border-radius: 10px; }
 
@@ -2078,28 +2150,29 @@
       </div>
 
       <!-- ─── The Problem ─── -->
-      <section class="s-white">
-        <div class="container">
-          <div class="prob-layout reveal">
+      <div class="prob-wrapper" id="prob-wrapper">
+        <div class="prob-sticky">
+          <div class="container">
+            <div class="prob-layout">
 
-            <!-- Row 1 left: eyebrow -->
-            <span class="eyebrow">The Problem</span>
+              <!-- Row 1 left: eyebrow -->
+              <span class="eyebrow reveal">The Problem</span>
 
-            <!-- Row 2 left: heading | Row 2 right: paragraph — same row, naturally aligned -->
-            <h2 class="s-h2">Most ministry models were not built for cities</h2>
-            <p class="s-intro">Urban populations are growing faster than any organisation can plan for. Most traditional mission approaches share four structural weaknesses.</p>
+              <!-- Row 2 left: heading | Row 2 right: paragraph -->
+              <h2 class="s-h2 reveal">Most ministry models were not built for cities</h2>
+              <p class="s-intro reveal">Urban populations are growing faster than any organisation can plan for. Most traditional mission approaches share four structural weaknesses.</p>
 
-            <!-- Row 3 left: image placeholder -->
-            <div class="prob-img" aria-label="Image placeholder">
-              <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true">
-                <rect x="2" y="6" width="28" height="20" rx="3" stroke="currentColor" stroke-width="1.2" opacity="0.18"/>
-                <circle cx="16" cy="16" r="5.5" stroke="currentColor" stroke-width="1.2" opacity="0.18"/>
-                <path d="M11 6 L16 2 L21 6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" opacity="0.18"/>
-              </svg>
-            </div>
+              <!-- Row 3 left: image placeholder -->
+              <div class="prob-img reveal" aria-label="Image placeholder">
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+                  <rect x="2" y="6" width="28" height="20" rx="3" stroke="currentColor" stroke-width="1.2" opacity="0.18"/>
+                  <circle cx="16" cy="16" r="5.5" stroke="currentColor" stroke-width="1.2" opacity="0.18"/>
+                  <path d="M11 6 L16 2 L21 6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" opacity="0.18"/>
+                </svg>
+              </div>
 
-            <!-- Row 3 right: 4 stacked cards -->
-            <div class="prob-cards">
+              <!-- Row 3 right: 4 stacked cards — scroll-driven -->
+              <div class="prob-cards">
 
                 <!-- Card 1: Too Slow -->
                 <div class="prob-card">
@@ -2133,13 +2206,12 @@
                   </div>
                 </div>
 
-            </div><!-- /.prob-cards -->
+              </div><!-- /.prob-cards -->
 
-          </div><!-- /.prob-layout -->
-
-          <p class="pull-quote reveal">The issue is not commitment. It is a model that does not consistently develop local leaders who can develop others.</p>
-        </div>
-      </section>
+            </div><!-- /.prob-layout -->
+          </div><!-- /.container -->
+        </div><!-- /.prob-sticky -->
+      </div><!-- /.prob-wrapper -->
 
       <!-- ─── Multiplication ─── -->
       <section class="s-warm mult-section">
@@ -2223,36 +2295,53 @@
           <h2 class="s-h2 reveal">South Africa: seven years. Built by locals.</h2>
           <p class="s-intro reveal">In 2019, we began investing in the first leaders in South African townships. Today the movement is self-led and multiplying on its own.</p>
 
-          <div class="sa-timeline reveal">
-            <div class="timeline-point">
+          <div class="sa-timeline reveal" id="sa-stepper" role="tablist" aria-label="South Africa timeline">
+            <div class="timeline-track">
+              <div class="timeline-track-fill" id="sa-track-fill"></div>
+            </div>
+            <button class="timeline-point" data-step="1" role="tab" aria-selected="true" aria-controls="sa-step-1">
               <div class="timeline-dot"></div>
               <span class="timeline-year">2019</span>
               <span class="timeline-label">First leaders equipped</span>
-            </div>
-            <div class="timeline-point">
+            </button>
+            <button class="timeline-point" data-step="2" role="tab" aria-selected="false" aria-controls="sa-step-2" tabindex="-1">
               <div class="timeline-dot"></div>
               <span class="timeline-year">2021</span>
               <span class="timeline-label">Multiplying &amp; transforming</span>
-            </div>
-            <div class="timeline-point">
+            </button>
+            <button class="timeline-point" data-step="3" role="tab" aria-selected="false" aria-controls="sa-step-3" tabindex="-1">
               <div class="timeline-dot"></div>
               <span class="timeline-year">2025</span>
               <span class="timeline-label">Nonprofit launched</span>
-            </div>
-            <div class="timeline-point">
+            </button>
+            <button class="timeline-point" data-step="4" role="tab" aria-selected="false" aria-controls="sa-step-4" tabindex="-1">
               <div class="timeline-dot"></div>
               <span class="timeline-year">2026</span>
               <span class="timeline-label">Self-led</span>
-            </div>
-            <div class="timeline-point">
+            </button>
+            <button class="timeline-point" data-step="5" role="tab" aria-selected="false" aria-controls="sa-step-5" tabindex="-1">
               <div class="timeline-dot"></div>
               <span class="timeline-year">2028</span>
               <span class="timeline-label">Fully independent</span>
-            </div>
+            </button>
           </div>
 
           <div class="story-block reveal">
-            <p>In 2019, one leader. By 2025, <span class="hl">a registered nonprofit</span>, a growing team, and movements spreading to <span class="hl">Mozambique and Zimbabwe</span>. <span class="hl">Nobody sent from outside.</span> Nobody dependent on continued support. Just local leaders developing local leaders.</p>
+            <div class="step-content" id="sa-step-1" data-step="1" role="tabpanel">
+              <p>In 2019, one leader. The first investment in local leaders from South African townships — the starting point for everything that followed.</p>
+            </div>
+            <div class="step-content" id="sa-step-2" data-step="2" role="tabpanel">
+              <p>By 2021, the first leaders were equipping others. The movement was multiplying — <span class="hl">without outside direction</span>. Proof the model works.</p>
+            </div>
+            <div class="step-content" id="sa-step-3" data-step="3" role="tabpanel">
+              <p>A registered nonprofit with a growing local team. By 2025, movements had spread to <span class="hl">Mozambique and Zimbabwe</span>. <span class="hl">Nobody sent from outside.</span></p>
+            </div>
+            <div class="step-content" id="sa-step-4" data-step="4" role="tabpanel">
+              <p>The South African movement is now <span class="hl">fully self-led</span>. No overseas oversight. Local leaders choosing their own direction and pace.</p>
+            </div>
+            <div class="step-content" id="sa-step-5" data-step="5" role="tabpanel">
+              <p>Complete financial and structural independence. <span class="hl">Nobody dependent on continued support.</span> Just local leaders developing local leaders.</p>
+            </div>
           </div>
 
         </div>
@@ -2270,7 +2359,7 @@
 
               <div class="stack-card">
                 <div>
-                  <span class="stack-card-num">01 — Fund</span>
+                  <span class="stack-card-num">Fund</span>
                   <h3>Fuel the movement</h3>
                   <p>Your investment goes directly to coaching and developing leaders in cities where the church is least present.</p>
                 </div>
@@ -2282,7 +2371,7 @@
 
               <div class="stack-card">
                 <div>
-                  <span class="stack-card-num">02 — Partner</span>
+                  <span class="stack-card-num">Partner</span>
                   <h3>Open your network</h3>
                   <p>Bring your relationships, expertise, and credibility to leaders already positioned in cities across the world.</p>
                 </div>
@@ -2294,7 +2383,7 @@
 
               <div class="stack-card">
                 <div>
-                  <span class="stack-card-num">03 — Experience</span>
+                  <span class="stack-card-num">Experience</span>
                   <h3>See it firsthand</h3>
                   <p>Visit the work, walk the cities, and meet the leaders. An exposure visit changes how you see the world.</p>
                 </div>
@@ -2319,7 +2408,6 @@
             </div>
           </div>
 
-          <p class="cta-contact reveal">David Broodryk · <a href="mailto:david@twofoureight.org">david@twofoureight.org</a></p>
         </div>
       </section>
 
@@ -2687,6 +2775,39 @@
       root.querySelectorAll('.reveal:not(.in)').forEach(el => revealObserver.observe(el));
     }
 
+    // ── Problem section: scroll-driven card reveal ──
+    (function () {
+      var wrapper = document.getElementById('prob-wrapper');
+      if (!wrapper) return;
+      var cards = Array.from(wrapper.querySelectorAll('.prob-card'));
+      if (!cards.length) return;
+      var N = cards.length;
+
+      function probUpdate() {
+        if (window.innerWidth <= 900) {
+          cards.forEach(function (c) { c.style.opacity = ''; c.style.transform = ''; });
+          return;
+        }
+        var rect         = wrapper.getBoundingClientRect();
+        var scrollBudget = wrapper.offsetHeight - window.innerHeight;
+        if (scrollBudget <= 0) return;
+        var scrolled  = Math.max(0, -rect.top);
+        var progress  = Math.min(1, scrolled / scrollBudget);
+
+        cards.forEach(function (card, i) {
+          var start = i / N;
+          var end   = start + 0.18;
+          var p     = Math.max(0, Math.min(1, (progress - start) / (end - start)));
+          card.style.opacity   = p;
+          card.style.transform = 'translateY(' + ((1 - p) * 36) + 'px)';
+        });
+      }
+
+      window.addEventListener('scroll', probUpdate, { passive: true });
+      window.addEventListener('resize', probUpdate, { passive: true });
+      probUpdate();
+    })();
+
     // ── Problem card animations: network collapse + layer fragment ──
     (function() {
       const net = document.querySelector('.pc-network');
@@ -2906,6 +3027,56 @@
         setIcons(false);
         badge.textContent = '';
       });
+    })();
+
+    // ── South Africa timeline stepper ──
+    (function () {
+      const stepper   = document.getElementById('sa-stepper');
+      const trackFill = document.getElementById('sa-track-fill');
+      if (!stepper || !trackFill) return;
+
+      const points   = Array.from(stepper.querySelectorAll('.timeline-point'));
+      const contents = Array.from(document.querySelectorAll('.step-content[data-step]'));
+      if (!points.length) return;
+
+      const FILL_WIDTHS = ['0%', '25%', '50%', '75%', '100%'];
+
+      function update(step) {
+        points.forEach(function (pt, i) {
+          var s = i + 1;
+          pt.dataset.state = s < step ? 'completed' : s === step ? 'active' : 'inactive';
+          pt.setAttribute('aria-selected', s === step ? 'true' : 'false');
+          pt.setAttribute('tabindex', s === step ? '0' : '-1');
+        });
+        trackFill.style.width = FILL_WIDTHS[step - 1];
+        contents.forEach(function (c) {
+          c.classList.toggle('active', parseInt(c.dataset.step, 10) === step);
+        });
+      }
+
+      points.forEach(function (pt, i) {
+        pt.addEventListener('click', function () { update(i + 1); });
+        pt.addEventListener('keydown', function (e) {
+          if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+            e.preventDefault();
+            points[(i + 1) % points.length].focus();
+          } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+            e.preventDefault();
+            points[(i - 1 + points.length) % points.length].focus();
+          } else if (e.key === 'Home') {
+            e.preventDefault();
+            points[0].focus();
+          } else if (e.key === 'End') {
+            e.preventDefault();
+            points[points.length - 1].focus();
+          } else if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            update(i + 1);
+          }
+        });
+      });
+
+      update(1);
     })();
 
     // ── An Invitation card stack ──
