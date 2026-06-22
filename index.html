@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Two Four Eight — Multiplying Jesus Movements in Cities</title>
+  <title>Two Four Eight: Multiplying Jesus Movements in Cities</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -30,16 +30,16 @@
        DESIGN TOKENS
     ════════════════════════════════════════ */
     :root {
-      --sand:          #D4C8B8;
+      --sand:          #F2EEE8;
       --olive:         #6B775B;
       --slate:         #4F6375;
-      --charcoal:      #232322;
+      --charcoal:      #161615;
       --earth:         #4F6375;
 
       --white:         #FFFFFF;
-      --off-white:     #F5F2EE;
+      --off-white:     #FDFDFC;
 
-      --charcoal-deep: #161514;
+      --charcoal-deep: #0B0B0A;
       --earth-lt:      #607585;
       --earth-pale:    #EDD6C0;
 
@@ -58,9 +58,9 @@
 
       /* ── RGB components for rgba() usage ── */
       --slate-rgb:      79, 99, 117;
-      --charcoal-rgb:   35, 35, 34;
-      --sand-rgb:       212, 200, 184;
-      --off-white-rgb:  245, 242, 238;
+      --charcoal-rgb:   22, 22, 21;
+      --sand-rgb:       242, 238, 232;
+      --off-white-rgb:  253, 253, 252;
     }
 
     /* ════════════════════════════════════════
@@ -305,9 +305,9 @@
 
     .hero-h1 {
       font-size: clamp(2.08rem, 4.16vw, 4.16rem);
-      font-weight: 700;
+      font-weight: 400;
       line-height: 1.04;
-      letter-spacing: -0.04em;
+      letter-spacing: -0.05em;
       color: var(--white);
       margin-bottom: 1.75rem;
     }
@@ -392,7 +392,7 @@
       pointer-events: none;
     }
 
-    /* Fill colours — solid buttons get charcoal, ghost button gets slate */
+    /* Fill colours - solid buttons get charcoal, ghost button gets slate */
     .btn-primary .t2,
     .hero-btn-primary .t2,
     .nav-cta .t2 {
@@ -494,13 +494,13 @@
     #site { opacity: 1; }
 
     /* ════════════════════════════════════════
-       PAGE VISIBILITY — SPA
+       PAGE VISIBILITY - SPA
     ════════════════════════════════════════ */
     .page { display: none; }
     .page.active { display: block; }
 
     /* ════════════════════════════════════════
-       LAYOUT — CONTAINER
+       LAYOUT - CONTAINER
     ════════════════════════════════════════ */
     .container {
       max-width: 1100px;
@@ -513,9 +513,9 @@
     ════════════════════════════════════════ */
     .s-light { background: var(--off-white); padding: 7rem 0; }
     .s-white { background: var(--off-white); padding: 7rem 0; }
-    .s-warm  { background: var(--slate); padding: 7rem 0; }
+    .s-warm  { background: var(--off-white); padding: 7rem 0; }
     .s-dark  { background: var(--off-white); padding: 7rem 0; }
-    .s-slate { background: var(--slate); padding: 7rem 0; }
+    .s-slate { background: var(--off-white); padding: 7rem 0; }
 
     /* ════════════════════════════════════════
        EYEBROW / SECTION LABEL
@@ -530,27 +530,23 @@
       margin-bottom: 1.1rem;
       padding: 0.38rem 0.9rem;
       border-radius: 16px;
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      background: rgba(15, 13, 11, 0.72);
-      backdrop-filter: blur(20px) saturate(1.4);
-      -webkit-backdrop-filter: blur(20px) saturate(1.4);
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.10);
+      background: var(--charcoal-deep);
     }
 
     /* ════════════════════════════════════════
        SECTION HEADING + INTRO
     ════════════════════════════════════════ */
     .s-h2 {
-      font-size: clamp(1.8rem, 3.2vw, 2.8rem);
-      font-weight: 700;
-      letter-spacing: -0.04em;
-      line-height: 1.12;
+      font-size: clamp(1.9rem, 3.6vw, 3rem);
+      font-weight: 400;
+      letter-spacing: -0.05em;
+      line-height: 1.1;
       color: var(--charcoal);
     }
 
     .s-dark .s-h2  { color: var(--charcoal); }
     .s-slate .s-h2,
-    .s-warm .s-h2  { color: var(--off-white); }
+    .s-warm .s-h2  { color: var(--charcoal); }
 
     .s-intro {
       font-size: 1rem;
@@ -562,8 +558,8 @@
     }
 
     .s-dark .s-intro  { color: var(--on-light-muted); }
-    .s-slate .s-intro { color: rgba(var(--off-white-rgb), 0.68); }
-    .s-warm  .s-intro { color: rgba(var(--off-white-rgb), 0.68); }
+    .s-slate .s-intro { color: var(--on-light-muted); }
+    .s-warm  .s-intro { color: var(--on-light-muted); }
 
     /* ════════════════════════════════════════
        VIDEO EMBED
@@ -581,6 +577,111 @@
     .video-wrap iframe { width: 100%; height: 100%; border: none; display: block; }
 
     .video-wrap--full { max-width: 100%; margin: 2.5rem 0 0; }
+
+    /* ── Custom player controls (home page content videos) ── */
+    .video-wrap--player { position: relative; }
+    .video-wrap--player > video { cursor: pointer; }
+
+    .vp-controls {
+      position: absolute;
+      left: 50%;
+      bottom: 0.85rem;
+      width: calc(100% - 1.7rem);
+      max-width: 34rem;
+      padding: 0.8rem 0.95rem;
+      background: rgba(17, 17, 17, 0.60);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-radius: 16px;
+      opacity: 0;
+      filter: blur(6px);
+      transform: translate(-50%, 14px);
+      pointer-events: none;
+      transition: opacity 0.45s var(--ease-out), transform 0.45s var(--ease-out), filter 0.45s var(--ease-out);
+    }
+
+    .video-wrap--player:hover .vp-controls,
+    .video-wrap--player:focus-within .vp-controls,
+    .video-wrap--player.is-paused .vp-controls {
+      opacity: 1;
+      filter: blur(0);
+      transform: translate(-50%, 0);
+      pointer-events: auto;
+    }
+
+    .vp-time-row {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin-bottom: 0.55rem;
+    }
+
+    .vp-time {
+      flex-shrink: 0;
+      font-size: 0.72rem;
+      color: var(--off-white);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .vp-slider {
+      position: relative;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.20);
+      border-radius: 999px;
+      cursor: pointer;
+    }
+
+    .vp-seek { flex: 1; }
+
+    .vp-slider-fill {
+      position: absolute;
+      top: 0; left: 0;
+      height: 100%;
+      width: 0%;
+      background: var(--off-white);
+      border-radius: 999px;
+    }
+
+    .vp-btn-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+
+    .vp-left { display: flex; align-items: center; gap: 0.7rem; }
+    .vp-vol-group { display: flex; align-items: center; gap: 0.4rem; }
+    .vp-vol { width: 5rem; }
+    .vp-right { display: flex; align-items: center; gap: 0.1rem; }
+
+    .vp-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      width: 2rem; height: 2rem;
+      padding: 0;
+      background: none;
+      border: none;
+      border-radius: 8px;
+      color: var(--off-white);
+      font-family: inherit;
+      font-size: 0.72rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.2s var(--ease-out), transform 0.12s var(--ease-out);
+    }
+
+    .vp-btn:hover { background: rgba(17, 17, 17, 0.82); }
+    .vp-btn:active { transform: scale(0.9); }
+    .vp-btn svg { width: 18px; height: 18px; display: block; }
+
+    .vp-speed { width: auto; min-width: 1.9rem; padding: 0 0.3rem; }
+    .vp-speed.active { background: rgba(17, 17, 17, 0.82); }
+
+    @media (max-width: 580px) {
+      .vp-vol-group, .vp-right { display: none; }
+    }
 
     .video-placeholder {
       width: 100%; height: 100%;
@@ -702,7 +803,7 @@
     }
 
     /* ════════════════════════════════════════
-       THE PROBLEM — TWO-COLUMN LAYOUT
+       THE PROBLEM - TWO-COLUMN LAYOUT
     ════════════════════════════════════════ */
     .prob-layout {
       display: grid;
@@ -963,99 +1064,167 @@
     }
 
     /* ════════════════════════════════════════
-       FIVE SIGNS — HOME (dark grid)
+       STATEMENT (Problem + Answer merged)
     ════════════════════════════════════════ */
-    .signs-grid {
+    .statement {
+      text-align: center;
+      padding: clamp(5rem, 11vw, 9rem) 0;
+    }
+    .statement .container { max-width: 880px; }
+    .statement-h2 {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 700;
+      letter-spacing: -0.045em;
+      line-height: 1.16;
+      color: var(--charcoal);
+      margin: 0 auto;
+      text-wrap: balance;
+    }
+    .statement-accent {
+      display: block;
+      margin-top: 0.5em;
+      color: var(--slate);
+      /* Drop animation: starts tucked up behind the first line, then drops in */
+      opacity: 0;
+      transform: translateY(-80%) scale(0.8);
+      transition:
+        opacity   1.1s cubic-bezier(0.32, 0.72, 0, 1) 0.9s,
+        transform 1.1s cubic-bezier(0.32, 0.72, 0, 1) 0.9s;
+      /* Shimmer: a light sweep clipped to the text (sienna = currentColor base) */
+      --shimmer-contrast: rgba(255, 255, 255, 0.75);
+      background: currentColor linear-gradient(to right, currentColor 0%, var(--shimmer-contrast) 40%, var(--shimmer-contrast) 60%, currentColor 100%);
+      background-size: 50% 200%;
+      background-repeat: no-repeat;
+      background-position: 250% 0;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .statement-h2.in .statement-accent {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      /* Sweep loops after the drop settles (2s in), then repeats with a pause */
+      animation: statement-shimmer 3s linear 2s infinite;
+    }
+
+    @keyframes statement-shimmer {
+      0%   { background-position: -100% 0; }
+      50%  { background-position: 250% 0; }
+      100% { background-position: 250% 0; }
+    }
+
+    /* ════════════════════════════════════════
+       WHAT WE MEASURE - signs cards (about page)
+       Image on top + dropdown button + hidden
+       text container revealed on click.
+    ════════════════════════════════════════ */
+    .measure-grid {
       display: grid;
       grid-template-columns: repeat(5, 1fr);
       gap: 1.25rem;
       margin-top: 3rem;
+      align-items: start;
     }
 
-    /* ─── Reveal Card ─── */
-    .rc-card {
-      position: relative;
-      overflow: hidden;
-      border-radius: 20px;
-      border: 1.5px solid var(--rc-accent, var(--slate));
-      cursor: default;
-    }
-
-    .rc-base,
-    .rc-overlay {
+    .measure-card {
       display: flex;
       flex-direction: column;
-      padding: 2rem 1.75rem;
+      background: var(--white);
+      border: 1px solid rgba(var(--charcoal-rgb), 0.10);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 6px 22px rgba(var(--charcoal-rgb), 0.06);
+      transition: transform 0.4s var(--ease-out), box-shadow 0.4s var(--ease-out);
     }
 
-    .rc-base {
-      background: var(--off-white);
+    .measure-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 18px 44px rgba(var(--charcoal-rgb), 0.13);
     }
 
-    .rc-overlay {
+    /* ── Image part ── */
+    .measure-media {
+      position: relative;
+      aspect-ratio: 3 / 4;
+      overflow: hidden;
+    }
+
+    .measure-media img {
       position: absolute;
       inset: 0;
-      background: var(--rc-accent, var(--slate));
-      clip-path: circle(22px at 36px 37px);
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
 
-    .rc-num {
-      display: block;
-      font-size: 0.65rem;
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      margin-bottom: 1.5rem;
+    /* ── Dropdown button (sits over the bottom third of the image) ── */
+    .measure-toggle {
+      position: absolute;
+      left: 0.7rem;
+      right: 0.7rem;
+      bottom: 0.7rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.62rem 0.8rem;
+      font-family: inherit;
+      text-align: left;
+      color: var(--off-white);
+      background: var(--slate);
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      box-shadow: 0 6px 18px rgba(var(--charcoal-rgb), 0.28);
+      transition: background 0.25s var(--ease-out);
     }
 
-    .rc-base .rc-num    { color: var(--rc-accent, var(--slate)); }
-    .rc-overlay .rc-num { color: rgba(var(--off-white-rgb), 0.55); }
+    .measure-toggle:hover { background: var(--charcoal); }
 
-    .rc-title {
-      font-size: clamp(1.05rem, 1.4vw, 1.3rem);
-      font-weight: 700;
-      letter-spacing: -0.025em;
-      line-height: 1.2;
-      margin-bottom: 0.85rem;
+    .measure-toggle:focus-visible {
+      outline: 2px solid var(--off-white);
+      outline-offset: 2px;
     }
 
-    .rc-base .rc-title    { color: var(--charcoal); }
-    .rc-overlay .rc-title { color: var(--off-white); }
+    .measure-label {
+      flex: 1;
+      font-size: 1.02rem;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+      line-height: 1.1;
+    }
 
-    .rc-body {
+    .measure-chevron {
+      flex-shrink: 0;
+      width: 18px;
+      height: 18px;
+      transition: transform 0.4s var(--ease-out);
+    }
+
+    .measure-card.open .measure-chevron { transform: rotate(180deg); }
+
+    /* ── Hidden text container below the image (grid-rows reveal) ── */
+    .measure-body {
+      display: grid;
+      grid-template-rows: 0fr;
+      transition: grid-template-rows 0.45s var(--ease-out);
+    }
+
+    .measure-card.open .measure-body { grid-template-rows: 1fr; }
+
+    .measure-body-inner { overflow: hidden; }
+
+    .measure-body p {
+      margin: 0;
+      padding: 1.15rem 1.25rem 1.35rem;
       font-size: 0.875rem;
       font-weight: 400;
-      line-height: 1.8;
-      flex-grow: 1;
-    }
-
-    .rc-base .rc-body    { color: var(--on-light-muted); }
-    .rc-overlay .rc-body { color: rgba(var(--off-white-rgb), 0.75); }
-
-    .rc-card--filled {
-      border: none;
-      overflow: visible;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .rc-card--filled .rc-base {
-      background: var(--rc-accent, var(--sand));
-      border-radius: 20px;
-      flex: 1;
-    }
-
-    .rc-card--filled .rc-num   { color: var(--on-light-muted); }
-    .rc-card--filled .rc-title { color: var(--charcoal); }
-    .rc-card--filled .rc-body  { color: var(--on-light-muted); }
-
-    .rc-overlay--img {
-      background:
-        linear-gradient(rgba(25, 18, 12, 0.42) 0%, rgba(25, 18, 12, 0.70) 100%),
-        var(--rc-img) center / cover no-repeat;
+      line-height: 1.75;
+      color: var(--on-light-muted);
     }
 
     /* ════════════════════════════════════════
-       SOUTH AFRICA — TIMELINE STEPPER
+       SOUTH AFRICA - TIMELINE STEPPER
     ════════════════════════════════════════ */
     .sa-timeline {
       display: flex;
@@ -1190,16 +1359,16 @@
        STAT BAND
     ════════════════════════════════════════ */
     .stat-band-header {
-      text-align: center;
+      text-align: left;
       max-width: 560px;
-      margin: 0 auto 4.5rem;
+      margin: 0 0 4.5rem;
     }
 
     .stat-band-body {
       font-size: 0.95rem;
       font-weight: 400;
       line-height: 1.75;
-      color: rgba(var(--off-white-rgb), 0.68);
+      color: var(--on-light-muted);
       margin-top: 1rem;
     }
 
@@ -1215,7 +1384,7 @@
     }
 
     .stat-item + .stat-item {
-      border-left: 1px solid rgba(255, 255, 255, 0.18);
+      border-left: 1px solid rgba(var(--charcoal-rgb), 0.14);
     }
 
     .stat-number {
@@ -1223,7 +1392,7 @@
       font-size: clamp(2.8rem, 4.5vw, 4.2rem);
       font-weight: 700;
       letter-spacing: -0.04em;
-      color: var(--off-white);
+      color: var(--charcoal);
       line-height: 1;
       margin-bottom: 0.85rem;
     }
@@ -1234,8 +1403,43 @@
       font-weight: 400;
       letter-spacing: 0.08em;
       text-transform: uppercase;
-      color: rgba(var(--off-white-rgb), 0.55);
+      color: var(--on-light-muted);
       line-height: 1.55;
+    }
+
+    /* ── Rolling odometer digits (Bigger Picture counters) ── */
+    .stat-number.is-rolling {
+      display: inline-flex;
+      align-items: flex-start;
+      justify-content: center;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .digit-col {
+      position: relative;
+      display: inline-block;
+      width: 1ch;
+      height: 1em;
+      overflow: hidden;
+      vertical-align: top;
+    }
+
+    .digit-reel {
+      display: block;
+      will-change: transform;
+    }
+
+    .digit-reel span {
+      display: block;
+      height: 1em;
+      line-height: 1;
+      text-align: center;
+    }
+
+    .digit-comma {
+      display: inline-block;
+      vertical-align: top;
+      line-height: 1;
     }
 
     /* ════════════════════════════════════════
@@ -1308,6 +1512,8 @@
       transition: transform 0.22s var(--ease-out);
     }
 
+    .cta-actions { margin-top: 2.4rem; }
+
     .cta-contact {
       margin-top: 1.4rem;
       font-size: 0.78rem;
@@ -1324,7 +1530,7 @@
     .cta-contact a:hover { color: var(--charcoal); }
 
     /* ════════════════════════════════════════
-       AN INVITATION — CARD STACK
+       AN INVITATION - CARD STACK
     ════════════════════════════════════════ */
     .stack-outer {
       margin-top: 3.5rem;
@@ -1521,7 +1727,7 @@
     }
 
     /* ════════════════════════════════════════
-       MODEL STEPS — horizontal step list (about page)
+       MODEL STEPS - horizontal step list (about page)
     ════════════════════════════════════════ */
     .model-steps {
       display: grid;
@@ -1530,15 +1736,89 @@
       margin-top: 3.5rem;
     }
 
-    /* ════════════════════════════════════════
-       FIVE SIGNS DETAIL (about page, 5-col)
-    ════════════════════════════════════════ */
-    .signs-detail-grid {
+    /* ── The Model - numbered rows + figure ── */
+    .model-layout {
       display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 1.5rem;
-      margin-top: 3rem;
+      grid-template-columns: 1.25fr 1fr;
+      gap: clamp(2rem, 5vw, 4.5rem);
+      align-items: stretch;
+      margin-top: 2rem;
     }
+
+    .model-main {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .model-main .s-intro { margin-bottom: 2.75rem; }
+
+    .model-list {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .model-row {
+      display: flex;
+      gap: 1.1rem;
+      align-items: flex-start;
+    }
+
+    .model-num {
+      flex-shrink: 0;
+      width: 2.6rem;
+      height: 2.6rem;
+      border-radius: 50%;
+      background: var(--white);
+      border: 1px solid rgba(var(--charcoal-rgb), 0.14);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: var(--charcoal);
+    }
+
+    .model-row-text h3 {
+      font-size: 1.18rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      color: var(--charcoal);
+      margin-bottom: 0.4rem;
+    }
+
+    .model-row-text p {
+      font-size: 0.9rem;
+      font-weight: 400;
+      line-height: 1.7;
+      color: var(--on-light-muted);
+      max-width: 380px;
+    }
+
+    .model-figure {
+      border-radius: 20px;
+      background: rgba(var(--charcoal-rgb), 0.045);
+      border: 1px solid rgba(var(--charcoal-rgb), 0.10);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 360px;
+      overflow: hidden;
+    }
+
+    .model-figure span {
+      font-size: 1.4rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--charcoal);
+    }
+
+    /* ── Figure-left variant - Give "Why Invest" (image on the left) ── */
+    .model-layout--figure-left {
+      grid-template-columns: 1fr 1.25fr;
+    }
+
+    .model-layout--figure-left .model-figure { order: -1; }
 
 
     /* ════════════════════════════════════════
@@ -1549,40 +1829,60 @@
       grid-template-columns: repeat(4, 1fr);
       gap: 1.5rem;
       margin-top: 3rem;
+      align-items: start;
     }
 
+    .members-grid .member-card:first-child { grid-column: span 2; }
+
     .member-card {
-      padding: 1.8rem 1.5rem;
-      background: var(--white);
+      position: relative;
+      overflow: hidden;
+      height: 22rem;
+      padding: 1.6rem 1.5rem;
+      background: var(--charcoal);
       border: 1px solid rgba(var(--charcoal-rgb), 0.08);
       border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
       transition: transform 0.3s var(--ease-spring), box-shadow 0.3s;
     }
 
     .member-card:hover {
       transform: translateY(-3px);
-      box-shadow: 0 10px 32px rgba(var(--charcoal-rgb), 0.08), 0 2px 6px rgba(var(--charcoal-rgb), 0.04);
+      box-shadow: 0 18px 44px rgba(var(--charcoal-rgb), 0.22), 0 4px 12px rgba(var(--charcoal-rgb), 0.12);
     }
 
-    .member-avatar {
-      width: 40px; height: 40px;
-      border-radius: 50%;
-      background: rgba(var(--charcoal-rgb), 0.06);
-      border: 1px solid rgba(var(--charcoal-rgb), 0.10);
-      color: var(--on-light-muted);
-      font-weight: 600;
-      font-size: 0.68rem;
-      letter-spacing: 0.04em;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 1rem;
+    .member-photo {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top;
+      z-index: 0;
+      transition: transform 0.6s var(--ease-out);
+    }
+
+    .member-card:hover .member-photo { transform: scale(1.06); }
+
+    .member-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background: linear-gradient(to top, rgba(15, 13, 11, 0.92) 0%, rgba(15, 13, 11, 0.55) 38%, rgba(15, 13, 11, 0.08) 78%);
+    }
+
+    .member-info {
+      position: relative;
+      z-index: 2;
     }
 
     .member-card h3 {
-      font-size: 0.95rem;
+      font-size: 1.05rem;
       font-weight: 600;
-      color: var(--charcoal);
+      color: var(--white);
       margin-bottom: 0.2rem;
     }
 
@@ -1592,31 +1892,53 @@
       font-weight: 600;
       letter-spacing: 0.08em;
       text-transform: uppercase;
-      color: var(--earth);
+      color: rgba(255, 255, 255, 0.72);
       margin-bottom: 0.7rem;
     }
 
     .member-card p {
       font-size: 0.845rem;
       font-weight: 400;
-      line-height: 1.8;
-      color: var(--on-light-muted);
+      line-height: 1.7;
+      color: rgba(255, 255, 255, 0.82);
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      transform: translateY(10px);
+      transition: max-height 0.5s var(--ease-out), opacity 0.4s ease, transform 0.5s var(--ease-out);
+    }
+
+    .member-card:hover p {
+      max-height: 200px;
+      opacity: 1;
+      transform: translateY(0);
     }
 
     /* ════════════════════════════════════════
        ABOUT HEADER
     ════════════════════════════════════════ */
     .about-header {
-      background: var(--off-white);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      min-height: 82vh;
       padding: 10rem 0 7rem;
+      background-image:
+        linear-gradient(180deg, rgba(15, 13, 11, 0.20) 0%, rgba(15, 13, 11, 0.32) 50%, rgba(15, 13, 11, 0.82) 100%),
+        url('about_us.png');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
     }
+
+    .about-header .container { width: 100%; }
 
     .about-header h1 {
       font-size: clamp(2rem, 4vw, 3.4rem);
-      font-weight: 700;
-      letter-spacing: -0.04em;
+      font-weight: 400;
+      letter-spacing: -0.05em;
       line-height: 1.12;
-      color: var(--charcoal);
+      color: var(--white);
       margin-bottom: 1.5rem;
       max-width: 700px;
     }
@@ -1625,20 +1947,32 @@
       font-size: 1rem;
       font-weight: 400;
       line-height: 1.9;
-      color: var(--on-light-muted);
+      color: rgba(255, 255, 255, 0.80);
       max-width: 520px;
     }
 
     /* ════════════════════════════════════════
-       GIVE — DONATE HEADER
+       GIVE - DONATE HEADER
     ════════════════════════════════════════ */
     .donate-header {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      min-height: 82vh;
       padding: 10rem 0 7rem;
-      text-align: center;
+      background-image:
+        linear-gradient(180deg, rgba(15, 13, 11, 0.20) 0%, rgba(15, 13, 11, 0.32) 50%, rgba(15, 13, 11, 0.82) 100%),
+        url('about_us.png');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
     }
 
+    .donate-header .container { width: 100%; }
+
     .donate-header .s-h2 {
-      margin: 0 auto 1.2rem;
+      color: var(--white);
+      margin: 0 0 1.2rem;
       max-width: 640px;
     }
 
@@ -1646,13 +1980,13 @@
       font-size: 1rem;
       font-weight: 400;
       line-height: 1.9;
-      color: rgba(var(--off-white-rgb), 0.68);
+      color: rgba(255, 255, 255, 0.80);
       max-width: 460px;
-      margin: 0 auto;
+      margin: 0;
     }
 
     /* ════════════════════════════════════════
-       GIVE — INVEST GRID (3-col)
+       GIVE - INVEST GRID (3-col)
     ════════════════════════════════════════ */
     .invest-grid {
       display: grid;
@@ -1697,7 +2031,7 @@
     .invest-amount {
       display: block;
       font-size: 2.2rem;
-      font-weight: 300;
+      font-weight: 700;
       letter-spacing: -0.025em;
       color: var(--charcoal);
       line-height: 1;
@@ -1722,8 +2056,113 @@
     }
 
     /* ════════════════════════════════════════
-       GIVE — CITY CARDS (3-col, dark)
+       GIVE - CITY CARDS (3-col, dark)
     ════════════════════════════════════════ */
+    /* ── Live Opportunities - pill nav + image carousel ── */
+    .lo-pills {
+      display: flex;
+      gap: 0.6rem;
+      margin-top: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .lo-pill {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      padding: 0.5rem 1.15rem;
+      border-radius: 100px;
+      border: 1px solid rgba(var(--charcoal-rgb), 0.20);
+      background: transparent;
+      color: var(--charcoal);
+      cursor: pointer;
+      transition: background 0.25s var(--ease-out), color 0.25s var(--ease-out), border-color 0.25s var(--ease-out);
+    }
+
+    .lo-pill:hover { border-color: rgba(var(--charcoal-rgb), 0.45); }
+
+    .lo-pill.active {
+      background: var(--charcoal-deep);
+      color: var(--off-white);
+      border-color: var(--charcoal-deep);
+    }
+
+    .lo-carousel {
+      --lo-card-w: min(620px, 82vw);
+      margin-top: 2.75rem;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+    .lo-carousel::-webkit-scrollbar { display: none; }
+
+    .lo-track {
+      display: flex;
+      gap: 1.5rem;
+      width: max-content;
+      padding-inline: calc(50% - var(--lo-card-w) / 2);
+    }
+
+    .lo-card {
+      position: relative;
+      flex: 0 0 var(--lo-card-w);
+      height: 30rem;
+      border-radius: 16px;
+      overflow: hidden;
+      scroll-snap-align: center;
+      cursor: pointer;
+      opacity: 0.5;
+      transform: scale(0.94);
+      transition: opacity 0.5s var(--ease-out), transform 0.5s var(--ease-out);
+    }
+
+    .lo-card.active {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .lo-card-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.6s var(--ease-out);
+    }
+
+    .lo-card.active:hover .lo-card-img { transform: scale(1.05); }
+
+    .lo-card-overlay {
+      position: absolute;
+      left: 1.2rem;
+      right: 1.2rem;
+      bottom: 1.2rem;
+      max-width: 30rem;
+      padding: 1.1rem 1.3rem;
+      border-radius: 12px;
+      background: rgba(15, 13, 11, 0.60);
+      color: var(--white);
+      z-index: 1;
+    }
+
+    .lo-card-overlay h3 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      color: var(--white);
+      margin-bottom: 0.35rem;
+    }
+
+    .lo-card-overlay p {
+      font-size: 0.875rem;
+      font-weight: 400;
+      line-height: 1.55;
+      color: rgba(255, 255, 255, 0.82);
+    }
+
     .city-cards {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -1791,7 +2230,7 @@
     ════════════════════════════════════════ */
     footer {
       background: var(--slate);
-      border-top: 1px solid rgba(var(--sand-rgb), 0.18);
+      border-top: 1px solid rgba(var(--off-white-rgb), 0.18);
       padding: 4rem 0 2.5rem;
     }
 
@@ -1832,7 +2271,7 @@
       font-size: 0.75rem;
       font-weight: 700;
       letter-spacing: 0.01em;
-      color: var(--sand);
+      color: var(--off-white);
       opacity: 0.88;
     }
 
@@ -1845,18 +2284,18 @@
     .footer-social-btn {
       width: 40px; height: 40px;
       border-radius: 50%;
-      border: 1px solid rgba(255, 255, 255, 0.45);
-      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(var(--off-white-rgb), 0.45);
+      background: rgba(var(--off-white-rgb), 0.05);
       display: flex; align-items: center; justify-content: center;
-      color: rgba(255, 255, 255, 0.80);
+      color: rgba(var(--off-white-rgb), 0.80);
       text-decoration: none;
       transition: background 0.22s var(--ease-out), color 0.22s var(--ease-out), border-color 0.22s var(--ease-out);
     }
 
     .footer-social-btn:hover {
-      background: rgba(var(--sand-rgb), 0.12);
-      color: var(--on-dark);
-      border-color: rgba(var(--sand-rgb), 0.35);
+      background: rgba(var(--off-white-rgb), 0.12);
+      color: var(--off-white);
+      border-color: rgba(var(--off-white-rgb), 0.35);
     }
 
     .footer-social-btn svg {
@@ -1866,7 +2305,7 @@
 
     /* ── Divider + bottom grid ── */
     .footer-bottom {
-      border-top: 1px solid rgba(var(--sand-rgb), 0.18);
+      border-top: 1px solid rgba(var(--off-white-rgb), 0.18);
       margin-top: 2rem;
       padding-top: 2rem;
       display: grid;
@@ -1889,7 +2328,7 @@
       font-size: 0.68rem;
       line-height: 1.6;
       letter-spacing: 0.02em;
-      color: rgba(255, 255, 255, 0.55);
+      color: rgba(var(--off-white-rgb), 0.55);
     }
 
     .footer-main-links {
@@ -1909,12 +2348,12 @@
     .footer-main-links a {
       font-size: 0.78rem;
       letter-spacing: 0.02em;
-      color: rgba(255, 255, 255, 0.85);
+      color: rgba(var(--off-white-rgb), 0.85);
       text-decoration: none;
       transition: color 0.18s;
     }
 
-    .footer-main-links a:hover { color: var(--on-dark); }
+    .footer-main-links a:hover { color: var(--off-white); }
 
     .footer-legal-links {
       grid-column: 5 / 11;
@@ -1924,12 +2363,12 @@
     .footer-legal-links a {
       font-size: 0.68rem;
       letter-spacing: 0.02em;
-      color: rgba(255, 255, 255, 0.55);
+      color: rgba(var(--off-white-rgb), 0.55);
       text-decoration: none;
       transition: color 0.18s;
     }
 
-    .footer-legal-links a:hover { color: rgba(255, 255, 255, 0.80); }
+    .footer-legal-links a:hover { color: rgba(var(--off-white-rgb), 0.80); }
 
     /* ── Responsive ── */
     @media (max-width: 900px) {
@@ -1954,7 +2393,7 @@
     }
 
     /* ════════════════════════════════════════
-       SCROLL EXPAND — VIDEO SECTION
+       SCROLL EXPAND - VIDEO SECTION
     ════════════════════════════════════════ */
     .se-wrapper {
       position: relative;
@@ -2096,17 +2535,19 @@
       .prob-layout > .prob-cards  { grid-column: 1; grid-row: auto; }
       .prob-layout > .s-intro     { margin-bottom: 1.5rem; }
       .prob-img                   { min-height: 220px; }
-      .signs-grid        { grid-template-columns: repeat(3, 1fr); }
-      .signs-detail-grid { grid-template-columns: repeat(3, 1fr); }
+      .measure-grid      { grid-template-columns: repeat(3, 1fr); }
       .stat-grid                       { grid-template-columns: repeat(2, 1fr); }
       .stat-item + .stat-item          { border-left: none; }
-      .stat-item:nth-child(2)          { border-left: 1px solid rgba(255,255,255,0.18); }
+      .stat-item:nth-child(2)          { border-left: 1px solid rgba(var(--charcoal-rgb),0.14); }
       .stat-item:nth-child(3),
-      .stat-item:nth-child(4)          { border-top: 1px solid rgba(255,255,255,0.12); padding-top: 2rem; margin-top: 1rem; }
-      .stat-item:nth-child(4)          { border-left: 1px solid rgba(255,255,255,0.12); }
+      .stat-item:nth-child(4)          { border-top: 1px solid rgba(var(--charcoal-rgb),0.12); padding-top: 2rem; margin-top: 1rem; }
+      .stat-item:nth-child(4)          { border-left: 1px solid rgba(var(--charcoal-rgb),0.12); }
       .members-grid      { grid-template-columns: repeat(2, 1fr); }
       .model-grid        { grid-template-columns: repeat(2, 1fr); }
       .model-steps       { grid-template-columns: 1fr; }
+      .model-layout      { grid-template-columns: 1fr; }
+      .model-layout--figure-left .model-figure { order: 0; }
+      .model-figure      { min-height: 280px; }
 
     }
 
@@ -2120,10 +2561,9 @@
       .prob-img          { min-height: 180px; }
       .prob-layout > .s-intro { margin-bottom: 1.5rem; }
       .model-grid        { grid-template-columns: 1fr; }
-      .signs-grid        { grid-template-columns: repeat(2, 1fr); }
-      .signs-detail-grid { grid-template-columns: repeat(2, 1fr); }
+      .measure-grid      { grid-template-columns: repeat(2, 1fr); }
       .stat-grid                              { grid-template-columns: 1fr; }
-      .stat-item + .stat-item                 { border-left: none; border-top: 1px solid rgba(255,255,255,0.12); padding-top: 2rem; margin-top: 0; }
+      .stat-item + .stat-item                 { border-left: none; border-top: 1px solid rgba(var(--charcoal-rgb),0.12); padding-top: 2rem; margin-top: 0; }
       .stat-item:nth-child(2),
       .stat-item:nth-child(4)                 { border-left: none; }
       .stat-item:nth-child(3),
@@ -2215,7 +2655,7 @@
         <video
           id="hero-video"
           class="hero-bg"
-          src="TFE_Web_Hero.mp4"
+          src="hero-video.m4v"
           muted
           loop
           playsinline
@@ -2232,7 +2672,7 @@
               </h1>
               <p class="hero-lead hero-reveal" style="transition-delay: 0.48s">
                 Two Four Eight develops the kind of leaders who multiply disciples,
-                form communities, and raise up the next generation — without
+                form communities, and raise up the next generation, without
                 depending on us to keep going.
               </p>
               <div class="hero-ctas hero-reveal" style="transition-delay: 0.62s">
@@ -2251,19 +2691,13 @@
 
       </section>
 
-      <!-- ─── Video Expand ─── -->
-      <div class="se-wrapper" id="se-wrapper">
-        <div class="se-sticky">
-
-          <div class="se-bg"></div>
-
-          <span class="se-eyebrow">Watch</span>
-
-          <!-- Media — expands as user scrolls through wrapper -->
-          <div class="se-media-wrap" id="se-media">
-            <div class="se-overlay" id="se-overlay"></div>
+      <!-- ─── Why Cities are The Frontier ─── -->
+      <section class="s-light">
+        <div class="container">
+          <h2 class="s-h2 reveal" style="text-align: center;">Why Cities are The Frontier.</h2>
+          <div class="video-wrap video-wrap--full video-wrap--player reveal">
             <video
-              src="TFE_Web_Hero.mp4"
+              src="hero-video.m4v"
               muted
               loop
               playsinline
@@ -2271,181 +2705,97 @@
               preload="auto"
               style="width:100%;height:100%;object-fit:cover;display:block;"
             ></video>
-          </div>
-
-          <!-- Split title — words slide apart as media expands -->
-          <div class="se-title" aria-label="Why cities are the frontier">
-            <span class="se-word" id="se-word-l">Why cities</span>
-            <span class="se-word" id="se-word-r">are the frontier.</span>
-          </div>
-
-          <!-- Scroll hint -->
-          <div class="se-hint" id="se-hint">
-            <div class="se-hint-line"></div>
-            <span class="se-hint-text">Scroll to expand</span>
-          </div>
-
-        </div>
-      </div>
-
-      <!-- ─── The Problem ─── -->
-      <div class="prob-wrapper" id="prob-wrapper">
-        <div class="prob-sticky">
-          <div class="container">
-            <div class="prob-layout">
-
-              <!-- Row 1 left: eyebrow -->
-              <span class="eyebrow reveal">The Problem</span>
-
-              <!-- Row 2 left: heading | Row 2 right: paragraph -->
-              <h2 class="s-h2 reveal">Most ministry models were not built for cities</h2>
-              <p class="s-intro reveal">Urban populations are growing faster than any organisation can plan for. Most traditional mission approaches share four structural weaknesses.</p>
-
-              <!-- Row 3 left: image placeholder -->
-              <div class="prob-img reveal">
-                <img src="the_problem.jpg" alt="The Problem">
+            <div class="vp-controls">
+              <div class="vp-time-row">
+                <span class="vp-time vp-current">0:00</span>
+                <div class="vp-slider vp-seek"><div class="vp-slider-fill"></div></div>
+                <span class="vp-time vp-duration">0:00</span>
               </div>
-
-              <!-- Row 3 right: 4 stacked cards — scroll-driven -->
-              <div class="prob-cards">
-
-                <!-- Card 1: Too Slow -->
-                <div class="prob-card">
-                  <div class="prob-card-body">
-                    <h3>Too Slow</h3>
-                    <p>Cities grow faster than trained professionals can keep up. Our systems cannot match the pace of urbanisation.</p>
+              <div class="vp-btn-row">
+                <div class="vp-left">
+                  <button class="vp-btn vp-play" type="button" aria-label="Pause"></button>
+                  <div class="vp-vol-group">
+                    <button class="vp-btn vp-mute" type="button" aria-label="Unmute"></button>
+                    <div class="vp-slider vp-vol"><div class="vp-slider-fill"></div></div>
                   </div>
                 </div>
-
-                <!-- Card 2: Too Expensive -->
-                <div class="prob-card">
-                  <div class="prob-card-body">
-                    <h3>Too Expensive</h3>
-                    <p>Buildings, salaries and programs create overhead that limits how far the work can go.</p>
-                  </div>
+                <div class="vp-right">
+                  <button class="vp-btn vp-speed" type="button" data-speed="0.5">0.5x</button>
+                  <button class="vp-btn vp-speed active" type="button" data-speed="1">1x</button>
+                  <button class="vp-btn vp-speed" type="button" data-speed="1.5">1.5x</button>
+                  <button class="vp-btn vp-speed" type="button" data-speed="2">2x</button>
                 </div>
-
-                <!-- Card 3: Too Centralised -->
-                <div class="prob-card">
-                  <div class="prob-card-body">
-                    <h3>Too Centralised</h3>
-                    <p>Growth depends on outside leaders and funding to function. When they leave, momentum leaves with them.</p>
-                  </div>
-                </div>
-
-                <!-- Card 4: Too Fragile -->
-                <div class="prob-card">
-                  <div class="prob-card-body">
-                    <h3>Too Fragile</h3>
-                    <p>When the context changes, the movement stalls. Local ownership was never built.</p>
-                  </div>
-                </div>
-
-              </div><!-- /.prob-cards -->
-
-            </div><!-- /.prob-layout -->
-          </div><!-- /.container -->
-        </div><!-- /.prob-sticky -->
-      </div><!-- /.prob-wrapper -->
-
-      <!-- ─── Multiplication ─── -->
-      <section class="s-warm mult-section">
-        <div class="container">
-          <span class="eyebrow reveal">The Answer</span>
-          <h2 class="s-h2 reveal">Multiplication, not addition</h2>
-          <img src="answer.png" alt="Multiplication sequence" class="mult-img reveal">
-          <p class="mult-lead reveal">The only way to reach cities is not to add — one program at a time — but to multiply. We develop leaders, who invest in other leaders, who multiply Jesus movements in cities. We don't launch programs. We multiply the multipliers.</p>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
-      <!-- ─── Five Signs — Home ─── -->
+      <!-- ─── Statement: Problem + Answer merged ─── -->
+      <section class="s-light statement">
+        <div class="container">
+          <h2 class="statement-h2 reveal">
+            Ministry models weren't built for cities.
+            <span class="statement-accent">The answer? Multiplication, not addition.</span>
+          </h2>
+        </div>
+      </section>
+
+      <!-- ─── South Africa ─── -->
       <section class="s-dark">
         <div class="container">
-          <span class="eyebrow reveal">The Model</span>
-          <h2 class="s-h2 reveal">How a city comes alive</h2>
-          <p class="s-intro reveal">We track five signs of life across every city, every quarter. These stages develop in parallel — not in sequence.</p>
-          <div class="signs-grid">
+          <span class="eyebrow reveal">How it works</span>
+          <h2 class="s-h2 reveal">South Africa: since 2018.</h2>
+          <p class="s-intro reveal">Seven years of proof that the model works. In 2019, we began investing in the first leaders in South African townships. Today the movement is self-led and multiplying on its own.</p>
 
-            <div class="rc-card reveal" style="--rc-accent: var(--slate); transition-delay: 0.05s">
-              <div class="rc-base">
-                <span class="rc-num">01</span>
-                <h3 class="rc-title">Rooted</h3>
-                <p class="rc-body">A local leader with a strong, committed team</p>
+          <div class="video-wrap video-wrap--full video-wrap--player">
+            <video
+              src="hero-video.m4v"
+              muted
+              loop
+              playsinline
+              autoplay
+              preload="auto"
+              style="width:100%;height:100%;object-fit:cover;display:block;"
+            ></video>
+            <div class="vp-controls">
+              <div class="vp-time-row">
+                <span class="vp-time vp-current">0:00</span>
+                <div class="vp-slider vp-seek"><div class="vp-slider-fill"></div></div>
+                <span class="vp-time vp-duration">0:00</span>
               </div>
-              <div class="rc-overlay rc-overlay--img" style="--rc-img: url('Roots.png')">
-                <span class="rc-num">01</span>
-                <h3 class="rc-title">Rooted</h3>
-                <p class="rc-body">A local leader with a strong, committed team</p>
+              <div class="vp-btn-row">
+                <div class="vp-left">
+                  <button class="vp-btn vp-play" type="button" aria-label="Pause"></button>
+                  <div class="vp-vol-group">
+                    <button class="vp-btn vp-mute" type="button" aria-label="Unmute"></button>
+                    <div class="vp-slider vp-vol"><div class="vp-slider-fill"></div></div>
+                  </div>
+                </div>
+                <div class="vp-right">
+                  <button class="vp-btn vp-speed" type="button" data-speed="0.5">0.5x</button>
+                  <button class="vp-btn vp-speed active" type="button" data-speed="1">1x</button>
+                  <button class="vp-btn vp-speed" type="button" data-speed="1.5">1.5x</button>
+                  <button class="vp-btn vp-speed" type="button" data-speed="2">2x</button>
+                </div>
               </div>
             </div>
-
-            <div class="rc-card reveal" style="--rc-accent: var(--slate); transition-delay: 0.10s">
-              <div class="rc-base">
-                <span class="rc-num">02</span>
-                <h3 class="rc-title">Multiplying</h3>
-                <p class="rc-body">Disciples make disciples through their own networks</p>
-              </div>
-              <div class="rc-overlay rc-overlay--img" style="--rc-img: url('Multiplication.jpg')">
-                <span class="rc-num">02</span>
-                <h3 class="rc-title">Multiplying</h3>
-                <p class="rc-body">Disciples make disciples through their own networks</p>
-              </div>
-            </div>
-
-            <div class="rc-card reveal" style="--rc-accent: var(--slate); transition-delay: 0.15s">
-              <div class="rc-base">
-                <span class="rc-num">03</span>
-                <h3 class="rc-title">Transforming</h3>
-                <p class="rc-body">Lives change. Communities begin to heal.</p>
-              </div>
-              <div class="rc-overlay rc-overlay--img" style="--rc-img: url('Transforming.jpg')">
-                <span class="rc-num">03</span>
-                <h3 class="rc-title">Transforming</h3>
-                <p class="rc-body">Lives change. Communities begin to heal.</p>
-              </div>
-            </div>
-
-            <div class="rc-card reveal" style="--rc-accent: var(--slate); transition-delay: 0.20s">
-              <div class="rc-base">
-                <span class="rc-num">04</span>
-                <h3 class="rc-title">Gathering</h3>
-                <p class="rc-body">Simple faith communities form in homes and workplaces</p>
-              </div>
-              <div class="rc-overlay rc-overlay--img" style="--rc-img: url('Gathering.jpg')">
-                <span class="rc-num">04</span>
-                <h3 class="rc-title">Gathering</h3>
-                <p class="rc-body">Simple faith communities form in homes and workplaces</p>
-              </div>
-            </div>
-
-            <div class="rc-card reveal" style="--rc-accent: var(--slate); transition-delay: 0.25s">
-              <div class="rc-base">
-                <span class="rc-num">05</span>
-                <h3 class="rc-title">Replicating</h3>
-                <p class="rc-body">Cities invest in and raise up other cities</p>
-              </div>
-              <div class="rc-overlay rc-overlay--img" style="--rc-img: url('Replicating.png')">
-                <span class="rc-num">05</span>
-                <h3 class="rc-title">Replicating</h3>
-                <p class="rc-body">Cities invest in and raise up other cities</p>
-              </div>
-            </div>
-
           </div>
+
         </div>
       </section>
 
       <!-- ─── Stat Band ─── -->
-      <section class="s-slate" id="stat-band">
+      <section class="s-light" id="stat-band">
         <div class="container">
           <div class="stat-band-header">
             <span class="eyebrow reveal">The Bigger Picture</span>
-            <h2 class="s-h2 reveal">78 cities. One model. Led by locals — not by us.</h2>
-            <p class="stat-band-body reveal">These numbers represent leaders, not programs — locally-owned movements built to outlast our involvement.</p>
+            <h2 class="s-h2 reveal">75 cities. One model. <br>Led by locals, not by us.</h2>
+            <p class="stat-band-body reveal">These numbers represent leaders, not programs: locally-owned movements built to outlast our involvement.</p>
           </div>
           <div class="stat-grid">
             <div class="stat-item reveal" style="transition-delay: 0.05s">
-              <span class="stat-number" data-target="78">0</span>
+              <span class="stat-number" data-target="75">0</span>
               <span class="stat-label">Cities Engaged</span>
             </div>
             <div class="stat-item reveal" style="transition-delay: 0.10s">
@@ -2453,154 +2803,29 @@
               <span class="stat-label">Rooted Leaders</span>
             </div>
             <div class="stat-item reveal" style="transition-delay: 0.15s">
-              <span class="stat-number" data-target="45000" data-step="1000">0</span>
+              <span class="stat-number" data-target="45000">0</span>
               <span class="stat-label">Communities Since 2010</span>
             </div>
             <div class="stat-item reveal" style="transition-delay: 0.20s">
-              <span class="stat-number" data-target="2000" data-step="100">0</span>
+              <span class="stat-number" data-target="2000">0</span>
               <span class="stat-label">Active Communities</span>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- ─── South Africa ─── -->
-      <section class="s-dark">
-        <div class="container">
-          <span class="eyebrow reveal">Proof of Concept</span>
-          <h2 class="s-h2 reveal">South Africa: seven years. Built by locals.</h2>
-          <p class="s-intro reveal">In 2019, we began investing in the first leaders in South African townships. Today the movement is self-led and multiplying on its own.</p>
-
-          <div class="sa-timeline reveal" id="sa-stepper" role="tablist" aria-label="South Africa timeline">
-            <div class="timeline-track">
-              <div class="timeline-track-fill" id="sa-track-fill"></div>
-            </div>
-            <button class="timeline-point" data-step="1" role="tab" aria-selected="true" aria-controls="sa-step-1">
-              <div class="timeline-dot"></div>
-              <span class="timeline-year">2019</span>
-              <span class="timeline-label">First leaders equipped</span>
-            </button>
-            <button class="timeline-point" data-step="2" role="tab" aria-selected="false" aria-controls="sa-step-2" tabindex="-1">
-              <div class="timeline-dot"></div>
-              <span class="timeline-year">2021</span>
-              <span class="timeline-label">Multiplying &amp; transforming</span>
-            </button>
-            <button class="timeline-point" data-step="3" role="tab" aria-selected="false" aria-controls="sa-step-3" tabindex="-1">
-              <div class="timeline-dot"></div>
-              <span class="timeline-year">2025</span>
-              <span class="timeline-label">Nonprofit launched</span>
-            </button>
-            <button class="timeline-point" data-step="4" role="tab" aria-selected="false" aria-controls="sa-step-4" tabindex="-1">
-              <div class="timeline-dot"></div>
-              <span class="timeline-year">2026</span>
-              <span class="timeline-label">Self-led</span>
-            </button>
-            <button class="timeline-point" data-step="5" role="tab" aria-selected="false" aria-controls="sa-step-5" tabindex="-1">
-              <div class="timeline-dot"></div>
-              <span class="timeline-year">2028</span>
-              <span class="timeline-label">Fully independent</span>
-            </button>
-          </div>
-
-          <div class="story-block reveal">
-            <div class="step-content" id="sa-step-1" data-step="1" role="tabpanel">
-              <p>In 2019, one leader. The first investment in local leaders from South African townships — the starting point for everything that followed.</p>
-            </div>
-            <div class="step-content" id="sa-step-2" data-step="2" role="tabpanel">
-              <p>By 2021, the first leaders were equipping others. The movement was multiplying — <span class="hl">without outside direction</span>. Proof the model works.</p>
-            </div>
-            <div class="step-content" id="sa-step-3" data-step="3" role="tabpanel">
-              <p>A registered nonprofit with a growing local team. By 2025, movements had spread to <span class="hl">Mozambique and Zimbabwe</span>. <span class="hl">Nobody sent from outside.</span></p>
-            </div>
-            <div class="step-content" id="sa-step-4" data-step="4" role="tabpanel">
-              <p>The South African movement is now <span class="hl">fully self-led</span>. No overseas oversight. Local leaders choosing their own direction and pace.</p>
-            </div>
-            <div class="step-content" id="sa-step-5" data-step="5" role="tabpanel">
-              <p>Complete financial and structural independence. <span class="hl">Nobody dependent on continued support.</span> Just local leaders developing local leaders.</p>
-            </div>
-          </div>
-
-          <div class="sa-timeline-footer">
-            <button class="stack-next-btn" id="sa-next" aria-label="Next step">
-              Next
-              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="square" aria-hidden="true"><path d="M3.5 8h9M9 4.5l3.5 3.5-3.5 3.5"/></svg>
-            </button>
-          </div>
-
-          <div class="video-wrap video-wrap--full">
-            <video
-              src="TFE_Web_Hero.mp4"
-              muted
-              loop
-              playsinline
-              autoplay
-              preload="auto"
-              style="width:100%;height:100%;object-fit:cover;display:block;"
-            ></video>
-          </div>
-
-        </div>
-      </section>
-
-      <!-- ─── CTA — Home ─── -->
+      <!-- ─── CTA - Home ─── -->
       <section class="s-light cta-section">
         <div class="container">
           <span class="eyebrow reveal">An Invitation</span>
           <h2 class="s-h2 reveal">Thirty minutes to change the trajectory of a city.</h2>
           <p class="cta-body reveal">We'd welcome 30 minutes to share what we're seeing in cities and hear what matters to you.</p>
 
-          <div class="stack-outer reveal">
-            <div class="stack-wrap" id="inv-stack">
-
-              <div class="stack-card">
-                <div>
-                  <span class="stack-card-num">Fund</span>
-                  <h3>Fuel the movement</h3>
-                  <p>Your investment goes directly to coaching and developing leaders in cities where the church is least present.</p>
-                </div>
-                <a href="mailto:david@twofoureight.org" class="stack-card-link">
-                  Talk to David
-                  <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="square" aria-hidden="true"><path d="M3.5 8h9M9 4.5l3.5 3.5-3.5 3.5"/></svg>
-                </a>
-              </div>
-
-              <div class="stack-card">
-                <div>
-                  <span class="stack-card-num">Partner</span>
-                  <h3>Open your network</h3>
-                  <p>Bring your relationships, expertise, and credibility to leaders already positioned in cities across the world.</p>
-                </div>
-                <a href="mailto:david@twofoureight.org" class="stack-card-link">
-                  Talk to David
-                  <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="square" aria-hidden="true"><path d="M3.5 8h9M9 4.5l3.5 3.5-3.5 3.5"/></svg>
-                </a>
-              </div>
-
-              <div class="stack-card">
-                <div>
-                  <span class="stack-card-num">Experience</span>
-                  <h3>See it firsthand</h3>
-                  <p>Visit the work, walk the cities, and meet the leaders. An exposure visit changes how you see the world.</p>
-                </div>
-                <a href="mailto:david@twofoureight.org" class="stack-card-link">
-                  Talk to David
-                  <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="square" aria-hidden="true"><path d="M3.5 8h9M9 4.5l3.5 3.5-3.5 3.5"/></svg>
-                </a>
-              </div>
-
-            </div>
-
-            <div class="stack-floor">
-              <div class="stack-dots" aria-hidden="true">
-                <span class="stack-dot active"></span>
-                <span class="stack-dot"></span>
-                <span class="stack-dot"></span>
-              </div>
-              <button class="stack-next-btn" id="inv-next" aria-label="See next option">
-                Next
-                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="square" aria-hidden="true"><path d="M3.5 8h9M9 4.5l3.5 3.5-3.5 3.5"/></svg>
-              </button>
-            </div>
+          <div class="cta-actions reveal">
+            <a href="mailto:david@twofoureight.org" class="btn-primary">
+              <span class="t1">Start a conversation</span>
+              <span class="t2" aria-hidden="true">Start a conversation</span>
+            </a>
           </div>
 
         </div>
@@ -2620,9 +2845,6 @@
           <span class="eyebrow">Who We Are</span>
           <h1>We find local leaders.<br>We invest in them.<br>Movements follow.</h1>
           <p>We find local leaders already positioned to start movements in their cities. We invest in them. We coach them. And when the movement no longer needs us, we step back.</p>
-          <div class="video-wrap video-wrap--full">
-            <img src="about_us.png" alt="Two Four Eight — who we are" style="width:100%;height:100%;object-fit:cover;display:block;">
-          </div>
         </div>
       </div>
 
@@ -2630,32 +2852,41 @@
       <section class="s-slate">
         <div class="container">
           <span class="eyebrow reveal">The Model</span>
-          <h2 class="s-h2 reveal">Every leader we invest in receives three things</h2>
-          <p class="s-intro reveal">We act as catalyst and coach. We ignite what could not start without us — then step back as local ownership grows.</p>
-          <div class="model-steps">
+          <div class="model-layout">
 
-            <div class="rc-card rc-card--filled reveal" style="--rc-accent: var(--off-white); transition-delay: 0.05s">
-              <div class="rc-base">
-                <span class="rc-num">01</span>
-                <h3 class="rc-title">A Movement Guide</h3>
-                <p class="rc-body">An experienced practitioner who walks alongside the leader long-term — coaching through real challenges on the ground.</p>
+            <div class="model-main">
+              <h2 class="s-h2 reveal">Every leader we invest in receives three things</h2>
+              <p class="s-intro reveal">We act as catalyst and coach. We ignite what could not start without us, then step back as local ownership grows.</p>
+
+              <div class="model-list">
+                <div class="model-row reveal" style="transition-delay: 0.05s">
+                  <span class="model-num">1.</span>
+                  <div class="model-row-text">
+                    <h3>A Movement Guide</h3>
+                    <p>An experienced practitioner who walks alongside the leader long-term, coaching through real challenges on the ground.</p>
+                  </div>
+                </div>
+
+                <div class="model-row reveal" style="transition-delay: 0.10s">
+                  <span class="model-num">2.</span>
+                  <div class="model-row-text">
+                    <h3>A Growth Environment</h3>
+                    <p>Communities of practice: cohorts, cross-city learning, and exposure to other movement leaders that stretch vision and sharpen work.</p>
+                  </div>
+                </div>
+
+                <div class="model-row reveal" style="transition-delay: 0.15s">
+                  <span class="model-num">3.</span>
+                  <div class="model-row-text">
+                    <h3>Developmental Content</h3>
+                    <p>A structured coaching pathway covering team health, mission clarity, outreach, and leader multiplication. Practical tools, not academic curriculum.</p>
+                  </div>
+                </div>
               </div>
             </div>
 
-            <div class="rc-card rc-card--filled reveal" style="--rc-accent: var(--off-white); transition-delay: 0.10s">
-              <div class="rc-base">
-                <span class="rc-num">02</span>
-                <h3 class="rc-title">A Growth Environment</h3>
-                <p class="rc-body">Communities of practice — cohorts, cross-city learning, and exposure to other movement leaders that stretch vision and sharpen work.</p>
-              </div>
-            </div>
-
-            <div class="rc-card rc-card--filled reveal" style="--rc-accent: var(--off-white); transition-delay: 0.15s">
-              <div class="rc-base">
-                <span class="rc-num">03</span>
-                <h3 class="rc-title">Developmental Content</h3>
-                <p class="rc-body">A structured coaching pathway covering team health, mission clarity, outreach, and leader multiplication. Practical tools, not academic curriculum.</p>
-              </div>
+            <div class="model-figure reveal">
+              <span>Image</span>
             </div>
 
           </div>
@@ -2668,72 +2899,82 @@
           <span class="eyebrow reveal">What We Measure</span>
           <h2 class="s-h2 reveal">Five signs of life</h2>
           <p class="s-intro reveal">We track five signs that tell us whether a leader, team, and movement are alive, healthy, and built to outlast us.</p>
-          <div class="signs-detail-grid">
+          <div class="measure-grid">
 
-            <div class="rc-card reveal" style="--rc-accent: var(--slate); transition-delay: 0.05s">
-              <div class="rc-base">
-                <span class="rc-num">01</span>
-                <h3 class="rc-title">Rooted</h3>
-                <p class="rc-body">A local leader with deep roots and a vision for their city.</p>
+            <article class="measure-card reveal" style="transition-delay: 0.05s">
+              <div class="measure-media">
+                <img src="Roots.png" alt="Rooted" loading="lazy" onerror="this.style.display='none'">
+                <button class="measure-toggle" type="button" aria-expanded="false" aria-controls="measure-body-1">
+                  <span class="measure-label">Rooted</span>
+                  <svg class="measure-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </button>
               </div>
-              <div class="rc-overlay rc-overlay--img" style="--rc-img: url('Roots.png')">
-                <span class="rc-num">01</span>
-                <h3 class="rc-title">Rooted</h3>
-                <p class="rc-body">A local leader with deep roots and a vision for their city.</p>
+              <div class="measure-body" id="measure-body-1" role="region" aria-label="Rooted">
+                <div class="measure-body-inner">
+                  <p>A local leader with deep roots and a vision for their city.</p>
+                </div>
               </div>
-            </div>
+            </article>
 
-            <div class="rc-card reveal" style="--rc-accent: var(--slate); transition-delay: 0.10s">
-              <div class="rc-base">
-                <span class="rc-num">02</span>
-                <h3 class="rc-title">Multiplying</h3>
-                <p class="rc-body">Disciples make disciples through their own networks.</p>
+            <article class="measure-card reveal" style="transition-delay: 0.10s">
+              <div class="measure-media">
+                <img src="Multiplication.jpg" alt="Multiplying" loading="lazy" onerror="this.style.display='none'">
+                <button class="measure-toggle" type="button" aria-expanded="false" aria-controls="measure-body-2">
+                  <span class="measure-label">Multiplying</span>
+                  <svg class="measure-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </button>
               </div>
-              <div class="rc-overlay rc-overlay--img" style="--rc-img: url('Multiplication.jpg')">
-                <span class="rc-num">02</span>
-                <h3 class="rc-title">Multiplying</h3>
-                <p class="rc-body">Disciples make disciples through their own networks.</p>
+              <div class="measure-body" id="measure-body-2" role="region" aria-label="Multiplying">
+                <div class="measure-body-inner">
+                  <p>Disciples make disciples through their own networks.</p>
+                </div>
               </div>
-            </div>
+            </article>
 
-            <div class="rc-card reveal" style="--rc-accent: var(--slate); transition-delay: 0.15s">
-              <div class="rc-base">
-                <span class="rc-num">03</span>
-                <h3 class="rc-title">Transforming</h3>
-                <p class="rc-body">Lives change. Communities begin to heal.</p>
+            <article class="measure-card reveal" style="transition-delay: 0.15s">
+              <div class="measure-media">
+                <img src="Transforming.jpg" alt="Transforming" loading="lazy" onerror="this.style.display='none'">
+                <button class="measure-toggle" type="button" aria-expanded="false" aria-controls="measure-body-3">
+                  <span class="measure-label">Transforming</span>
+                  <svg class="measure-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </button>
               </div>
-              <div class="rc-overlay rc-overlay--img" style="--rc-img: url('Transforming.jpg')">
-                <span class="rc-num">03</span>
-                <h3 class="rc-title">Transforming</h3>
-                <p class="rc-body">Lives change. Communities begin to heal.</p>
+              <div class="measure-body" id="measure-body-3" role="region" aria-label="Transforming">
+                <div class="measure-body-inner">
+                  <p>Lives change. Communities begin to heal.</p>
+                </div>
               </div>
-            </div>
+            </article>
 
-            <div class="rc-card reveal" style="--rc-accent: var(--slate); transition-delay: 0.20s">
-              <div class="rc-base">
-                <span class="rc-num">04</span>
-                <h3 class="rc-title">Gathering</h3>
-                <p class="rc-body">Simple faith communities form in homes and workplaces.</p>
+            <article class="measure-card reveal" style="transition-delay: 0.20s">
+              <div class="measure-media">
+                <img src="Gathering.jpg" alt="Gathering" loading="lazy" onerror="this.style.display='none'">
+                <button class="measure-toggle" type="button" aria-expanded="false" aria-controls="measure-body-4">
+                  <span class="measure-label">Gathering</span>
+                  <svg class="measure-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </button>
               </div>
-              <div class="rc-overlay rc-overlay--img" style="--rc-img: url('Gathering.jpg')">
-                <span class="rc-num">04</span>
-                <h3 class="rc-title">Gathering</h3>
-                <p class="rc-body">Simple faith communities form in homes and workplaces.</p>
+              <div class="measure-body" id="measure-body-4" role="region" aria-label="Gathering">
+                <div class="measure-body-inner">
+                  <p>Simple faith communities form in homes and workplaces.</p>
+                </div>
               </div>
-            </div>
+            </article>
 
-            <div class="rc-card reveal" style="--rc-accent: var(--slate); transition-delay: 0.25s">
-              <div class="rc-base">
-                <span class="rc-num">05</span>
-                <h3 class="rc-title">Replicating</h3>
-                <p class="rc-body">Leaders develop the next generation beyond their own city.</p>
+            <article class="measure-card reveal" style="transition-delay: 0.25s">
+              <div class="measure-media">
+                <img src="Replicating.png" alt="Replicating" loading="lazy" onerror="this.style.display='none'">
+                <button class="measure-toggle" type="button" aria-expanded="false" aria-controls="measure-body-5">
+                  <span class="measure-label">Replicating</span>
+                  <svg class="measure-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </button>
               </div>
-              <div class="rc-overlay rc-overlay--img" style="--rc-img: url('Replicating.png')">
-                <span class="rc-num">05</span>
-                <h3 class="rc-title">Replicating</h3>
-                <p class="rc-body">Leaders develop the next generation beyond their own city.</p>
+              <div class="measure-body" id="measure-body-5" role="region" aria-label="Replicating">
+                <div class="measure-body-inner">
+                  <p>Leaders develop the next generation beyond their own city.</p>
+                </div>
               </div>
-            </div>
+            </article>
 
           </div>
         </div>
@@ -2747,104 +2988,76 @@
           <p class="s-intro reveal">We keep overhead low and coaching capacity high. Every person on this team is here because they've done the work on the ground.</p>
           <div class="members-grid">
             <div class="member-card reveal" style="transition-delay: 0.04s">
-              <div class="member-avatar">DB</div>
-              <h3>David Broodryk</h3>
-              <span class="member-role">Executive Chairman</span>
-              <p>International movement strategist. Has trained leaders across Africa, Europe, the Americas, Asia, and Australasia. Based in Durban, South Africa.</p>
+              <img class="member-photo" src="headshot.jpg" alt="David Broodryk" loading="lazy" onerror="this.style.display='none'">
+              <div class="member-info">
+                <h3>David Broodryk</h3>
+                <span class="member-role">Executive Chairman</span>
+                <p>International movement strategist. Has trained leaders across Africa, Europe, the Americas, Asia, and Australasia. Based in Durban, South Africa.</p>
+              </div>
             </div>
             <div class="member-card reveal" style="transition-delay: 0.08s">
-              <div class="member-avatar">MB</div>
-              <h3>Michelle Broodryk</h3>
-              <span class="member-role">Co-Founder</span>
-              <p>Co-leads hospitality and leader development from Durban. Founded Umfundi Education to address the education crisis in South Africa.</p>
+              <img class="member-photo" src="team-2.jpg" alt="Michelle Broodryk" loading="lazy" onerror="this.style.display='none'">
+              <div class="member-info">
+                <h3>Michelle Broodryk</h3>
+                <span class="member-role">Co-Founder</span>
+                <p>Co-leads hospitality and leader development from Durban. Founded Umfundi Education to address the education crisis in South Africa.</p>
+              </div>
             </div>
             <div class="member-card reveal" style="transition-delay: 0.12s">
-              <div class="member-avatar">—</div>
-              <h3>Regional Coach</h3>
-              <span class="member-role">Africa</span>
-              <p>Coaches city leaders across Sub-Saharan Africa. Oversees the South Africa proof of concept and expansion into two additional countries.</p>
+              <img class="member-photo" src="team-3.jpg" alt="Regional Coach, Africa" loading="lazy" onerror="this.style.display='none'">
+              <div class="member-info">
+                <h3>Regional Coach</h3>
+                <span class="member-role">Africa</span>
+                <p>Coaches city leaders across Sub-Saharan Africa. Oversees the South Africa proof of concept and expansion into two additional countries.</p>
+              </div>
             </div>
             <div class="member-card reveal" style="transition-delay: 0.16s">
-              <div class="member-avatar">—</div>
-              <h3>Regional Coach</h3>
-              <span class="member-role">Europe</span>
-              <p>Supports movement leaders across European cities including the Turku multiplication work in Finland.</p>
+              <img class="member-photo" src="team-4.jpg" alt="Regional Coach, Europe" loading="lazy" onerror="this.style.display='none'">
+              <div class="member-info">
+                <h3>Regional Coach</h3>
+                <span class="member-role">Europe</span>
+                <p>Supports movement leaders across European cities including the Turku multiplication work in Finland.</p>
+              </div>
             </div>
             <div class="member-card reveal" style="transition-delay: 0.20s">
-              <div class="member-avatar">—</div>
-              <h3>Regional Coach</h3>
-              <span class="member-role">Asia</span>
-              <p>Coaches leaders across South and Southeast Asia, including the Singapore venture-stage opportunity.</p>
+              <img class="member-photo" src="team-5.jpg" alt="Regional Coach, Asia" loading="lazy" onerror="this.style.display='none'">
+              <div class="member-info">
+                <h3>Regional Coach</h3>
+                <span class="member-role">Asia</span>
+                <p>Coaches leaders across South and Southeast Asia, including the Singapore venture-stage opportunity.</p>
+              </div>
             </div>
             <div class="member-card reveal" style="transition-delay: 0.24s">
-              <div class="member-avatar">—</div>
-              <h3>Operations &amp; Research</h3>
-              <span class="member-role">Operations</span>
-              <p>Manages evaluation systems, adaptive cycle reporting, and donor communications across the portfolio.</p>
+              <img class="member-photo" src="team-6.jpg" alt="Operations &amp; Research" loading="lazy" onerror="this.style.display='none'">
+              <div class="member-info">
+                <h3>Operations &amp; Research</h3>
+                <span class="member-role">Operations</span>
+                <p>Manages evaluation systems, adaptive cycle reporting, and donor communications across the portfolio.</p>
+              </div>
             </div>
             <div class="member-card reveal" style="transition-delay: 0.28s">
-              <div class="member-avatar">—</div>
-              <h3>Movement Guide Lead</h3>
-              <span class="member-role">Network</span>
-              <p>Coordinates and trains the network of 28 Movement Guides working across 78 cities globally.</p>
+              <img class="member-photo" src="team-7.jpg" alt="Movement Guide Lead" loading="lazy" onerror="this.style.display='none'">
+              <div class="member-info">
+                <h3>Movement Guide Lead</h3>
+                <span class="member-role">Network</span>
+                <p>Coordinates and trains the network of 28 Movement Guides working across 78 cities globally.</p>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- ─── CTA — About ─── -->
+      <!-- ─── CTA - About ─── -->
       <section class="s-light cta-section">
         <div class="container">
           <span class="eyebrow reveal">An Invitation</span>
           <h2 class="s-h2 reveal">Thirty minutes to change the trajectory of a city.</h2>
           <p class="cta-body reveal">We'd welcome 30 minutes to share what we're seeing in cities and hear what matters to you.</p>
-          <div class="stack-outer reveal">
-            <div class="stack-wrap" id="inv-stack-about">
-              <div class="stack-card">
-                <div>
-                  <span class="stack-card-num">Fund</span>
-                  <h3>Fuel the movement</h3>
-                  <p>Your investment goes directly to coaching and developing leaders in cities where the church is least present.</p>
-                </div>
-                <a href="mailto:david@twofoureight.org" class="stack-card-link">
-                  Talk to David
-                  <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="square" aria-hidden="true"><path d="M3.5 8h9M9 4.5l3.5 3.5-3.5 3.5"/></svg>
-                </a>
-              </div>
-              <div class="stack-card">
-                <div>
-                  <span class="stack-card-num">Partner</span>
-                  <h3>Open your network</h3>
-                  <p>Bring your relationships, expertise, and credibility to leaders already positioned in cities across the world.</p>
-                </div>
-                <a href="mailto:david@twofoureight.org" class="stack-card-link">
-                  Talk to David
-                  <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="square" aria-hidden="true"><path d="M3.5 8h9M9 4.5l3.5 3.5-3.5 3.5"/></svg>
-                </a>
-              </div>
-              <div class="stack-card">
-                <div>
-                  <span class="stack-card-num">Experience</span>
-                  <h3>See it firsthand</h3>
-                  <p>Visit the work, walk the cities, and meet the leaders. An exposure visit changes how you see the world.</p>
-                </div>
-                <a href="mailto:david@twofoureight.org" class="stack-card-link">
-                  Talk to David
-                  <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="square" aria-hidden="true"><path d="M3.5 8h9M9 4.5l3.5 3.5-3.5 3.5"/></svg>
-                </a>
-              </div>
-            </div>
-            <div class="stack-floor">
-              <div class="stack-dots" aria-hidden="true">
-                <span class="stack-dot active"></span>
-                <span class="stack-dot"></span>
-                <span class="stack-dot"></span>
-              </div>
-              <button class="stack-next-btn" id="inv-next-about" aria-label="See next option">
-                Next
-                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="square" aria-hidden="true"><path d="M3.5 8h9M9 4.5l3.5 3.5-3.5 3.5"/></svg>
-              </button>
-            </div>
+          <div class="cta-actions reveal">
+            <a href="mailto:david@twofoureight.org" class="btn-primary">
+              <span class="t1">Start a conversation</span>
+              <span class="t2" aria-hidden="true">Start a conversation</span>
+            </a>
           </div>
         </div>
       </section>
@@ -2862,7 +3075,7 @@
         <div class="container">
           <span class="eyebrow">Invest</span>
           <h2 class="s-h2">Invest in what's already working</h2>
-          <p>You are not funding a program. You are funding a multiplier — a system that outlasts and outgrows our involvement.</p>
+          <p>You are not funding a program. You are funding a multiplier: a system that outlasts and outgrows our involvement.</p>
         </div>
       </div>
 
@@ -2870,21 +3083,43 @@
       <section class="s-light">
         <div class="container">
           <span class="eyebrow reveal">Why Invest</span>
-          <h2 class="s-h2 reveal">Leverage. Accountability. Legacy.</h2>
-          <p class="s-intro reveal">Every investment targets a specific leader at the point of greatest impact. Our expertise is knowing the right catalyst for the right moment to unlock momentum.</p>
-          <div class="model-grid">
-            <div class="model-card reveal" style="transition-delay: 0.05s">
-              <h3>Leverage</h3>
-              <p>You're funding a multiplier. A system that outlasts and outgrows our involvement. Addition reaches hundreds. Multiplication reaches cities.</p>
+          <div class="model-layout model-layout--figure-left">
+
+            <div class="model-main">
+              <h2 class="s-h2 reveal">Leverage. Accountability. Legacy.</h2>
+              <p class="s-intro reveal">Every investment targets a specific leader at the point of greatest impact. Our expertise is knowing the right catalyst for the right moment to unlock momentum.</p>
+
+              <div class="model-list">
+                <div class="model-row reveal" style="transition-delay: 0.05s">
+                  <span class="model-num">1.</span>
+                  <div class="model-row-text">
+                    <h3>Leverage</h3>
+                    <p>You're funding a multiplier. A system that outlasts and outgrows our involvement. Addition reaches hundreds. Multiplication reaches cities.</p>
+                  </div>
+                </div>
+
+                <div class="model-row reveal" style="transition-delay: 0.10s">
+                  <span class="model-num">2.</span>
+                  <div class="model-row-text">
+                    <h3>Accountability</h3>
+                    <p>We measure five dimensions across every city, every quarter. AI-informed evaluation means you always know what your investment is strengthening and why.</p>
+                  </div>
+                </div>
+
+                <div class="model-row reveal" style="transition-delay: 0.15s">
+                  <span class="model-num">3.</span>
+                  <div class="model-row-text">
+                    <h3>Legacy</h3>
+                    <p>Our role as catalyst ends when local leaders no longer need us. The measure of success is movements that outlast our involvement.</p>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="model-card reveal" style="transition-delay: 0.10s">
-              <h3>Accountability</h3>
-              <p>We measure five dimensions across every city, every quarter. AI-informed evaluation means you always know what your investment is strengthening and why.</p>
+
+            <div class="model-figure reveal">
+              <span>Image</span>
             </div>
-            <div class="model-card reveal" style="transition-delay: 0.15s">
-              <h3>Legacy</h3>
-              <p>Our role as catalyst ends when local leaders no longer need us. The measure of success is movements that outlast our involvement.</p>
-            </div>
+
           </div>
         </div>
       </section>
@@ -2920,83 +3155,52 @@
           <span class="eyebrow reveal">Live Opportunities</span>
           <h2 class="s-h2 reveal">Where your investment goes right now</h2>
           <p class="s-intro reveal">We are currently investing in leaders at different points of this journey. Different cities at different thresholds.</p>
-          <div class="city-cards">
-            <div class="city-card reveal" style="transition-delay: 0.05s">
-              <span class="city-stage">Stage 1 · Rooted</span>
-              <h3>Cape Town</h3>
-              <p>A leader identified, a core team forming. Ready to be strengthened with a Movement Guide.</p>
-            </div>
-            <div class="city-card reveal" style="transition-delay: 0.10s">
-              <span class="city-stage">Stage 2 · Multiplying</span>
-              <h3>Turku</h3>
-              <p>A multiplying movement at a critical threshold, needing coaching infrastructure to sustain momentum.</p>
-            </div>
-            <div class="city-card reveal" style="transition-delay: 0.15s">
-              <span class="city-stage">Stage 5 · Replicating</span>
-              <h3>Singapore</h3>
-              <p>A venture-stage opportunity with local leaders ready to launch a new organisation and hub.</p>
-            </div>
+          <div class="lo-pills reveal" role="tablist" aria-label="Regions">
+            <button class="lo-pill active" type="button" data-index="0" role="tab" aria-selected="true">Africa</button>
+            <button class="lo-pill" type="button" data-index="1" role="tab" aria-selected="false">Europe</button>
+            <button class="lo-pill" type="button" data-index="2" role="tab" aria-selected="false">Asia</button>
+          </div>
+        </div>
+
+        <div class="lo-carousel" id="lo-carousel">
+          <div class="lo-track" id="lo-track">
+            <article class="lo-card active" data-index="0">
+              <img class="lo-card-img" src="africa.jpg" alt="Africa" loading="lazy">
+              <div class="lo-card-overlay">
+                <h3>Rooted</h3>
+                <p>A leader identified, a core team forming. Ready to be strengthened with a Movement Guide.</p>
+              </div>
+            </article>
+            <article class="lo-card" data-index="1">
+              <img class="lo-card-img" src="europe.jpg" alt="Europe" loading="lazy">
+              <div class="lo-card-overlay">
+                <h3>Multiplying</h3>
+                <p>A multiplying movement at a critical threshold, needing coaching infrastructure to sustain momentum.</p>
+              </div>
+            </article>
+            <article class="lo-card" data-index="2">
+              <img class="lo-card-img" src="asia.jpg" alt="Asia" loading="lazy">
+              <div class="lo-card-overlay">
+                <h3>Replicating</h3>
+                <p>A venture-stage opportunity with local leaders ready to launch a new organisation and hub.</p>
+              </div>
+            </article>
           </div>
         </div>
       </section>
 
-      <!-- ─── CTA — Give ─── -->
+      <!-- ─── CTA - Give ─── -->
       <section class="s-light cta-section">
         <div class="container">
           <span class="eyebrow reveal">An Invitation</span>
           <h2 class="s-h2 reveal">Thirty minutes to change the trajectory of a city.</h2>
           <p class="cta-body reveal">We'd welcome 30 minutes to share what we're seeing in cities and hear what matters to you.</p>
-          <div class="stack-outer reveal">
-            <div class="stack-wrap" id="inv-stack-give">
-              <div class="stack-card">
-                <div>
-                  <span class="stack-card-num">Fund</span>
-                  <h3>Fuel the movement</h3>
-                  <p>Your investment goes directly to coaching and developing leaders in cities where the church is least present.</p>
-                </div>
-                <a href="mailto:david@twofoureight.org" class="stack-card-link">
-                  Talk to David
-                  <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="square" aria-hidden="true"><path d="M3.5 8h9M9 4.5l3.5 3.5-3.5 3.5"/></svg>
-                </a>
-              </div>
-              <div class="stack-card">
-                <div>
-                  <span class="stack-card-num">Partner</span>
-                  <h3>Open your network</h3>
-                  <p>Bring your relationships, expertise, and credibility to leaders already positioned in cities across the world.</p>
-                </div>
-                <a href="mailto:david@twofoureight.org" class="stack-card-link">
-                  Talk to David
-                  <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="square" aria-hidden="true"><path d="M3.5 8h9M9 4.5l3.5 3.5-3.5 3.5"/></svg>
-                </a>
-              </div>
-              <div class="stack-card">
-                <div>
-                  <span class="stack-card-num">Experience</span>
-                  <h3>See it firsthand</h3>
-                  <p>Visit the work, walk the cities, and meet the leaders. An exposure visit changes how you see the world.</p>
-                </div>
-                <a href="mailto:david@twofoureight.org" class="stack-card-link">
-                  Talk to David
-                  <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="square" aria-hidden="true"><path d="M3.5 8h9M9 4.5l3.5 3.5-3.5 3.5"/></svg>
-                </a>
-              </div>
-            </div>
-            <div class="stack-floor">
-              <div class="stack-dots" aria-hidden="true">
-                <span class="stack-dot active"></span>
-                <span class="stack-dot"></span>
-                <span class="stack-dot"></span>
-              </div>
-              <button class="stack-next-btn" id="inv-next-give" aria-label="See next option">
-                Next
-                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="square" aria-hidden="true"><path d="M3.5 8h9M9 4.5l3.5 3.5-3.5 3.5"/></svg>
-              </button>
-            </div>
+          <div class="cta-actions reveal">
+            <a href="mailto:david@twofoureight.org" class="btn-primary">
+              <span class="t1">Start a conversation</span>
+              <span class="t2" aria-hidden="true">Start a conversation</span>
+            </a>
           </div>
-          <p class="cta-contact reveal">
-            Two Four Eight is supported in partnership with New Generations and Sixteen32 (US 501(c)(3)).
-          </p>
         </div>
       </section>
 
@@ -3011,12 +3215,12 @@
 
         <!-- top: logo + socials -->
         <div class="footer-top">
-          <a href="#" class="footer-logo" onclick="showPage('home'); return false;" aria-label="Two Four Eight — Home">
+          <a href="#" class="footer-logo" onclick="showPage('home'); return false;" aria-label="Two Four Eight, Home">
             <img src="248_logo.png" alt="Two Four Eight">
           </a>
           <ul class="footer-socials">
             <li>
-              <a href="https://instagram.com" target="_blank" rel="noopener" class="footer-social-btn" aria-label="Instagram">
+              <a href="https://www.instagram.com/twofour.eight/" target="_blank" rel="noopener" class="footer-social-btn" aria-label="Instagram">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                   <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
                   <circle cx="12" cy="12" r="4"/>
@@ -3025,14 +3229,14 @@
               </a>
             </li>
             <li>
-              <a href="https://facebook.com" target="_blank" rel="noopener" class="footer-social-btn" aria-label="Facebook">
+              <a href="https://www.facebook.com/twofoureight.org" target="_blank" rel="noopener" class="footer-social-btn" aria-label="Facebook">
                 <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                   <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
                 </svg>
               </a>
             </li>
             <li>
-              <a href="https://youtube.com" target="_blank" rel="noopener" class="footer-social-btn" aria-label="YouTube">
+              <a href="https://www.youtube.com/channel/UCL0IxWXMBXTCXmBdkk8hIQA/featured" target="_blank" rel="noopener" class="footer-social-btn" aria-label="YouTube">
                 <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                   <path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.97C18.88 4 12 4 12 4s-6.88 0-8.59.45a2.78 2.78 0 0 0-1.95 1.97A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.97C5.12 20 12 20 12 20s6.88 0 8.59-.45a2.78 2.78 0 0 0 1.95-1.97A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/>
                   <polygon points="9.75,15.02 15.5,12 9.75,8.98" fill="var(--charcoal-deep)"/>
@@ -3054,7 +3258,6 @@
         <div class="footer-bottom">
           <div class="footer-copyright">
             <div>© 2026 Two Four Eight</div>
-            <div>In partnership with New Generations and Sixteen32 (US 501(c)(3))</div>
           </div>
           <nav class="footer-main-links" aria-label="Footer navigation">
             <ul>
@@ -3200,7 +3403,7 @@
       }
     })();
 
-    // ── Counter animation — fires when stat band enters viewport ──
+    // ── Counter animation - fires when stat band enters viewport ──
     let countersRun = false;
 
     function runCounters() {
@@ -3208,28 +3411,67 @@
       countersRun = true;
 
       const counters = document.querySelectorAll('.stat-number[data-target]');
-      const DURATION = 1800;
+      const DURATION = 4500;
+      const easeOut = t => 1 - Math.pow(1 - t, 3);
 
-      counters.forEach((el, i) => {
+      counters.forEach((el, idx) => {
         const target = parseInt(el.dataset.target, 10);
-        const suffix = el.dataset.suffix || '';
-        const step   = el.dataset.step ? parseInt(el.dataset.step, 10) : null;
-        const delay  = i * 180;
+        const delay  = idx * 200;
+        const digits = String(target).length;
 
-        function easeOut(t) { return 1 - Math.pow(1 - t, 3); }
+        // Build one rolling column per digit, with comma separators. Each reel
+        // carries 0-9 plus a trailing 0 so the wrap from 9 back to 0 is seamless.
+        // Each wheel rolls only a couple of turns onto its final digit, rather
+        // than spinning through the whole number.
+        el.textContent = '';
+        el.classList.add('is-rolling');
 
-        let started = false;
-        let tStart;
+        const wheels = [];
+
+        for (let d = digits - 1; d >= 0; d--) {
+          const place = Math.pow(10, d);
+          const col   = document.createElement('span');
+          col.className = 'digit-col';
+
+          const reel = document.createElement('span');
+          reel.className = 'digit-reel';
+          for (let n = 0; n <= 10; n++) {
+            const cell = document.createElement('span');
+            cell.textContent = n % 10;
+            reel.appendChild(cell);
+          }
+          col.appendChild(reel);
+          el.appendChild(col);
+
+          const finalDigit = Math.floor(target / place) % 10;
+          const turns = d === 0 ? 2 : 1;          // ones wheel spins a touch more for cascade
+          wheels.push({ reel, finalDigit, distance: finalDigit + turns * 10 });
+
+          if (d > 0 && d % 3 === 0) {
+            const comma = document.createElement('span');
+            comma.className = 'digit-comma';
+            comma.textContent = ',';
+            el.appendChild(comma);
+          }
+        }
+
+        let started = false, t0;
 
         function tick(now) {
-          if (!started) { tStart = now; started = true; }
-          const elapsed  = now - tStart - delay;
-          if (elapsed < 0) { el.textContent = '0' + suffix; requestAnimationFrame(tick); return; }
+          if (!started) { t0 = now; started = true; }
+          const elapsed = now - t0 - delay;
+          if (elapsed < 0) { requestAnimationFrame(tick); return; }
+
           const progress = Math.min(elapsed / DURATION, 1);
-          let value = Math.round(easeOut(progress) * target);
-          if (step) value = Math.round(value / step) * step;
-          el.textContent = value.toLocaleString() + suffix;
+          const eased = easeOut(progress);
+
+          wheels.forEach(w => {
+            const pos = (eased * w.distance) % 10;
+            w.reel.style.transform = 'translateY(' + (-pos) + 'em)';
+          });
+
           if (progress < 1) requestAnimationFrame(tick);
+          else wheels.forEach(w => { w.reel.style.transform = 'translateY(' + (-w.finalDigit) + 'em)'; });
         }
 
         requestAnimationFrame(tick);
@@ -3267,7 +3509,7 @@
       }
     }
 
-    // ── Video expand — scroll-driven ──
+    // ── Video expand - scroll-driven ──
     (function () {
       const wrapper = document.getElementById('se-wrapper');
       if (!wrapper) return;
@@ -3529,7 +3771,7 @@
       });
     })();
 
-    // ── An Invitation card stack — About page ──
+    // ── An Invitation card stack - About page ──
     (function () {
       const wrap    = document.getElementById('inv-stack-about');
       const nextBtn = document.getElementById('inv-next-about');
@@ -3605,7 +3847,7 @@
       });
     })();
 
-    // ── An Invitation card stack — Give page ──
+    // ── An Invitation card stack - Give page ──
     (function () {
       const wrap    = document.getElementById('inv-stack-give');
       const nextBtn = document.getElementById('inv-next-give');
@@ -3681,21 +3923,184 @@
       });
     })();
 
-    // ── Reveal card clip-path hover ──
+    // ── What We Measure - dropdown card reveal ──
     (function () {
-      const startClip = 'circle(22px at 36px 37px)';
-      const endClip   = 'circle(170% at 36px 37px)';
-      document.querySelectorAll('.rc-card').forEach(card => {
-        const overlay = card.querySelector('.rc-overlay');
-        card.addEventListener('mouseenter', () => {
-          overlay.style.transition = 'clip-path 0.75s cubic-bezier(0.83, 0, 0.17, 1)';
-          overlay.style.clipPath = endClip;
-        });
-        card.addEventListener('mouseleave', () => {
-          overlay.style.transition = 'clip-path 0.9s cubic-bezier(0.16, 1, 0.3, 1)';
-          overlay.style.clipPath = startClip;
+      const toggles = document.querySelectorAll('.measure-toggle');
+      if (!toggles.length) return;
+      toggles.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const card = btn.closest('.measure-card');
+          const open = card.classList.toggle('open');
+          btn.setAttribute('aria-expanded', open ? 'true' : 'false');
         });
       });
+    })();
+
+    // ── Custom video player (home page content videos) ──
+    (function () {
+      const players = document.querySelectorAll('.video-wrap--player');
+      if (!players.length) return;
+
+      const ICON = {
+        play:  '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="6 4 20 12 6 20 6 4"/></svg>',
+        pause: '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/></svg>',
+        vol2:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>',
+        vol1:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>',
+        mute:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>'
+      };
+
+      const fmt = s => {
+        if (!isFinite(s)) return '0:00';
+        const m = Math.floor(s / 60);
+        const r = Math.floor(s % 60);
+        return m + ':' + String(r).padStart(2, '0');
+      };
+
+      players.forEach(player => {
+        const video    = player.querySelector('video');
+        if (!video) return;
+        const playBtn  = player.querySelector('.vp-play');
+        const muteBtn  = player.querySelector('.vp-mute');
+        const seek     = player.querySelector('.vp-seek');
+        const seekFill = player.querySelector('.vp-seek .vp-slider-fill');
+        const volSld   = player.querySelector('.vp-vol');
+        const volFill  = player.querySelector('.vp-vol .vp-slider-fill');
+        const curEl    = player.querySelector('.vp-current');
+        const durEl    = player.querySelector('.vp-duration');
+        const speedBtns = player.querySelectorAll('.vp-speed');
+
+        function syncPlay() {
+          playBtn.innerHTML = video.paused ? ICON.play : ICON.pause;
+          playBtn.setAttribute('aria-label', video.paused ? 'Play' : 'Pause');
+          player.classList.toggle('is-paused', video.paused);
+        }
+        function syncVol() {
+          const v = video.muted ? 0 : video.volume;
+          volFill.style.width = (v * 100) + '%';
+          muteBtn.innerHTML = v === 0 ? ICON.mute : (v > 0.5 ? ICON.vol2 : ICON.vol1);
+          muteBtn.setAttribute('aria-label', video.muted ? 'Unmute' : 'Mute');
+        }
+        function togglePlay() { video.paused ? video.play() : video.pause(); }
+
+        const pct = (el, e) => {
+          const rect = el.getBoundingClientRect();
+          return Math.min(Math.max((e.clientX - rect.left) / rect.width, 0), 1);
+        };
+
+        video.addEventListener('click', togglePlay);
+        playBtn.addEventListener('click', togglePlay);
+        video.addEventListener('play', syncPlay);
+        video.addEventListener('pause', syncPlay);
+
+        video.addEventListener('timeupdate', () => {
+          const p = video.duration ? (video.currentTime / video.duration) * 100 : 0;
+          seekFill.style.width = (isFinite(p) ? p : 0) + '%';
+          curEl.textContent = fmt(video.currentTime);
+          durEl.textContent = fmt(video.duration);
+        });
+        video.addEventListener('loadedmetadata', () => { durEl.textContent = fmt(video.duration); });
+
+        seek.addEventListener('click', e => {
+          if (video.duration) video.currentTime = pct(seek, e) * video.duration;
+        });
+        muteBtn.addEventListener('click', () => { video.muted = !video.muted; syncVol(); });
+        volSld.addEventListener('click', e => {
+          const v = pct(volSld, e);
+          video.volume = v;
+          video.muted = v === 0;
+          syncVol();
+        });
+        speedBtns.forEach(btn => {
+          btn.addEventListener('click', () => {
+            video.playbackRate = parseFloat(btn.dataset.speed);
+            speedBtns.forEach(b => b.classList.toggle('active', b === btn));
+          });
+        });
+
+        syncPlay();
+        syncVol();
+      });
+    })();
+
+    // ── Live Opportunities - pill-driven looping image carousel ──
+    (function () {
+      const carousel = document.getElementById('lo-carousel');
+      const track    = document.getElementById('lo-track');
+      if (!carousel || !track) return;
+      const reals = Array.from(track.querySelectorAll('.lo-card'));
+      const n = reals.length;
+      if (!n) return;
+      const pills = Array.from(document.querySelectorAll('.lo-pill'));
+
+      // Clone last→front and first→end so every card has neighbours on both sides
+      const headClone = reals[n - 1].cloneNode(true);   // e.g. Asia, sits left of the first card
+      const tailClone = reals[0].cloneNode(true);        // e.g. Africa, sits right of the last card
+      [headClone, tailClone].forEach(c => { c.classList.add('lo-clone'); c.classList.remove('active'); });
+      track.insertBefore(headClone, reals[0]);
+      track.appendChild(tailClone);
+
+      const all   = Array.from(track.querySelectorAll('.lo-card')); // [clone, ...reals, clone]
+      const realEl = i => all[i + 1];
+
+      function centerEl(el, smooth) {
+        const left = el.offsetLeft - (carousel.clientWidth - el.clientWidth) / 2;
+        carousel.scrollTo({ left: left, behavior: smooth ? 'smooth' : 'auto' });
+      }
+
+      let current = 0;
+      function paint(allIndex, realIndex) {
+        all.forEach((c, j) => c.classList.toggle('active', j === allIndex));
+        pills.forEach((p, j) => {
+          const on = j === realIndex;
+          p.classList.toggle('active', on);
+          p.setAttribute('aria-selected', on ? 'true' : 'false');
+        });
+        current = realIndex;
+      }
+
+      function goTo(i, smooth) { paint(i + 1, i); centerEl(realEl(i), smooth); }
+
+      pills.forEach((p, i) => p.addEventListener('click', () => goTo(i, true)));
+      reals.forEach((c, i) => c.addEventListener('click', () => goTo(i, true)));
+      headClone.addEventListener('click', () => goTo(n - 1, true));
+      tailClone.addEventListener('click', () => goTo(0, true));
+
+      // Sync while dragging; when a clone settles in the centre, jump to its real twin
+      let raf, settle;
+      carousel.addEventListener('scroll', () => {
+        if (raf) cancelAnimationFrame(raf);
+        raf = requestAnimationFrame(() => {
+          const center = carousel.scrollLeft + carousel.clientWidth / 2;
+          let best = 0, bestD = Infinity;
+          all.forEach((c, j) => {
+            const d = Math.abs((c.offsetLeft + c.clientWidth / 2) - center);
+            if (d < bestD) { bestD = d; best = j; }
+          });
+          const real = best === 0 ? n - 1 : (best === all.length - 1 ? 0 : best - 1);
+          paint(best, real);
+
+          clearTimeout(settle);
+          if (best === 0 || best === all.length - 1) {
+            settle = setTimeout(() => goTo(real, false), 130);
+          }
+        });
+      }, { passive: true });
+
+      goTo(0, false);
+
+      // The Give page is display:none on load and only shown after navigation,
+      // so the initial centring runs with zero width. Re-centre whenever the
+      // carousel gains size (becomes visible) or is resized.
+      if (window.ResizeObserver) {
+        let wasVisible = false;
+        new ResizeObserver(() => {
+          const visible = carousel.clientWidth > 0;
+          if (visible && !wasVisible) centerEl(realEl(current), false);
+          wasVisible = visible;
+        }).observe(carousel);
+      } else {
+        window.addEventListener('resize', () => centerEl(realEl(current), false), { passive: true });
+      }
     })();
 
     // ── Loader → hero reveal ──
@@ -3714,7 +4119,7 @@
         if (exited) return;
         exited = true;
         clearTimeout(fallback);
-        // Reveal hero content immediately — text fades in during the swipe
+        // Reveal hero content immediately - text fades in during the swipe
         site.classList.add('visible');
         loader.classList.add('exit');
         setTimeout(() => {
