@@ -61,6 +61,7 @@
       --charcoal-rgb:   22, 22, 21;
       --sand-rgb:       242, 238, 232;
       --off-white-rgb:  253, 253, 252;
+      --sienna-rgb:     139, 89, 54;
     }
 
     /* ════════════════════════════════════════
@@ -157,6 +158,8 @@
     }
 
     .nav-links a {
+      position: relative;
+      z-index: 0;
       font-size: 0.82rem;
       font-weight: 500;
       letter-spacing: 0.03em;
@@ -166,6 +169,17 @@
     }
 
     .nav-links a:hover { color: var(--white); }
+
+    /* Active page - soft glass pill behind the current link (layout-neutral) */
+    .nav-links a.active { color: var(--white); }
+    .nav-links a.active::before {
+      content: '';
+      position: absolute;
+      inset: -0.4rem -0.85rem;
+      background: rgba(255, 255, 255, 0.12);
+      border-radius: 100px;
+      z-index: -1;
+    }
 
     .nav-cta {
       background: var(--earth);
@@ -247,6 +261,9 @@
     }
 
     .mobile-menu a:hover { color: var(--on-dark); }
+
+    /* Active page - faint row fill + brightened text */
+    .mobile-menu a.active { color: var(--on-dark); background: rgba(255, 255, 255, 0.06); }
 
     /* ════════════════════════════════════════
        HERO
@@ -516,6 +533,13 @@
     .s-warm  { background: var(--off-white); padding: 5rem 0; }
     .s-dark  { background: var(--off-white); padding: 5rem 0; }
     .s-slate { background: var(--off-white); padding: 5rem 0; }
+
+    /* Soft colour tints - brand colour at 60% over the off-white base.
+       These read as light surfaces, so default dark text/components apply. */
+    .s-sand         { background: rgba(var(--sand-rgb),   0.6); padding: 5rem 0; }
+    .s-band         { background: var(--band, rgba(var(--slate-rgb), 0.6)); padding: 5rem 0; }
+    .s-band--slate  { --band: rgba(var(--slate-rgb),  0.6); }
+    .s-band--sienna { --band: rgba(var(--sienna-rgb), 0.6); }
 
     /* ════════════════════════════════════════
        EYEBROW / SECTION LABEL
@@ -1750,7 +1774,15 @@
       flex-direction: column;
     }
 
-    .model-main .s-intro { margin-bottom: 2.75rem; }
+    .model-main .s-intro { margin-bottom: 2rem; }
+
+    .model-lead-in {
+      font-size: 0.98rem;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+      color: var(--charcoal);
+      margin-bottom: 1.6rem;
+    }
 
     .model-list {
       display: flex;
@@ -1813,12 +1845,176 @@
       color: var(--charcoal);
     }
 
+    .model-figure img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
     /* ── Figure-left variant - Give "Why Invest" (image on the left) ── */
     .model-layout--figure-left {
       grid-template-columns: 1fr 1.25fr;
     }
 
     .model-layout--figure-left .model-figure { order: -1; }
+
+    /* Two stacked, equal-height figures that together span the copy length */
+    .model-figure-split {
+      display: flex;
+      flex-direction: column;
+      gap: clamp(1rem, 2vw, 1.5rem);
+    }
+
+    .model-layout--figure-left .model-figure-split { order: -1; }
+
+    .model-figure-split .model-figure {
+      flex: 1 1 0;
+      min-height: 0;
+    }
+
+
+    /* ════════════════════════════════════════
+       TESTIMONIALS
+    ════════════════════════════════════════ */
+    .testi-section {
+      background: var(--off-white);
+      padding: 5rem 0;
+    }
+
+    .testi-head {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      margin-bottom: 3.5rem;
+    }
+
+    .testi-head .s-intro { max-width: 40rem; }
+
+    .testi-carousel {
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      /* Full-bleed out of .container so cards peek at the viewport edge
+         instead of being clipped hard against the container gutter. */
+      width: 100vw;
+      margin-left: calc(50% - 50vw);
+      margin-right: calc(50% - 50vw);
+      /* Vertical room so the hover-lift shadow isn't clipped
+         (overflow-x forces overflow-y to compute to auto). */
+      padding-block: 2rem 4rem;
+      scroll-padding-left: calc(max(0px, (100vw - 1100px) / 2) + clamp(1.5rem, 5vw, 6rem));
+    }
+    .testi-carousel::-webkit-scrollbar { display: none; }
+
+    .testi-track {
+      display: flex;
+      align-items: stretch;
+      gap: 1.5rem;
+      width: max-content;
+      /* Align the first card with the container content edge; cards flow past
+         it and peek at the far viewport edge. */
+      padding-inline: calc(max(0px, (100vw - 1100px) / 2) + clamp(1.5rem, 5vw, 6rem));
+    }
+
+    .testi-card {
+      flex: 0 0 clamp(19rem, 80vw, 30rem);
+      scroll-snap-align: start;
+      display: flex;
+      flex-direction: column;
+      padding: 2rem 1.9rem;
+      background: var(--white);
+      border: 1px solid rgba(var(--charcoal-rgb), 0.10);
+      border-radius: 14px;
+      transition: transform 0.3s var(--ease-spring), box-shadow 0.3s;
+    }
+
+    .testi-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 18px 44px rgba(var(--charcoal-rgb), 0.12), 0 4px 12px rgba(var(--charcoal-rgb), 0.06);
+    }
+
+    .testi-quote {
+      font-size: 1.02rem;
+      font-weight: 400;
+      line-height: 1.75;
+      color: var(--on-light);
+      margin-bottom: 1.75rem;
+    }
+
+    .testi-person {
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+      margin-top: auto;
+    }
+
+    .testi-avatar {
+      width: 2.75rem;
+      height: 2.75rem;
+      border-radius: 12px;
+      object-fit: cover;
+      flex-shrink: 0;
+      border: 1px solid rgba(var(--charcoal-rgb), 0.10);
+    }
+
+    .testi-name {
+      font-size: 0.92rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      color: var(--charcoal);
+    }
+
+    .testi-role {
+      font-size: 0.78rem;
+      color: var(--on-light-muted);
+    }
+
+    .testi-controls {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 0.5rem;
+    }
+
+    .testi-arrow {
+      width: 3rem;
+      height: 3rem;
+      border-radius: 50%;
+      border: 1px solid rgba(var(--charcoal-rgb), 0.20);
+      background: transparent;
+      color: var(--charcoal);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background 0.25s var(--ease-out), color 0.25s var(--ease-out),
+                  border-color 0.25s var(--ease-out), opacity 0.25s var(--ease-out);
+    }
+
+    .testi-arrow:hover {
+      background: var(--charcoal-deep);
+      color: var(--off-white);
+      border-color: var(--charcoal-deep);
+    }
+
+    .testi-arrow:disabled {
+      opacity: 0.3;
+      cursor: default;
+    }
+
+    .testi-arrow:disabled:hover {
+      background: transparent;
+      color: var(--charcoal);
+      border-color: rgba(var(--charcoal-rgb), 0.20);
+    }
+
+    .testi-arrow svg {
+      width: 1.15rem;
+      height: 1.15rem;
+    }
 
 
     /* ════════════════════════════════════════
@@ -1831,8 +2027,6 @@
       margin-top: 3rem;
       align-items: start;
     }
-
-    .members-grid .member-card:first-child { grid-column: span 2; }
 
     .member-card {
       position: relative;
@@ -1925,7 +2119,7 @@
       padding: 10rem 0 7rem;
       background-image:
         linear-gradient(180deg, rgba(15, 13, 11, 0.20) 0%, rgba(15, 13, 11, 0.32) 50%, rgba(15, 13, 11, 0.82) 100%),
-        url('about_us.png');
+        url('About_Hero_Image (1).jpg');
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
@@ -1962,7 +2156,7 @@
       padding: 10rem 0 7rem;
       background-image:
         linear-gradient(180deg, rgba(15, 13, 11, 0.20) 0%, rgba(15, 13, 11, 0.32) 50%, rgba(15, 13, 11, 0.82) 100%),
-        url('about_us.png');
+        url('About_Hero_Image.jpg');
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
@@ -2547,7 +2741,9 @@
       .model-steps       { grid-template-columns: 1fr; }
       .model-layout      { grid-template-columns: 1fr; }
       .model-layout--figure-left .model-figure { order: 0; }
+      .model-layout--figure-left .model-figure-split { order: 0; }
       .model-figure      { min-height: 280px; }
+      .model-figure-split .model-figure { min-height: 240px; }
 
     }
 
@@ -2618,9 +2814,9 @@
         <div class="nav-divider" aria-hidden="true"></div>
 
         <ul class="nav-links">
-          <li><a href="#" onclick="showPage('home'); return false;">Home</a></li>
-          <li><a href="#" onclick="showPage('about'); return false;">About</a></li>
-          <li><a href="#" onclick="showPage('donate'); return false;">Give</a></li>
+          <li><a href="#" data-page="home" class="active" onclick="showPage('home'); return false;">Home</a></li>
+          <li><a href="#" data-page="about" onclick="showPage('about'); return false;">About</a></li>
+          <li><a href="#" data-page="donate" onclick="showPage('donate'); return false;">Give</a></li>
         </ul>
 
         <button class="nav-hamburger" aria-label="Open menu" onclick="toggleMobile()">
@@ -2637,9 +2833,9 @@
 
     <!-- Mobile dropdown -->
     <div class="mobile-menu" id="mobileMenu" role="menu">
-      <a href="#" onclick="showPage('home'); closeMobile(); return false;">Home</a>
-      <a href="#" onclick="showPage('about'); closeMobile(); return false;">About</a>
-      <a href="#" onclick="showPage('donate'); closeMobile(); return false;">Give</a>
+      <a href="#" data-page="home" class="active" onclick="showPage('home'); closeMobile(); return false;">Home</a>
+      <a href="#" data-page="about" onclick="showPage('about'); closeMobile(); return false;">About</a>
+      <a href="#" data-page="donate" onclick="showPage('donate'); closeMobile(); return false;">Give</a>
       <a href="mailto:david@twofoureight.org" onclick="closeMobile();">Start a Conversation</a>
     </div>
 
@@ -2655,7 +2851,7 @@
         <video
           id="hero-video"
           class="hero-bg"
-          src="hero-video.m4v"
+          src="TFE_Web_Hero_V3.mp4"
           muted
           loop
           playsinline
@@ -2672,7 +2868,7 @@
               </h1>
               <p class="hero-lead hero-reveal" style="transition-delay: 0.48s">
                 Two Four Eight develops the kind of leaders who multiply disciples,
-                form communities, and raise up the next generation, without
+                form faith communities, and raise up the next generation, without
                 depending on us to keep going.
               </p>
               <div class="hero-ctas hero-reveal" style="transition-delay: 0.62s">
@@ -2694,7 +2890,7 @@
       <!-- ─── Why Cities are The Frontier ─── -->
       <section class="s-light">
         <div class="container">
-          <h2 class="s-h2 reveal" style="text-align: center;">Why Cities are The Frontier.</h2>
+          <h2 class="s-h2 reveal" style="text-align: center;">Why Cities are the next Frontier</h2>
           <div class="video-wrap video-wrap--full video-wrap--player reveal">
             <video
               src="hero-video.m4v"
@@ -2732,11 +2928,11 @@
       </section>
 
       <!-- ─── Statement: Problem + Answer merged ─── -->
-      <section class="s-light statement">
+      <section class="s-sand statement">
         <div class="container">
           <h2 class="statement-h2 reveal">
-            Ministry models weren't built for cities.
-            <span class="statement-accent">The answer? Multiplication, not addition.</span>
+            The world's cities are outgrowing the strategies meant to reach them.
+            <span class="statement-accent">We need movements. Not just ministries.</span>
           </h2>
         </div>
       </section>
@@ -2746,7 +2942,7 @@
         <div class="container">
           <span class="eyebrow reveal">How it works</span>
           <h2 class="s-h2 reveal">South Africa: since 2018.</h2>
-          <p class="s-intro reveal">Seven years of proof that the model works. In 2019, we began investing in the first leaders in South African townships. Today the movement is self-led and multiplying on its own.</p>
+          <p class="s-intro reveal">Seven years and a model that works. In 2019, we began investing in the first leaders across South African townships. Today the movement is self-led and multiplying on its own.</p>
 
           <div class="video-wrap video-wrap--full video-wrap--player">
             <video
@@ -2786,7 +2982,7 @@
       </section>
 
       <!-- ─── Stat Band ─── -->
-      <section class="s-light" id="stat-band">
+      <section class="s-band s-band--slate" id="stat-band">
         <div class="container">
           <div class="stat-band-header">
             <span class="eyebrow reveal">The Bigger Picture</span>
@@ -2849,21 +3045,23 @@
       </div>
 
       <!-- ─── The Model ─── -->
-      <section class="s-slate">
+      <section class="s-sand">
         <div class="container">
           <span class="eyebrow reveal">The Model</span>
           <div class="model-layout">
 
             <div class="model-main">
-              <h2 class="s-h2 reveal">Every leader we invest in receives three things</h2>
-              <p class="s-intro reveal">We act as catalyst and coach. We ignite what could not start without us, then step back as local ownership grows.</p>
+              <h2 class="s-h2 reveal">Healthy Leaders Build Strong Movements</h2>
+              <p class="s-intro reveal">We don't move fast and hope for the best. We go deep, acting as catalyst and coach, igniting what couldn't start without us, then stepping back as local ownership takes root.</p>
+
+              <p class="model-lead-in reveal">Every leader we invest in receives three things:</p>
 
               <div class="model-list">
                 <div class="model-row reveal" style="transition-delay: 0.05s">
                   <span class="model-num">1.</span>
                   <div class="model-row-text">
                     <h3>A Movement Guide</h3>
-                    <p>An experienced practitioner who walks alongside the leader long-term, coaching through real challenges on the ground.</p>
+                    <p>An experienced practitioner who walks alongside the leader for the long haul, coaching through real challenges, on the ground, in real time.</p>
                   </div>
                 </div>
 
@@ -2871,22 +3069,27 @@
                   <span class="model-num">2.</span>
                   <div class="model-row-text">
                     <h3>A Growth Environment</h3>
-                    <p>Communities of practice: cohorts, cross-city learning, and exposure to other movement leaders that stretch vision and sharpen work.</p>
+                    <p>Cohorts, cross-city learning, and exposure to other movement leaders. The kind of community that stretches vision and sharpens the work over time.</p>
                   </div>
                 </div>
 
                 <div class="model-row reveal" style="transition-delay: 0.15s">
                   <span class="model-num">3.</span>
                   <div class="model-row-text">
-                    <h3>Developmental Content</h3>
-                    <p>A structured coaching pathway covering team health, mission clarity, outreach, and leader multiplication. Practical tools, not academic curriculum.</p>
+                    <h3>A Developmental Pathway</h3>
+                    <p>A structured coaching journey, not academic curriculum, but practical tools covering team health, mission clarity, outreach, and leader multiplication. Built for depth that scales.</p>
                   </div>
                 </div>
               </div>
             </div>
 
-            <div class="model-figure reveal">
-              <span>Image</span>
+            <div class="model-figure-split reveal">
+              <div class="model-figure">
+                <img src="GrowthEnvironment.jpg" alt="A growth environment for local leaders" loading="lazy">
+              </div>
+              <div class="model-figure">
+                <img src="Coaching.jpg" alt="Coaching leaders on the ground" loading="lazy">
+              </div>
             </div>
 
           </div>
@@ -2894,7 +3097,7 @@
       </section>
 
       <!-- ─── Five Signs Detail ─── -->
-      <section class="s-dark">
+      <section class="s-band s-band--slate">
         <div class="container">
           <span class="eyebrow reveal">What We Measure</span>
           <h2 class="s-h2 reveal">Five signs of life</h2>
@@ -2980,67 +3183,135 @@
         </div>
       </section>
 
+      <!-- ─── Testimonials (ported - neutral styling, brand restyle pending) ─── -->
+      <section id="testimonials" class="testi-section">
+        <div class="container">
+          <div class="testi-head reveal">
+            <span class="eyebrow">Testimonials</span>
+            <h2 class="s-h2">What others say</h2>
+            <p class="s-intro">See what movement leaders and partners say about working with Two Four Eight.</p>
+          </div>
+
+          <div class="testi-carousel" id="testi-carousel">
+            <div class="testi-track">
+              <article class="testi-card reveal" style="transition-delay: 0.05s">
+                <p class="testi-quote">"Two Four Eight excels at coaching teams through hands-on learning, real-life application, and problem-solving. Their learning communities help disciple-makers grow, no matter where they are on the journey."</p>
+                <div class="testi-person">
+                  <img class="testi-avatar" src="testi-1.jpg" alt="Sam" loading="lazy" onerror="this.style.display='none'">
+                  <div>
+                    <p class="testi-name">Sam</p>
+                    <p class="testi-role">Hungary</p>
+                  </div>
+                </div>
+              </article>
+
+              <article class="testi-card reveal" style="transition-delay: 0.10s">
+                <p class="testi-quote">"Over several years, Two Four Eight has encouraged me with honest coaching, practical tools, and a deep love for Jesus. They celebrate wins, share their own lessons, and stick with leaders through the hard times."</p>
+                <div class="testi-person">
+                  <img class="testi-avatar" src="testi-2.jpg" alt="Ryan" loading="lazy" onerror="this.style.display='none'">
+                  <div>
+                    <p class="testi-name">Ryan</p>
+                    <p class="testi-role">Scotland</p>
+                  </div>
+                </div>
+              </article>
+
+              <article class="testi-card reveal" style="transition-delay: 0.15s">
+                <p class="testi-quote">"Two Four Eight provides excellent content and builds simple processes that build real community. Their resources create capacity for continuous learning. We value their humility and focus on authentic relationships."</p>
+                <div class="testi-person">
+                  <img class="testi-avatar" src="testi-3.jpg" alt="Scott" loading="lazy" onerror="this.style.display='none'">
+                  <div>
+                    <p class="testi-name">Scott</p>
+                    <p class="testi-role">Asia</p>
+                  </div>
+                </div>
+              </article>
+
+              <article class="testi-card reveal" style="transition-delay: 0.20s">
+                <p class="testi-quote">"We work in South Africa's townships, vibrant yet violent, full of character yet challenging. Two Four Eight have been faithful friends and partners, always there when needed. Together, we're learning daily how to introduce Jesus more effectively to our people."</p>
+                <div class="testi-person">
+                  <img class="testi-avatar" src="testi-4.jpg" alt="Loyiso" loading="lazy" onerror="this.style.display='none'">
+                  <div>
+                    <p class="testi-name">Loyiso</p>
+                    <p class="testi-role">South Africa</p>
+                  </div>
+                </div>
+              </article>
+            </div>
+          </div>
+
+          <div class="testi-controls">
+            <button class="testi-arrow" id="testi-prev" type="button" aria-label="Previous testimonials">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+            </button>
+            <button class="testi-arrow" id="testi-next" type="button" aria-label="Next testimonials">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
+            </button>
+          </div>
+        </div>
+      </section>
+
       <!-- ─── Team ─── -->
-      <section class="s-slate">
+      <section class="s-sand">
         <div class="container">
           <span class="eyebrow reveal">Our Team</span>
-          <h2 class="s-h2 reveal">A core team of 7. Supported by 28 Movement Guides worldwide.</h2>
-          <p class="s-intro reveal">We keep overhead low and coaching capacity high. Every person on this team is here because they've done the work on the ground.</p>
+          <h2 class="s-h2 reveal">A core co-ordination team of 7.<br>A band of 28 Movement Guides.<br>Supporting movement leaders in cities worldwide.</h2>
+          <p class="s-intro reveal">We keep overhead low and coaching capacity high. Our core co-ordinating team supports Movement Guides and Leaders worldwide.</p>
           <div class="members-grid">
             <div class="member-card reveal" style="transition-delay: 0.04s">
               <img class="member-photo" src="headshot.jpg" alt="David Broodryk" loading="lazy" onerror="this.style.display='none'">
               <div class="member-info">
                 <h3>David Broodryk</h3>
-                <span class="member-role">Executive Chairman</span>
-                <p>International movement strategist. Has trained leaders across Africa, Europe, the Americas, Asia, and Australasia. Based in Durban, South Africa.</p>
+                <span class="member-role">Visionary Leader</span>
               </div>
             </div>
             <div class="member-card reveal" style="transition-delay: 0.08s">
-              <img class="member-photo" src="team-2.jpg" alt="Michelle Broodryk" loading="lazy" onerror="this.style.display='none'">
+              <img class="member-photo" src="Marko.jpg" alt="Marko Pretorius" loading="lazy" onerror="this.style.display='none'">
               <div class="member-info">
-                <h3>Michelle Broodryk</h3>
-                <span class="member-role">Co-Founder</span>
-                <p>Co-leads hospitality and leader development from Durban. Founded Umfundi Education to address the education crisis in South Africa.</p>
+                <h3>Marko Pretorius</h3>
+                <span class="member-role">Leadership Whisperer</span>
               </div>
             </div>
             <div class="member-card reveal" style="transition-delay: 0.12s">
-              <img class="member-photo" src="team-3.jpg" alt="Regional Coach, Africa" loading="lazy" onerror="this.style.display='none'">
+              <img class="member-photo" src="Michelle.jpg" alt="Michelle Broodryk" loading="lazy" onerror="this.style.display='none'">
               <div class="member-info">
-                <h3>Regional Coach</h3>
-                <span class="member-role">Africa</span>
-                <p>Coaches city leaders across Sub-Saharan Africa. Oversees the South Africa proof of concept and expansion into two additional countries.</p>
+                <h3>Michelle Broodryk</h3>
+                <span class="member-role">Minister of Home Affairs</span>
               </div>
             </div>
             <div class="member-card reveal" style="transition-delay: 0.16s">
-              <img class="member-photo" src="team-4.jpg" alt="Regional Coach, Europe" loading="lazy" onerror="this.style.display='none'">
+              <img class="member-photo" src="Michael.jpg" alt="Michael Sherwin" loading="lazy" onerror="this.style.display='none'">
               <div class="member-info">
-                <h3>Regional Coach</h3>
-                <span class="member-role">Europe</span>
-                <p>Supports movement leaders across European cities including the Turku multiplication work in Finland.</p>
+                <h3>Michael Sherwin</h3>
+                <span class="member-role">Intergation Maestro</span>
               </div>
             </div>
             <div class="member-card reveal" style="transition-delay: 0.20s">
-              <img class="member-photo" src="team-5.jpg" alt="Regional Coach, Asia" loading="lazy" onerror="this.style.display='none'">
+              <img class="member-photo" src="Ghibeau.jpg" alt="Ghibeau Gerber" loading="lazy" onerror="this.style.display='none'">
               <div class="member-info">
-                <h3>Regional Coach</h3>
-                <span class="member-role">Asia</span>
-                <p>Coaches leaders across South and Southeast Asia, including the Singapore venture-stage opportunity.</p>
+                <h3>Ghibeau Gerber</h3>
+                <span class="member-role">Construction Craftsman</span>
               </div>
             </div>
             <div class="member-card reveal" style="transition-delay: 0.24s">
-              <img class="member-photo" src="team-6.jpg" alt="Operations &amp; Research" loading="lazy" onerror="this.style.display='none'">
+              <img class="member-photo" src="Soraja.jpg" alt="Soraja van Greunen" loading="lazy" onerror="this.style.display='none'">
               <div class="member-info">
-                <h3>Operations &amp; Research</h3>
-                <span class="member-role">Operations</span>
-                <p>Manages evaluation systems, adaptive cycle reporting, and donor communications across the portfolio.</p>
+                <h3>Soraja van Greunen</h3>
+                <span class="member-role">Logistics Connosoir</span>
               </div>
             </div>
             <div class="member-card reveal" style="transition-delay: 0.28s">
-              <img class="member-photo" src="team-7.jpg" alt="Movement Guide Lead" loading="lazy" onerror="this.style.display='none'">
+              <img class="member-photo" src="Loyiso.jpg" alt="Loyiso Mato" loading="lazy" onerror="this.style.display='none'">
               <div class="member-info">
-                <h3>Movement Guide Lead</h3>
-                <span class="member-role">Network</span>
-                <p>Coordinates and trains the network of 28 Movement Guides working across 78 cities globally.</p>
+                <h3>Loyiso Mato</h3>
+                <span class="member-role">KASI Pioneer</span>
+              </div>
+            </div>
+            <div class="member-card reveal" style="transition-delay: 0.32s">
+              <img class="member-photo" src="Phumeza.jpg" alt="Phumeza Mato" loading="lazy" onerror="this.style.display='none'">
+              <div class="member-info">
+                <h3>Phumeza Mato</h3>
+                <span class="member-role">KASI Assistant</span>
               </div>
             </div>
           </div>
@@ -3116,8 +3387,13 @@
               </div>
             </div>
 
-            <div class="model-figure reveal">
-              <span>Image</span>
+            <div class="model-figure-split reveal">
+              <div class="model-figure">
+                <img src="Why Invest 1.png" alt="Why invest in Two Four Eight" loading="lazy">
+              </div>
+              <div class="model-figure">
+                <img src="Why Invest 2.jpg" alt="Why invest in Two Four Eight" loading="lazy">
+              </div>
             </div>
 
           </div>
@@ -3125,7 +3401,7 @@
       </section>
 
       <!-- ─── Investment Tiers ─── -->
-      <section class="s-warm">
+      <section class="s-sand">
         <div class="container">
           <span class="eyebrow reveal">Investment Options</span>
           <h2 class="s-h2 reveal">What your giving strengthens</h2>
@@ -3133,11 +3409,11 @@
             <div class="invest-card reveal" style="transition-delay: 0.05s">
               <span class="invest-amount">$5,000</span>
               <span class="invest-period">per month</span>
-              <p class="invest-desc">Funds one Movement Guide coaching 2–3 city leaders across a region.</p>
+              <p class="invest-desc">Funds the development of 8-15 Movement Leaders across a region.</p>
             </div>
             <div class="invest-card featured reveal" style="transition-delay: 0.10s">
               <span class="invest-amount">$25,000</span>
-              <span class="invest-period">per year</span>
+              <span class="invest-period">start-up</span>
               <p class="invest-desc">Funds the full coaching infrastructure for one early-stage city.</p>
             </div>
             <div class="invest-card reveal" style="transition-delay: 0.15s">
@@ -3150,39 +3426,55 @@
       </section>
 
       <!-- ─── Live Opportunities ─── -->
-      <section class="s-dark">
+      <section class="s-band s-band--sienna">
         <div class="container">
           <span class="eyebrow reveal">Live Opportunities</span>
-          <h2 class="s-h2 reveal">Where your investment goes right now</h2>
-          <p class="s-intro reveal">We are currently investing in leaders at different points of this journey. Different cities at different thresholds.</p>
+          <h2 class="s-h2 reveal">Opportunities to join us</h2>
+          <p class="s-intro reveal">We are currently investing in leaders at different points of the movement journey. Different cities at different thresholds.</p>
           <div class="lo-pills reveal" role="tablist" aria-label="Regions">
             <button class="lo-pill active" type="button" data-index="0" role="tab" aria-selected="true">Africa</button>
             <button class="lo-pill" type="button" data-index="1" role="tab" aria-selected="false">Europe</button>
             <button class="lo-pill" type="button" data-index="2" role="tab" aria-selected="false">Asia</button>
+            <button class="lo-pill" type="button" data-index="3" role="tab" aria-selected="false">Townships</button>
+            <button class="lo-pill" type="button" data-index="4" role="tab" aria-selected="false">Australasia</button>
           </div>
         </div>
 
         <div class="lo-carousel" id="lo-carousel">
           <div class="lo-track" id="lo-track">
             <article class="lo-card active" data-index="0">
-              <img class="lo-card-img" src="africa.jpg" alt="Africa" loading="lazy">
+              <img class="lo-card-img" src="Africa (1).jpg" alt="Africa" loading="lazy">
               <div class="lo-card-overlay">
-                <h3>Rooted</h3>
-                <p>A leader identified, a core team forming. Ready to be strengthened with a Movement Guide.</p>
+                <h3>Africa</h3>
+                <p>Teams with a strong 20-year track record, now focused on the fastest urbanizing region in the world.</p>
               </div>
             </article>
             <article class="lo-card" data-index="1">
-              <img class="lo-card-img" src="europe.jpg" alt="Europe" loading="lazy">
+              <img class="lo-card-img" src="Europe.png" alt="Europe" loading="lazy">
               <div class="lo-card-overlay">
-                <h3>Multiplying</h3>
-                <p>A multiplying movement at a critical threshold, needing coaching infrastructure to sustain momentum.</p>
+                <h3>Europe</h3>
+                <p>Teams working across central and western Europe, young and vibrant, effectively turning the tide in a post-modern cultural moment.</p>
               </div>
             </article>
             <article class="lo-card" data-index="2">
-              <img class="lo-card-img" src="asia.jpg" alt="Asia" loading="lazy">
+              <img class="lo-card-img" src="Asia (1).jpg" alt="Asia" loading="lazy">
               <div class="lo-card-overlay">
-                <h3>Replicating</h3>
-                <p>A venture-stage opportunity with local leaders ready to launch a new organisation and hub.</p>
+                <h3>Asia</h3>
+                <p>Teams planted solidly within the 10-40 window, reaching some of the least evangelized cities on earth.</p>
+              </div>
+            </article>
+            <article class="lo-card" data-index="3">
+              <img class="lo-card-img" src="Townships.png" alt="Townships" loading="lazy">
+              <div class="lo-card-overlay">
+                <h3>Townships</h3>
+                <p>Teams multiplying in South African townships, where urban slums represent the fastest growing segment of cities worldwide.</p>
+              </div>
+            </article>
+            <article class="lo-card" data-index="4">
+              <img class="lo-card-img" src="Australia.png" alt="Australasia" loading="lazy">
+              <div class="lo-card-overlay">
+                <h3>Australasia</h3>
+                <p>Teams emerging in one of the most remote and underreached corners of the globe.</p>
               </div>
             </article>
           </div>
@@ -3499,6 +3791,9 @@
       document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
       const page = document.getElementById('page-' + name);
       page.classList.add('active');
+      // Highlight the current page in the nav (desktop + mobile)
+      document.querySelectorAll('[data-page]').forEach(l =>
+        l.classList.toggle('active', l.dataset.page === name));
       window.scrollTo({ top: 0, behavior: 'smooth' });
       // Observe reveals in newly shown page
       observeReveals(page);
@@ -4101,6 +4396,74 @@
       } else {
         window.addEventListener('resize', () => centerEl(realEl(current), false), { passive: true });
       }
+    })();
+
+    // ── Testimonials - arrow-driven endless (looping) carousel ──
+    (function () {
+      const carousel = document.getElementById('testi-carousel');
+      if (!carousel) return;
+      const track = carousel.querySelector('.testi-track');
+      const prev  = document.getElementById('testi-prev');
+      const next  = document.getElementById('testi-next');
+      if (!track || !prev || !next) return;
+
+      const reals = Array.from(track.children);
+      const n = reals.length;
+      if (n < 2) return;
+
+      // Clone a full set of cards on each side. When the scroll lands on a
+      // cloned set we jump instantly to the identical real set, so the strip
+      // loops forever with no visible seam (same idea as Live Opportunities).
+      function makeClones(list) {
+        return list.map(card => {
+          const c = card.cloneNode(true);
+          c.classList.add('testi-clone');
+          c.classList.remove('reveal');            // clones are always visible
+          c.setAttribute('aria-hidden', 'true');
+          return c;
+        });
+      }
+      makeClones(reals).forEach(c => track.insertBefore(c, reals[0]));
+      makeClones(reals).forEach(c => track.appendChild(c));
+
+      // Width of one full set (first clone → first real card)
+      function setWidth() { return reals[0].offsetLeft - track.firstElementChild.offsetLeft; }
+
+      // One card + gap, per arrow click
+      function step() {
+        const gap = parseFloat(getComputedStyle(track).columnGap) || 0;
+        return reals[0].getBoundingClientRect().width + gap;
+      }
+
+      // After the scroll settles, snap the position back into the middle set
+      function recenter() {
+        const w = setWidth();
+        if (!w) return;
+        if (carousel.scrollLeft < w - 2)          carousel.scrollLeft += w;
+        else if (carousel.scrollLeft > w * 2 - 2) carousel.scrollLeft -= w;
+      }
+
+      function goStart() { carousel.scrollLeft = setWidth(); }
+
+      prev.addEventListener('click', () => carousel.scrollBy({ left: -step(), behavior: 'smooth' }));
+      next.addEventListener('click', () => carousel.scrollBy({ left:  step(), behavior: 'smooth' }));
+
+      let settle;
+      carousel.addEventListener('scroll', () => {
+        clearTimeout(settle);
+        settle = setTimeout(recenter, 120);
+      }, { passive: true });
+
+      // The About page starts hidden (SPA), so measure/position once it has width
+      if (window.ResizeObserver) {
+        let wasVisible = false;
+        new ResizeObserver(() => {
+          const visible = carousel.clientWidth > 0;
+          if (visible && !wasVisible) goStart();
+          wasVisible = visible;
+        }).observe(carousel);
+      }
+      goStart();
     })();
 
     // ── Loader → hero reveal ──
