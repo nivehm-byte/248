@@ -1140,20 +1140,22 @@
 
     /* ════════════════════════════════════════
        WHAT WE MEASURE - signs cards (about page)
-       Image on top + dropdown button + hidden
-       text container revealed on click.
+       Image on top + static label plate + always
+       visible text container. All rows share one
+       height via grid-auto-rows.
     ════════════════════════════════════════ */
     .measure-grid {
       display: grid;
       grid-template-columns: repeat(5, 1fr);
+      grid-auto-rows: 1fr;
       gap: 1.25rem;
       margin-top: 3rem;
-      align-items: start;
     }
 
     .measure-card {
       display: flex;
       flex-direction: column;
+      height: 100%;
       background: var(--white);
       border: 1px solid rgba(var(--charcoal-rgb), 0.10);
       border-radius: 16px;
@@ -1182,61 +1184,28 @@
       object-fit: cover;
     }
 
-    /* ── Dropdown button (sits over the bottom third of the image) ── */
-    .measure-toggle {
+    /* ── Label plate (sits over the bottom third of the image) ── */
+    .measure-heading {
       position: absolute;
       left: 0.7rem;
       right: 0.7rem;
       bottom: 0.7rem;
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
+      margin: 0;
       padding: 0.62rem 0.8rem;
-      font-family: inherit;
-      text-align: left;
-      color: var(--off-white);
-      background: var(--slate);
-      border: none;
-      border-radius: 12px;
-      cursor: pointer;
-      box-shadow: 0 6px 18px rgba(var(--charcoal-rgb), 0.28);
-      transition: background 0.25s var(--ease-out);
-    }
-
-    .measure-toggle:hover { background: var(--charcoal); }
-
-    .measure-toggle:focus-visible {
-      outline: 2px solid var(--off-white);
-      outline-offset: 2px;
-    }
-
-    .measure-label {
-      flex: 1;
       font-size: 1.02rem;
       font-weight: 500;
       letter-spacing: -0.01em;
       line-height: 1.1;
+      color: var(--off-white);
+      background: var(--slate);
+      border-radius: 12px;
+      box-shadow: 0 6px 18px rgba(var(--charcoal-rgb), 0.28);
     }
 
-    .measure-chevron {
-      flex-shrink: 0;
-      width: 18px;
-      height: 18px;
-      transition: transform 0.4s var(--ease-out);
-    }
-
-    .measure-card.open .measure-chevron { transform: rotate(180deg); }
-
-    /* ── Hidden text container below the image (grid-rows reveal) ── */
+    /* ── Text container below the image (fills remaining card height) ── */
     .measure-body {
-      display: grid;
-      grid-template-rows: 0fr;
-      transition: grid-template-rows 0.45s var(--ease-out);
+      flex: 1;
     }
-
-    .measure-card.open .measure-body { grid-template-rows: 1fr; }
-
-    .measure-body-inner { overflow: hidden; }
 
     .measure-body p {
       margin: 0;
@@ -1398,7 +1367,7 @@
 
     .stat-grid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(3, 1fr);
       gap: 0;
       text-align: center;
     }
@@ -1409,6 +1378,15 @@
 
     .stat-item + .stat-item {
       border-left: 1px solid rgba(var(--charcoal-rgb), 0.14);
+    }
+
+    /* ── Fourth stat sits alone on row two, spanning the full width ── */
+    .stat-item:nth-child(4) {
+      grid-column: 1 / -1;
+      border-left: none;
+      border-top: 1px solid rgba(var(--charcoal-rgb), 0.14);
+      padding-top: 2rem;
+      margin-top: 1rem;
     }
 
     .stat-number {
@@ -2087,6 +2065,9 @@
       letter-spacing: 0.08em;
       text-transform: uppercase;
       color: rgba(255, 255, 255, 0.72);
+      /* Reserve two lines so a wrapping role never lifts the name above it */
+      line-height: 1.5;
+      min-height: 3em;
       margin-bottom: 0.7rem;
     }
 
@@ -2156,7 +2137,7 @@
       padding: 10rem 0 7rem;
       background-image:
         linear-gradient(180deg, rgba(15, 13, 11, 0.20) 0%, rgba(15, 13, 11, 0.32) 50%, rgba(15, 13, 11, 0.82) 100%),
-        url('About_Hero_Image.jpg');
+        url('Give_Page_Hero.jpeg');
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
@@ -2229,7 +2210,7 @@
       letter-spacing: -0.025em;
       color: var(--charcoal);
       line-height: 1;
-      margin-bottom: 0.25rem;
+      margin-bottom: 1.1rem;
     }
 
     .invest-period {
@@ -2735,7 +2716,7 @@
       .stat-item:nth-child(2)          { border-left: 1px solid rgba(var(--charcoal-rgb),0.14); }
       .stat-item:nth-child(3),
       .stat-item:nth-child(4)          { border-top: 1px solid rgba(var(--charcoal-rgb),0.12); padding-top: 2rem; margin-top: 1rem; }
-      .stat-item:nth-child(4)          { border-left: 1px solid rgba(var(--charcoal-rgb),0.12); }
+      .stat-item:nth-child(4)          { grid-column: auto; border-left: 1px solid rgba(var(--charcoal-rgb),0.12); }
       .members-grid      { grid-template-columns: repeat(2, 1fr); }
       .model-grid        { grid-template-columns: repeat(2, 1fr); }
       .model-steps       { grid-template-columns: 1fr; }
@@ -2931,7 +2912,7 @@
       <section class="s-sand statement">
         <div class="container">
           <h2 class="statement-h2 reveal">
-            The world's cities are outgrowing the strategies meant to reach them.
+            The world's cities are growing faster than our strategies to reach them.
             <span class="statement-accent">We need movements. Not just ministries.</span>
           </h2>
         </div>
@@ -2986,25 +2967,25 @@
         <div class="container">
           <div class="stat-band-header">
             <span class="eyebrow reveal">The Bigger Picture</span>
-            <h2 class="s-h2 reveal">75 cities. One model. <br>Led by locals, not by us.</h2>
-            <p class="stat-band-body reveal">These numbers represent leaders, not programs: locally-owned movements built to outlast our involvement.</p>
+            <h2 class="s-h2 reveal">Multiple cities. One model. <br>Led by locals.</h2>
+            <p class="stat-band-body reveal">These numbers represent leaders, not programs. <br>Locally-owned movements built to outlast our involvement.</p>
           </div>
           <div class="stat-grid">
             <div class="stat-item reveal" style="transition-delay: 0.05s">
-              <span class="stat-number" data-target="75">0</span>
-              <span class="stat-label">Cities Engaged</span>
+              <span class="stat-number" data-target="28">0</span>
+              <span class="stat-label">Active movement guides</span>
             </div>
             <div class="stat-item reveal" style="transition-delay: 0.10s">
-              <span class="stat-number" data-target="20">0</span>
-              <span class="stat-label">Rooted Leaders</span>
+              <span class="stat-number" data-target="130">0</span>
+              <span class="stat-label">Active movement leaders</span>
             </div>
             <div class="stat-item reveal" style="transition-delay: 0.15s">
-              <span class="stat-number" data-target="45000">0</span>
-              <span class="stat-label">Communities Since 2010</span>
+              <span class="stat-number" data-target="75">0</span>
+              <span class="stat-label">Cities actively engaged</span>
             </div>
             <div class="stat-item reveal" style="transition-delay: 0.20s">
-              <span class="stat-number" data-target="2000">0</span>
-              <span class="stat-label">Active Communities</span>
+              <span class="stat-number" data-target="45000">0</span>
+              <span class="stat-label">Faith communities started since 2010 <br>Most by disciple-makers several generations beyond the leaders we train.</span>
             </div>
           </div>
         </div>
@@ -3052,16 +3033,16 @@
 
             <div class="model-main">
               <h2 class="s-h2 reveal">Healthy Leaders Build Strong Movements</h2>
-              <p class="s-intro reveal">We don't move fast and hope for the best. We go deep, acting as catalyst and coach, igniting what couldn't start without us, then stepping back as local ownership takes root.</p>
+              <p class="s-intro reveal">We don't move fast and hope for the best. We go deep, acting as catalyst and coach, igniting what couldn't start without us - then guiding it to maturity.</p>
 
-              <p class="model-lead-in reveal">Every leader we invest in receives three things:</p>
+              <p class="model-lead-in reveal">Every potential movement leader gets:</p>
 
               <div class="model-list">
                 <div class="model-row reveal" style="transition-delay: 0.05s">
                   <span class="model-num">1.</span>
                   <div class="model-row-text">
                     <h3>A Movement Guide</h3>
-                    <p>An experienced practitioner who walks alongside the leader for the long haul, coaching through real challenges, on the ground, in real time.</p>
+                    <p>An experienced practitioner who walks alongside them for the long haul - coaching through real challenges, on the ground, as they happen.</p>
                   </div>
                 </div>
 
@@ -3069,7 +3050,7 @@
                   <span class="model-num">2.</span>
                   <div class="model-row-text">
                     <h3>A Growth Environment</h3>
-                    <p>Cohorts, cross-city learning, and exposure to other movement leaders. The kind of community that stretches vision and sharpens the work over time.</p>
+                    <p>Cohorts, cross-city learning, and peers doing the same work. Community that stretches vision and sharpens practice over time.</p>
                   </div>
                 </div>
 
@@ -3077,7 +3058,7 @@
                   <span class="model-num">3.</span>
                   <div class="model-row-text">
                     <h3>A Developmental Pathway</h3>
-                    <p>A structured coaching journey, not academic curriculum, but practical tools covering team health, mission clarity, outreach, and leader multiplication. Built for depth that scales.</p>
+                    <p>Structured coaching, not academic curriculum. Practical tools for team health, mission clarity, outreach, and leader multiplication. Built for depth that scales.</p>
                   </div>
                 </div>
               </div>
@@ -3085,7 +3066,7 @@
 
             <div class="model-figure-split reveal">
               <div class="model-figure">
-                <img src="GrowthEnvironment.jpg" alt="A growth environment for local leaders" loading="lazy">
+                <img src="Baptism.jpeg" alt="A new believer being baptised" loading="lazy">
               </div>
               <div class="model-figure">
                 <img src="Coaching.jpg" alt="Coaching leaders on the ground" loading="lazy">
@@ -3101,81 +3082,56 @@
         <div class="container">
           <span class="eyebrow reveal">What We Measure</span>
           <h2 class="s-h2 reveal">Five signs of life</h2>
-          <p class="s-intro reveal">We track five signs that tell us whether a leader, team, and movement are alive, healthy, and built to outlast us.</p>
+          <p class="s-intro reveal">We track five signs that tell us whether a leader, team, and movement are alive, healthy, and built for lasting impact.</p>
           <div class="measure-grid">
 
             <article class="measure-card reveal" style="transition-delay: 0.05s">
               <div class="measure-media">
                 <img src="Roots.png" alt="Rooted" loading="lazy" onerror="this.style.display='none'">
-                <button class="measure-toggle" type="button" aria-expanded="false" aria-controls="measure-body-1">
-                  <span class="measure-label">Rooted</span>
-                  <svg class="measure-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
-                </button>
+                <h3 class="measure-heading">Rooted</h3>
               </div>
-              <div class="measure-body" id="measure-body-1" role="region" aria-label="Rooted">
-                <div class="measure-body-inner">
-                  <p>A local leader with deep roots and a vision for their city.</p>
-                </div>
+              <div class="measure-body">
+                <p>A local leader with deep roots and a vision for their city.</p>
               </div>
             </article>
 
             <article class="measure-card reveal" style="transition-delay: 0.10s">
               <div class="measure-media">
                 <img src="Multiplication.jpg" alt="Multiplying" loading="lazy" onerror="this.style.display='none'">
-                <button class="measure-toggle" type="button" aria-expanded="false" aria-controls="measure-body-2">
-                  <span class="measure-label">Multiplying</span>
-                  <svg class="measure-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
-                </button>
+                <h3 class="measure-heading">Multiplying</h3>
               </div>
-              <div class="measure-body" id="measure-body-2" role="region" aria-label="Multiplying">
-                <div class="measure-body-inner">
-                  <p>Disciples make disciples through their own networks.</p>
-                </div>
+              <div class="measure-body">
+                <p>Disciples make disciples through their own networks.</p>
               </div>
             </article>
 
             <article class="measure-card reveal" style="transition-delay: 0.15s">
               <div class="measure-media">
                 <img src="Transforming.jpg" alt="Transforming" loading="lazy" onerror="this.style.display='none'">
-                <button class="measure-toggle" type="button" aria-expanded="false" aria-controls="measure-body-3">
-                  <span class="measure-label">Transforming</span>
-                  <svg class="measure-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
-                </button>
+                <h3 class="measure-heading">Transforming</h3>
               </div>
-              <div class="measure-body" id="measure-body-3" role="region" aria-label="Transforming">
-                <div class="measure-body-inner">
-                  <p>Lives change. Communities begin to heal.</p>
-                </div>
+              <div class="measure-body">
+                <p>Lives change. Communities begin to heal.</p>
               </div>
             </article>
 
             <article class="measure-card reveal" style="transition-delay: 0.20s">
               <div class="measure-media">
                 <img src="Gathering.jpg" alt="Gathering" loading="lazy" onerror="this.style.display='none'">
-                <button class="measure-toggle" type="button" aria-expanded="false" aria-controls="measure-body-4">
-                  <span class="measure-label">Gathering</span>
-                  <svg class="measure-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
-                </button>
+                <h3 class="measure-heading">Gathering</h3>
               </div>
-              <div class="measure-body" id="measure-body-4" role="region" aria-label="Gathering">
-                <div class="measure-body-inner">
-                  <p>Simple faith communities form in homes and workplaces.</p>
-                </div>
+              <div class="measure-body">
+                <p>Simple faith communities form in homes and workplaces.</p>
               </div>
             </article>
 
             <article class="measure-card reveal" style="transition-delay: 0.25s">
               <div class="measure-media">
                 <img src="Replicating.png" alt="Replicating" loading="lazy" onerror="this.style.display='none'">
-                <button class="measure-toggle" type="button" aria-expanded="false" aria-controls="measure-body-5">
-                  <span class="measure-label">Replicating</span>
-                  <svg class="measure-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
-                </button>
+                <h3 class="measure-heading">Replicating</h3>
               </div>
-              <div class="measure-body" id="measure-body-5" role="region" aria-label="Replicating">
-                <div class="measure-body-inner">
-                  <p>Leaders develop the next generation beyond their own city.</p>
-                </div>
+              <div class="measure-body">
+                <p>Leaders develop the next generation beyond their own city.</p>
               </div>
             </article>
 
@@ -3255,8 +3211,8 @@
       <section class="s-sand">
         <div class="container">
           <span class="eyebrow reveal">Our Team</span>
-          <h2 class="s-h2 reveal">A core co-ordination team of 7.<br>A band of 28 Movement Guides.<br>Supporting movement leaders in cities worldwide.</h2>
-          <p class="s-intro reveal">We keep overhead low and coaching capacity high. Our core co-ordinating team supports Movement Guides and Leaders worldwide.</p>
+          <h2 class="s-h2 reveal">Our co-ordination team of 18 serves a tribe of 28 Movement Guides, 12 Township trainers and two incubation projects. Together, we serve movement leaders in cities worldwide.</h2>
+          <p class="s-intro reveal">We keep overhead low and coaching capacity high. The co-ordinating team builds the tools and supports the work being done by thousands of volunteers worldwide.</p>
           <div class="members-grid">
             <div class="member-card reveal" style="transition-delay: 0.04s">
               <img class="member-photo" src="headshot.jpg" alt="David Broodryk" loading="lazy" onerror="this.style.display='none'">
@@ -3269,49 +3225,119 @@
               <img class="member-photo" src="Marko.jpg" alt="Marko Pretorius" loading="lazy" onerror="this.style.display='none'">
               <div class="member-info">
                 <h3>Marko Pretorius</h3>
-                <span class="member-role">Leadership Whisperer</span>
+                <span class="member-role">City Catalysts Leadership Whisperer</span>
               </div>
             </div>
             <div class="member-card reveal" style="transition-delay: 0.12s">
-              <img class="member-photo" src="Michelle.jpg" alt="Michelle Broodryk" loading="lazy" onerror="this.style.display='none'">
-              <div class="member-info">
-                <h3>Michelle Broodryk</h3>
-                <span class="member-role">Minister of Home Affairs</span>
-              </div>
-            </div>
-            <div class="member-card reveal" style="transition-delay: 0.16s">
               <img class="member-photo" src="Michael.jpg" alt="Michael Sherwin" loading="lazy" onerror="this.style.display='none'">
               <div class="member-info">
                 <h3>Michael Sherwin</h3>
-                <span class="member-role">Intergation Maestro</span>
+                <span class="member-role">Integration Maestro</span>
               </div>
             </div>
-            <div class="member-card reveal" style="transition-delay: 0.20s">
+            <div class="member-card reveal" style="transition-delay: 0.16s">
               <img class="member-photo" src="Ghibeau.jpg" alt="Ghibeau Gerber" loading="lazy" onerror="this.style.display='none'">
               <div class="member-info">
                 <h3>Ghibeau Gerber</h3>
-                <span class="member-role">Construction Craftsman</span>
+                <span class="member-role">Operations Manager</span>
               </div>
             </div>
-            <div class="member-card reveal" style="transition-delay: 0.24s">
-              <img class="member-photo" src="Soraja.jpg" alt="Soraja van Greunen" loading="lazy" onerror="this.style.display='none'">
-              <div class="member-info">
-                <h3>Soraja van Greunen</h3>
-                <span class="member-role">Logistics Connosoir</span>
-              </div>
-            </div>
-            <div class="member-card reveal" style="transition-delay: 0.28s">
+            <div class="member-card reveal" style="transition-delay: 0.20s">
               <img class="member-photo" src="Loyiso.jpg" alt="Loyiso Mato" loading="lazy" onerror="this.style.display='none'">
               <div class="member-info">
                 <h3>Loyiso Mato</h3>
                 <span class="member-role">KASI Pioneer</span>
               </div>
             </div>
+            <div class="member-card reveal" style="transition-delay: 0.24s">
+              <img class="member-photo" src="Soraja.jpg" alt="Soraja van Greunen" loading="lazy" onerror="this.style.display='none'">
+              <div class="member-info">
+                <h3>Soraja van Greunen</h3>
+                <span class="member-role">Logistics Connoisseur</span>
+              </div>
+            </div>
+            <div class="member-card reveal" style="transition-delay: 0.28s">
+              <img class="member-photo" src="Michelle.jpg" alt="Michelle Broodryk" loading="lazy" onerror="this.style.display='none'">
+              <div class="member-info">
+                <h3>Michelle Broodryk</h3>
+                <span class="member-role">Co-ordination and Umfundi Visionary</span>
+              </div>
+            </div>
             <div class="member-card reveal" style="transition-delay: 0.32s">
               <img class="member-photo" src="Phumeza.jpg" alt="Phumeza Mato" loading="lazy" onerror="this.style.display='none'">
               <div class="member-info">
                 <h3>Phumeza Mato</h3>
-                <span class="member-role">KASI Assistant</span>
+                <span class="member-role">Co-ordination and Story Telling</span>
+              </div>
+            </div>
+            <div class="member-card reveal" style="transition-delay: 0.36s">
+              <img class="member-photo" src="Dumisani.jpg" alt="Dumisani Mkwanazi" loading="lazy" onerror="this.style.display='none'">
+              <div class="member-info">
+                <h3>Dumisani Mkwanazi</h3>
+                <span class="member-role">Zululand Co-ordinator</span>
+              </div>
+            </div>
+            <div class="member-card reveal" style="transition-delay: 0.40s">
+              <img class="member-photo" src="Khanya.jpg" alt="Khanya" loading="lazy" onerror="this.style.display='none'">
+              <div class="member-info">
+                <h3>Khanya</h3>
+                <span class="member-role">Umfundi Education</span>
+              </div>
+            </div>
+            <div class="member-card reveal" style="transition-delay: 0.44s">
+              <img class="member-photo" src="Innocent.jpg" alt="Innocent" loading="lazy" onerror="this.style.display='none'">
+              <div class="member-info">
+                <h3>Innocent</h3>
+                <span class="member-role">KASI Trainer</span>
+              </div>
+            </div>
+            <div class="member-card reveal" style="transition-delay: 0.48s">
+              <img class="member-photo" src="Brad.jpg" alt="Brad Sprague" loading="lazy" onerror="this.style.display='none'">
+              <div class="member-info">
+                <h3>Brad Sprague</h3>
+                <span class="member-role">Relationship Manager</span>
+              </div>
+            </div>
+            <div class="member-card reveal" style="transition-delay: 0.52s">
+              <img class="member-photo" src="Lourens.jpg" alt="Lourens de Klerk" loading="lazy" onerror="this.style.display='none'">
+              <div class="member-info">
+                <h3>Lourens de Klerk</h3>
+                <span class="member-role">Board Member</span>
+              </div>
+            </div>
+            <div class="member-card reveal" style="transition-delay: 0.56s">
+              <img class="member-photo" src="Tebogo.jpg" alt="Tebogo Ramatsui" loading="lazy" onerror="this.style.display='none'">
+              <div class="member-info">
+                <h3>Tebogo Ramatsui</h3>
+                <span class="member-role">Two Four Eight Board Member</span>
+              </div>
+            </div>
+            <div class="member-card reveal" style="transition-delay: 0.60s">
+              <img class="member-photo" src="Darren.jpg" alt="Darren Ross" loading="lazy" onerror="this.style.display='none'">
+              <div class="member-info">
+                <h3>Darren Ross</h3>
+                <span class="member-role">Two Four Eight Board Member</span>
+              </div>
+            </div>
+            <div class="member-card reveal" style="transition-delay: 0.64s">
+              <img class="member-photo" src="Jeremy.jpg" alt="Jeremy Sieberhagen" loading="lazy" onerror="this.style.display='none'">
+              <div class="member-info">
+                <h3>Jeremy Sieberhagen</h3>
+                <span class="member-role">KASI Board Member</span>
+              </div>
+            </div>
+            <div class="member-card reveal" style="transition-delay: 0.68s">
+              <img class="member-photo" src="Veronica.jpg" alt="Veronica Wilmington" loading="lazy" onerror="this.style.display='none'">
+              <div class="member-info">
+                <h3>Veronica Wilmington</h3>
+                <span class="member-role">Umfundi Board Member</span>
+              </div>
+            </div>
+            <div class="member-card reveal" style="transition-delay: 0.72s">
+              <img class="member-photo" src="Corne.jpg" alt="Corn&eacute; du Plessis" loading="lazy" onerror="this.style.display='none'">
+              <div class="member-info">
+                <h3>Corn&eacute; du Plessis</h3>
+                <span class="member-role">Umfundi Board Member</span>
               </div>
             </div>
           </div>
@@ -3392,7 +3418,7 @@
                 <img src="Why Invest 1.png" alt="Why invest in Two Four Eight" loading="lazy">
               </div>
               <div class="model-figure">
-                <img src="Why Invest 2.jpg" alt="Why invest in Two Four Eight" loading="lazy">
+                <img src="Asian Mentor.jpeg" alt="A mentor and a young leader in conversation" loading="lazy">
               </div>
             </div>
 
@@ -3407,19 +3433,16 @@
           <h2 class="s-h2 reveal">What your giving strengthens</h2>
           <div class="invest-grid">
             <div class="invest-card reveal" style="transition-delay: 0.05s">
-              <span class="invest-amount">$5,000</span>
-              <span class="invest-period">per month</span>
-              <p class="invest-desc">Funds the development of 8-15 Movement Leaders across a region.</p>
+              <span class="invest-amount">$5&nbsp;000</span>
+              <p class="invest-desc">Funds the development of 2-3 Movement Leaders for a year, each growing movements of multiple Faith Communities.</p>
             </div>
             <div class="invest-card featured reveal" style="transition-delay: 0.10s">
-              <span class="invest-amount">$25,000</span>
-              <span class="invest-period">start-up</span>
-              <p class="invest-desc">Funds the full coaching infrastructure for one early-stage city.</p>
+              <span class="invest-amount">$25&nbsp;000</span>
+              <p class="invest-desc">Funds the full coaching infrastructure over a year for one early-stage city growing into a mature movement.</p>
             </div>
             <div class="invest-card reveal" style="transition-delay: 0.15s">
-              <span class="invest-amount">$50,000</span>
-              <span class="invest-period">per year</span>
-              <p class="invest-desc">Funds a Venture: launching a new local organisation with capacity to reach multiple cities.</p>
+              <span class="invest-amount">$50&nbsp;000</span>
+              <p class="invest-desc">Funds a Venture: launching a new local organisation with capacity to reach multiple cities and raise up new Movement Guides.</p>
             </div>
           </div>
         </div>
@@ -3471,7 +3494,7 @@
               </div>
             </article>
             <article class="lo-card" data-index="4">
-              <img class="lo-card-img" src="Australia.png" alt="Australasia" loading="lazy">
+              <img class="lo-card-img" src="Australasia_V2.jpeg" alt="Australasia" loading="lazy">
               <div class="lo-card-overlay">
                 <h3>Australasia</h3>
                 <p>Teams emerging in one of the most remote and underreached corners of the globe.</p>
@@ -4214,19 +4237,6 @@
         card.addEventListener('click', e => {
           if (e.target.closest('a')) return;
           cycle();
-        });
-      });
-    })();
-
-    // ── What We Measure - dropdown card reveal ──
-    (function () {
-      const toggles = document.querySelectorAll('.measure-toggle');
-      if (!toggles.length) return;
-      toggles.forEach(btn => {
-        btn.addEventListener('click', () => {
-          const card = btn.closest('.measure-card');
-          const open = card.classList.toggle('open');
-          btn.setAttribute('aria-expanded', open ? 'true' : 'false');
         });
       });
     })();
