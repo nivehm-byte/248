@@ -153,7 +153,7 @@
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 2rem;
+      gap: 1.6rem;
       list-style: none;
     }
 
@@ -387,6 +387,7 @@
        BUTTON TEXT-SCROLL ANIMATION
     ════════════════════════════════════════ */
     .btn-primary .t1,
+    .btn-secondary .t1,
     .hero-btn-primary .t1,
     .hero-btn-secondary .t1,
     .nav-cta .t1 {
@@ -395,6 +396,7 @@
     }
 
     .btn-primary .t2,
+    .btn-secondary .t2,
     .hero-btn-primary .t2,
     .hero-btn-secondary .t2,
     .nav-cta .t2 {
@@ -417,23 +419,61 @@
       color: var(--white);
     }
 
-    .hero-btn-secondary .t2 {
+    .hero-btn-secondary .t2,
+    .btn-secondary .t2 {
       background: var(--slate);
       color: var(--white);
     }
 
     .btn-primary:hover .t1,
+    .btn-secondary:hover .t1,
     .hero-btn-primary:hover .t1,
     .hero-btn-secondary:hover .t1,
     .nav-cta:hover .t1 { transform: translateY(-100%); }
 
     .btn-primary:hover .t2,
+    .btn-secondary:hover .t2,
     .hero-btn-primary:hover .t2,
     .hero-btn-secondary:hover .t2,
     .nav-cta:hover .t2 {
       transform: translateY(0);
       border-radius: 0;
     }
+
+    /* ── Icon + label buttons. Both text layers carry the icon so the
+          scroll-on-hover animation still reads correctly. ── */
+    .btn-icon .t1 {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .btn-icon .t2 { gap: 0.5rem; }
+
+    .btn-ico {
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    /* Busy state - button is inert while the file is being fetched */
+    .js-download.is-busy {
+      pointer-events: none;
+      opacity: 0.72;
+    }
+
+    .js-download.is-busy .btn-ico {
+      animation: btn-spin 0.7s linear infinite;
+      transform-origin: 50% 50%;
+    }
+
+    @keyframes btn-spin { to { transform: rotate(360deg); } }
 
     /* ════════════════════════════════════════
        HERO ENTRANCE ANIMATIONS
@@ -584,6 +624,14 @@
     .s-dark .s-intro  { color: var(--on-light-muted); }
     .s-slate .s-intro { color: var(--on-light-muted); }
     .s-warm  .s-intro { color: var(--on-light-muted); }
+
+    /* Copy sitting directly on a tinted band needs more weight than the muted
+       token carries: 50% charcoal only holds up on near-white surfaces, and
+       drops to ~2.6:1 against a 60% band. Cards on these bands keep the muted
+       token, because they sit on their own white surface. */
+    .s-band .s-intro,
+    .s-band .stat-band-body,
+    .s-band .stat-label { color: var(--on-light); }
 
     /* ════════════════════════════════════════
        VIDEO EMBED
@@ -1438,10 +1486,51 @@
       text-align: center;
     }
 
-    .digit-comma {
+    .digit-comma,
+    .digit-suffix {
       display: inline-block;
       vertical-align: top;
       line-height: 1;
+    }
+
+    /* ── Six-stat variant (Research methodology): even 3 x 2, no full-width row.
+          Overrides the 4-stat "fourth sits alone" rule above. ── */
+    .stat-grid--six .stat-number {
+      font-size: clamp(2.2rem, 3.2vw, 3.1rem);
+    }
+
+    .stat-grid--six .stat-item:nth-child(4) {
+      grid-column: auto;
+      border-left: none;
+    }
+
+    .stat-grid--six .stat-item:nth-child(n+4) {
+      border-top: 1px solid rgba(var(--charcoal-rgb), 0.14);
+      padding-top: 2rem;
+      margin-top: 1rem;
+    }
+
+    /* ── Stat pair - two figures stacked inside a prose row's figure column ── */
+    .stat-pair {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .stat-pair .stat-item { padding: 1.7rem 0; }
+
+    .stat-pair .stat-item + .stat-item {
+      border-left: none;
+      border-top: 1px solid rgba(var(--charcoal-rgb), 0.14);
+    }
+
+    .stat-pair .stat-number { font-size: clamp(2.6rem, 4vw, 3.6rem); }
+
+    .stat-pair .stat-label {
+      text-transform: none;
+      letter-spacing: 0.01em;
+      font-size: 0.84rem;
+      line-height: 1.6;
     }
 
     /* ════════════════════════════════════════
@@ -1514,7 +1603,40 @@
       transition: transform 0.22s var(--ease-out);
     }
 
+    /* Ghost counterpart to .btn-primary for light surfaces. Padding is inset by
+       the border width so both buttons share identical outer dimensions. */
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      background: transparent;
+      color: var(--charcoal);
+      font-size: 0.88rem;
+      font-weight: 500;
+      letter-spacing: 0.01em;
+      text-decoration: none;
+      padding: calc(0.88rem - 1.5px) calc(2.2rem - 1.5px);
+      border-radius: 10px;
+      border: 1.5px solid rgba(var(--charcoal-rgb), 0.22);
+      overflow: hidden;
+      position: relative;
+      transition: border-color 0.22s, background 0.22s;
+    }
+
+    .btn-secondary:hover {
+      border-color: rgba(var(--charcoal-rgb), 0.55);
+      background: rgba(var(--charcoal-rgb), 0.04);
+    }
+
     .cta-actions { margin-top: 2.4rem; }
+
+    /* Two actions side by side - same gap as the hero button pair */
+    .cta-actions--pair {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
 
     .cta-contact {
       margin-top: 1.4rem;
@@ -1851,6 +1973,88 @@
       min-height: 0;
     }
 
+    /* ── Prose variant - running copy beside a figure, no numbered list.
+          Used by the alternating rows on the Model and Research pages. ── */
+    .model-layout--prose .model-main .s-intro {
+      max-width: 560px;
+      margin-bottom: 1.15rem;
+    }
+
+    .model-layout--prose .model-main .s-intro:last-child { margin-bottom: 0; }
+
+    /* ── Column variant - numbered rows side by side instead of stacked ── */
+    .model-list--cols {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: clamp(1.6rem, 3vw, 2.6rem);
+      margin-top: 2.75rem;
+    }
+
+    .model-list--cols .model-row {
+      flex-direction: column;
+      gap: 0.95rem;
+    }
+
+    .model-list--cols .model-row-text p { max-width: none; }
+
+    /* ── Full-bleed figure - same surface as .model-figure, at container width ── */
+    .model-figure--full {
+      position: relative;
+      width: 100%;
+      min-height: 0;
+      aspect-ratio: 16 / 9;
+      margin-top: 2.75rem;
+      border-radius: 20px;
+    }
+
+    .model-figure--full img {
+      position: absolute;
+      inset: 0;
+    }
+
+    /* Sits behind the photo - stays visible while an asset is still outstanding */
+    .model-figure .figure-note {
+      max-width: 32ch;
+      padding: 0 1.5rem;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      line-height: 1.7;
+      text-align: center;
+      color: rgba(var(--charcoal-rgb), 0.38);
+    }
+
+    /* ════════════════════════════════════════
+       PULL QUOTE
+       White plate + hairline border (the house card
+       convention) with a sienna accent rule.
+    ════════════════════════════════════════ */
+    .pull-quote {
+      max-width: 560px;
+      margin: 2rem 0 0;
+      padding: 1.5rem 1.7rem 1.6rem;
+      background: var(--white);
+      border: 1px solid rgba(var(--charcoal-rgb), 0.10);
+      border-radius: 16px;
+      font-size: clamp(1.02rem, 1.5vw, 1.22rem);
+      font-weight: 400;
+      letter-spacing: -0.03em;
+      line-height: 1.5;
+      color: var(--charcoal);
+    }
+
+    .pull-quote::before {
+      content: '';
+      display: block;
+      width: 2.2rem;
+      height: 2px;
+      margin-bottom: 1.05rem;
+      border-radius: 2px;
+      background: var(--sienna);
+    }
+
+    .pull-quote--wide { max-width: 720px; }
+
 
     /* ════════════════════════════════════════
        TESTIMONIALS
@@ -2100,7 +2304,7 @@
       padding: 10rem 0 7rem;
       background-image:
         linear-gradient(180deg, rgba(15, 13, 11, 0.20) 0%, rgba(15, 13, 11, 0.32) 50%, rgba(15, 13, 11, 0.82) 100%),
-        url('About_Hero_Image (1).jpg');
+        url('About_Hero_Image_HiRest.jpeg');
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
@@ -2157,6 +2361,62 @@
       line-height: 1.9;
       color: rgba(255, 255, 255, 0.80);
       max-width: 460px;
+      margin: 0;
+    }
+
+    /* ════════════════════════════════════════
+       MODEL + RESEARCH PAGE HEADERS
+       Same image-hero treatment as About and Give.
+       Only the photograph changes per page; the
+       charcoal base keeps the type legible while
+       the final assets are still outstanding.
+    ════════════════════════════════════════ */
+    .model-header,
+    .research-header {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      min-height: 82vh;
+      padding: 10rem 0 7rem;
+      background-color: var(--charcoal-deep);
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    .model-header {
+      background-image:
+        linear-gradient(180deg, rgba(15, 13, 11, 0.20) 0%, rgba(15, 13, 11, 0.32) 50%, rgba(15, 13, 11, 0.82) 100%),
+        url('Model_Hero.jpeg');
+    }
+
+    .research-header {
+      background-image:
+        linear-gradient(180deg, rgba(15, 13, 11, 0.20) 0%, rgba(15, 13, 11, 0.32) 50%, rgba(15, 13, 11, 0.82) 100%),
+        url('Research_Hero.jpeg');
+    }
+
+    .model-header .container,
+    .research-header .container { width: 100%; }
+
+    .model-header h1,
+    .research-header h1 {
+      font-size: clamp(2rem, 4vw, 3.4rem);
+      font-weight: 400;
+      letter-spacing: -0.05em;
+      line-height: 1.12;
+      color: var(--white);
+      margin-bottom: 1.5rem;
+      max-width: 760px;
+    }
+
+    .model-header p,
+    .research-header p {
+      font-size: 1rem;
+      font-weight: 400;
+      line-height: 1.9;
+      color: rgba(255, 255, 255, 0.80);
+      max-width: 560px;
       margin: 0;
     }
 
@@ -2717,6 +2977,12 @@
       .stat-item:nth-child(3),
       .stat-item:nth-child(4)          { border-top: 1px solid rgba(var(--charcoal-rgb),0.12); padding-top: 2rem; margin-top: 1rem; }
       .stat-item:nth-child(4)          { grid-column: auto; border-left: 1px solid rgba(var(--charcoal-rgb),0.12); }
+      /* Six-stat band reflows to 2 x 3 - rules on the left of each row */
+      .stat-grid--six .stat-item:nth-child(odd)  { border-left: none; }
+      .stat-grid--six .stat-item:nth-child(even) { border-left: 1px solid rgba(var(--charcoal-rgb),0.14); }
+      .stat-grid--six .stat-item:nth-child(n+3)  { border-top: 1px solid rgba(var(--charcoal-rgb),0.12); padding-top: 2rem; margin-top: 1rem; }
+      .stat-grid--six .stat-item:nth-child(1),
+      .stat-grid--six .stat-item:nth-child(2)    { border-top: none; margin-top: 0; }
       .members-grid      { grid-template-columns: repeat(2, 1fr); }
       .model-grid        { grid-template-columns: repeat(2, 1fr); }
       .model-steps       { grid-template-columns: 1fr; }
@@ -2725,6 +2991,10 @@
       .model-layout--figure-left .model-figure-split { order: 0; }
       .model-figure      { min-height: 280px; }
       .model-figure-split .model-figure { min-height: 240px; }
+      .model-figure--full { min-height: 0; aspect-ratio: 4 / 3; }
+      .model-list--cols  { grid-template-columns: 1fr; gap: 2rem; }
+      .model-header,
+      .research-header   { min-height: 70vh; padding: 8rem 0 5rem; }
 
     }
 
@@ -2745,9 +3015,15 @@
       .stat-item:nth-child(4)                 { border-left: none; }
       .stat-item:nth-child(3),
       .stat-item:nth-child(4)                 { margin-top: 0; }
+      /* Six-stat band stacks to a single column */
+      .stat-grid--six .stat-item:nth-child(n)  { border-left: none; }
+      .stat-grid--six .stat-item + .stat-item  { border-top: 1px solid rgba(var(--charcoal-rgb),0.12); padding-top: 2rem; margin-top: 0; }
+      .stat-grid--six .stat-item:nth-child(1)  { border-top: none; }
       .invest-grid       { grid-template-columns: 1fr; }
       .city-cards        { grid-template-columns: 1fr; }
       .members-grid      { grid-template-columns: 1fr; }
+      .model-figure--full { aspect-ratio: 3 / 2; border-radius: 14px; }
+      .pull-quote        { padding: 1.3rem 1.35rem 1.4rem; border-radius: 14px; }
       .cta-engage        { flex-direction: column; align-items: center; }
       .sa-timeline       { flex-wrap: wrap; gap: 1.5rem; }
       .timeline-track    { display: none; }
@@ -2797,6 +3073,8 @@
         <ul class="nav-links">
           <li><a href="#" data-page="home" class="active" onclick="showPage('home'); return false;">Home</a></li>
           <li><a href="#" data-page="about" onclick="showPage('about'); return false;">About</a></li>
+          <li><a href="#" data-page="model" onclick="showPage('model'); return false;">Model</a></li>
+          <li><a href="#" data-page="research" onclick="showPage('research'); return false;">Research</a></li>
           <li><a href="#" data-page="donate" onclick="showPage('donate'); return false;">Give</a></li>
         </ul>
 
@@ -2816,6 +3094,8 @@
     <div class="mobile-menu" id="mobileMenu" role="menu">
       <a href="#" data-page="home" class="active" onclick="showPage('home'); closeMobile(); return false;">Home</a>
       <a href="#" data-page="about" onclick="showPage('about'); closeMobile(); return false;">About</a>
+      <a href="#" data-page="model" onclick="showPage('model'); closeMobile(); return false;">Model</a>
+      <a href="#" data-page="research" onclick="showPage('research'); closeMobile(); return false;">Research</a>
       <a href="#" data-page="donate" onclick="showPage('donate'); closeMobile(); return false;">Give</a>
       <a href="mailto:david@twofoureight.org" onclick="closeMobile();">Start a Conversation</a>
     </div>
@@ -2970,7 +3250,7 @@
             <h2 class="s-h2 reveal">Multiple cities. One model. <br>Led by locals.</h2>
             <p class="stat-band-body reveal">These numbers represent leaders, not programs. <br>Locally-owned movements built to outlast our involvement.</p>
           </div>
-          <div class="stat-grid">
+          <div class="stat-grid js-counters">
             <div class="stat-item reveal" style="transition-delay: 0.05s">
               <span class="stat-number" data-target="28">0</span>
               <span class="stat-label">Active movement guides</span>
@@ -3026,7 +3306,7 @@
       </div>
 
       <!-- ─── The Model ─── -->
-      <section class="s-sand">
+      <section class="s-light">
         <div class="container">
           <span class="eyebrow reveal">The Model</span>
           <div class="model-layout">
@@ -3363,6 +3643,422 @@
 
 
     <!-- ════════════════════════════════════════
+         MODEL PAGE
+    ════════════════════════════════════════ -->
+    <div id="page-model" class="page">
+
+      <!-- ─── Model Header ─── -->
+      <div class="model-header">
+        <div class="container">
+          <span class="eyebrow">The Model</span>
+          <h1>The gospel at the speed of the city.</h1>
+          <p>Cities move 24 hours a day. The gospel must move with them, through ordinary people, in everyday relationships, everywhere at once.</p>
+        </div>
+      </div>
+
+      <!-- ─── The Shift ─── -->
+      <section class="s-light">
+        <div class="container">
+          <span class="eyebrow reveal">The Shift</span>
+          <div class="model-layout model-layout--prose">
+
+            <div class="model-main">
+              <h2 class="s-h2 reveal">Beyond the reach of any venue</h2>
+              <p class="s-intro reveal">Churches gather people. But most of the city will never walk through their doors. No building, event, or programme can be everywhere the city lives.</p>
+              <p class="s-intro reveal">So we focus on what venues cannot do: the gospel spreading believer to believer, through the natural networks of the city, reaching the people no gathering will.</p>
+              <p class="pull-quote reveal">Not a replacement for the church. An extension of her reach.</p>
+            </div>
+
+            <div class="model-figure reveal">
+              <span class="figure-note">Relational network map, lines extending beyond it into the city</span>
+              <img src="Model_Networks.jpeg" alt="A relational network spreading out across the city" loading="lazy" onerror="this.remove()">
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- ─── The Vehicle ─── -->
+      <section class="s-sand">
+        <div class="container">
+          <span class="eyebrow reveal">The Vehicle</span>
+          <div class="model-layout model-layout--prose model-layout--figure-left">
+
+            <div class="model-main">
+              <h2 class="s-h2 reveal">Simple faith communities</h2>
+              <p class="s-intro reveal">A group of friends who love Jesus, love one another, and make disciples among the lost and the broken. That is it.</p>
+              <p class="s-intro reveal">They meet in homes, workplaces, and neighbourhoods, wherever life already happens. Anyone who follows Jesus can facilitate one. Easy to start. Built to multiply.</p>
+            </div>
+
+            <div class="model-figure reveal">
+              <span class="figure-note">Small group sharing a meal in a home or workplace</span>
+              <img src="Model_Community.jpeg" alt="A small faith community sharing a meal together" loading="lazy" onerror="this.remove()">
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- ─── The City ─── -->
+      <section class="s-light">
+        <div class="container">
+          <span class="eyebrow reveal">The City</span>
+          <h2 class="s-h2 reveal">A community for every corner</h2>
+          <p class="s-intro reveal">Cities are hundreds of overlapping worlds: neighbourhoods, cultures, professions, generations. No single congregation could reach them all. A network of communities can.</p>
+
+          <div class="model-list model-list--cols">
+            <div class="model-row reveal" style="transition-delay: 0.05s">
+              <span class="model-num">1.</span>
+              <div class="model-row-text">
+                <h3>Geographic</h3>
+                <p>Townships, suburbs, and business districts.</p>
+              </div>
+            </div>
+
+            <div class="model-row reveal" style="transition-delay: 0.10s">
+              <span class="model-num">2.</span>
+              <div class="model-row-text">
+                <h3>Cultural</h3>
+                <p>Language, heritage, and community groups.</p>
+              </div>
+            </div>
+
+            <div class="model-row reveal" style="transition-delay: 0.15s">
+              <span class="model-num">3.</span>
+              <div class="model-row-text">
+                <h3>Affinity</h3>
+                <p>Workplaces, common struggles, and shared passions.</p>
+              </div>
+            </div>
+          </div>
+
+          <p class="pull-quote pull-quote--wide reveal">Each community takes the shape of its context. The DNA stays the same. The goal is that no one in the city is more than a relationship away from a community of Jesus followers.</p>
+
+          <div class="model-figure model-figure--full reveal">
+            <span class="figure-note">City map with diverse community nodes lighting up across segments</span>
+            <img src="Model_City_Map.jpeg" alt="Communities lighting up across every segment of the city" loading="lazy" onerror="this.remove()">
+          </div>
+        </div>
+      </section>
+
+      <!-- ─── Our Role ─── -->
+      <section class="s-band s-band--slate">
+        <div class="container">
+          <span class="eyebrow reveal">Our Role</span>
+          <div class="model-layout model-layout--prose">
+
+            <div class="model-main">
+              <h2 class="s-h2 reveal">Catalysts, not controllers</h2>
+              <p class="s-intro reveal">We work alongside local churches, but our lane is different. We ignite what could not start without us, then guide it to maturity.</p>
+              <p class="s-intro reveal">We train ordinary believers to start communities in their own networks. We coach local facilitators toward health and multiplication. We mentor the leaders of leaders until they take our place.</p>
+              <p class="pull-quote reveal">We build capacity, not dependency.</p>
+            </div>
+
+            <div class="model-figure reveal">
+              <span class="figure-note">Coaching photograph, two leaders in conversation</span>
+              <img src="Model_Coaching.jpeg" alt="Two leaders in conversation during coaching" loading="lazy" onerror="this.remove()">
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- ─── Leadership ─── -->
+      <section class="s-light">
+        <div class="container">
+          <span class="eyebrow reveal">Leadership</span>
+          <h2 class="s-h2 reveal">Leading in urban complexity</h2>
+          <p class="s-intro reveal">As cities become megacities, the leadership of the past, command, control, and predictable plans, is increasingly unable to build the future. Cities are too fast, too diverse, too interconnected to be managed from the top.</p>
+          <p class="s-intro reveal">So we guide leaders to lead differently: to read their city, discern where God is already at work, and cultivate life rather than control outcomes.</p>
+
+          <p class="pull-quote pull-quote--wide reveal">Movements do not need more generals. They need more skilled gardeners who know how to cultivate life.</p>
+
+          <div class="model-figure model-figure--full reveal">
+            <span class="figure-note">Leader looking out over a sprawling city, or a hand planting a seedling against a skyline</span>
+            <img src="Model_Leadership.jpeg" alt="A leader looking out over a sprawling city" loading="lazy" onerror="this.remove()">
+          </div>
+        </div>
+      </section>
+
+      <!-- ─── The Ecosystem ─── -->
+      <section class="s-sand">
+        <div class="container">
+          <span class="eyebrow reveal">The Ecosystem</span>
+          <div class="model-layout model-layout--prose model-layout--figure-left">
+
+            <div class="model-main">
+              <h2 class="s-h2 reveal">A living ecosystem, not a program</h2>
+              <p class="s-intro reveal">Cities are not machines or corporations that can be managed. They are living ecosystems. Movements in cities grow the same way: through relationships, networks, and shared life, not central control.</p>
+              <p class="s-intro reveal">So we cultivate rather than construct. As communities connect with one another and with local churches, the city fills with a living web of Kingdom life, growing in ways no single organisation could engineer.</p>
+            </div>
+
+            <div class="model-figure reveal">
+              <span class="figure-note">Organic ecosystem visual, mycelium, roots, or garden imagery over a city</span>
+              <img src="Model_Ecosystem.jpeg" alt="An organic web of roots spreading beneath the city" loading="lazy" onerror="this.remove()">
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- ─── Why It Works ─── -->
+      <section class="s-band s-band--sienna">
+        <div class="container">
+          <span class="eyebrow reveal">Why It Works</span>
+          <h2 class="s-h2 reveal">Two. Four. Eight.</h2>
+          <p class="s-intro reveal">Multiplication is the idea behind our name. Ordinary Jesus followers and simple faith communities are not containers for holding people. They move at the forefront of multiplication.</p>
+          <p class="s-intro reveal">We equip ordinary people to be carriers of the gospel into their own relational networks. Two become four. Four become eight. Disciples make disciples, communities start communities. And because simple communities need no buildings, budgets, or staff, multiplying never gets heavier.</p>
+
+          <p class="pull-quote pull-quote--wide reveal">That is how a city gets saturated: not one large thing, but thousands of small, living, connected things.</p>
+
+          <div class="model-figure model-figure--full reveal">
+            <span class="figure-note">Multiplication visual, 2 to 4 to 8 to a city full of light</span>
+            <img src="Model_Multiplication.jpeg" alt="Two becoming four, four becoming eight, until the city fills with light" loading="lazy" onerror="this.remove()">
+          </div>
+        </div>
+      </section>
+
+      <!-- ─── An Invitation ─── -->
+      <section class="s-light cta-section">
+        <div class="container">
+          <span class="eyebrow reveal">An Invitation</span>
+          <h2 class="s-h2 reveal">Fuel the multiplier.</h2>
+          <p class="cta-body reveal">Your partnership does not fund buildings or bureaucracy. It funds the training and coaching that helps communities start, stay healthy, and keep multiplying long after we have stepped back.</p>
+          <div class="cta-actions reveal">
+            <a href="mailto:david@twofoureight.org" class="btn-primary">
+              <span class="t1">Start a conversation</span>
+              <span class="t2" aria-hidden="true">Start a conversation</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+    </div><!-- /#page-model -->
+
+
+    <!-- ════════════════════════════════════════
+         RESEARCH PAGE
+    ════════════════════════════════════════ -->
+    <div id="page-research" class="page">
+
+      <!-- ─── Research Header ─── -->
+      <div class="research-header">
+        <div class="container">
+          <span class="eyebrow">Research</span>
+          <h1>Listening to cities.</h1>
+          <p>Most of what we know about gospel movements was learned in rural villages. Cities play by different rules, and the leaders working in them deserve better than borrowed answers. So we went and listened.</p>
+        </div>
+      </div>
+
+      <!-- ─── The Need ─── -->
+      <section class="s-light">
+        <div class="container">
+          <span class="eyebrow reveal">The Need</span>
+          <div class="model-layout model-layout--prose">
+
+            <div class="model-main">
+              <h2 class="s-h2 reveal">Why this research matters</h2>
+              <p class="s-intro reveal">Urbanisation is outpacing the church's ability to adapt. Movement leaders on the ground are navigating complexity, transience, and diversity that older models were never built for, often with little more than instinct and imported strategies.</p>
+              <p class="s-intro reveal">These leaders do not need another theory. They need grounded insight from practitioners who are actually seeing disciples multiply in cities. Better research means better decisions on the ground.</p>
+            </div>
+
+            <div class="stat-pair js-counters reveal">
+              <div class="stat-item">
+                <span class="stat-number" data-target="55%">0</span>
+                <span class="stat-label">of the world lives in cities today</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-number" data-target="70%">0</span>
+                <span class="stat-label">projected by 2050</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- ─── The Project ─── -->
+      <section class="s-sand">
+        <div class="container">
+          <span class="eyebrow reveal">The Project</span>
+          <h2 class="s-h2 reveal">The Movement Insights research</h2>
+          <p class="s-intro reveal">A multi-year listening project studying how God is multiplying disciples in the world's cities. Our strategy is to align with what God is actually doing.</p>
+
+          <p class="pull-quote reveal">For you to study movements in cities, you must listen to its stories.</p>
+
+          <div class="model-figure model-figure--full reveal">
+            <span class="figure-note">World map of interviewee locations, 21 regions from South Africa to Singapore, Ukraine to Papua New Guinea</span>
+            <img src="Research_World_Map.jpeg" alt="World map showing the regions where practitioners were interviewed" loading="lazy" onerror="this.remove()">
+          </div>
+        </div>
+      </section>
+
+      <!-- ─── The Methodology ─── -->
+      <section class="s-band s-band--slate">
+        <div class="container">
+          <div class="stat-band-header">
+            <span class="eyebrow reveal">The Methodology</span>
+            <h2 class="s-h2 reveal">How we listened.</h2>
+            <p class="stat-band-body reveal">Over four years, we conducted in-depth interviews with practitioners seeing real multiplication in some of the world's most complex urban environments, including cities marked by persecution, instability, and active conflict. Every interview was transcribed, coded, cross-analysed, and checked back with the practitioners themselves.</p>
+          </div>
+
+          <div class="stat-grid stat-grid--six js-counters">
+            <div class="stat-item reveal">
+              <span class="stat-number" data-target="40">0</span>
+              <span class="stat-label">Practitioners interviewed</span>
+            </div>
+            <div class="stat-item reveal" style="transition-delay: 0.05s">
+              <span class="stat-number" data-target="32+">0</span>
+              <span class="stat-label">Countries and regions</span>
+            </div>
+            <div class="stat-item reveal" style="transition-delay: 0.10s">
+              <span class="stat-number" data-target="50+">0</span>
+              <span class="stat-label">Urban centres</span>
+            </div>
+            <div class="stat-item reveal" style="transition-delay: 0.15s">
+              <span class="stat-number" data-target="798">0</span>
+              <span class="stat-label">Distinct observations</span>
+            </div>
+            <div class="stat-item reveal" style="transition-delay: 0.20s">
+              <span class="stat-number" data-target="74">0</span>
+              <span class="stat-label">Common urban patterns</span>
+            </div>
+            <div class="stat-item reveal" style="transition-delay: 0.25s">
+              <span class="stat-number" data-target="15">0</span>
+              <span class="stat-label">Key observations in report</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ─── What We Found ─── -->
+      <section class="s-sand">
+        <div class="container">
+          <span class="eyebrow reveal">What We Found</span>
+          <h2 class="s-h2 reveal">What's working in cities</h2>
+          <p class="s-intro reveal">Fifteen patterns surfaced again and again across continents. The full report unpacks all fifteen, with the practitioners' own voices, common challenges, and emerging practices. Five are highlighted here.</p>
+
+          <div class="measure-grid">
+
+            <article class="measure-card reveal" style="transition-delay: 0.05s">
+              <div class="measure-media">
+                <img src="Research_Discovery.jpeg" alt="Discovery over lecture" loading="lazy" onerror="this.style.display='none'">
+                <h3 class="measure-heading">Discovery over lecture</h3>
+              </div>
+              <div class="measure-body">
+                <p>Disciple-making grows where people discover Scripture together and respond in obedience.</p>
+              </div>
+            </article>
+
+            <article class="measure-card reveal" style="transition-delay: 0.10s">
+              <div class="measure-media">
+                <img src="Research_Networks.jpeg" alt="Networks over crowds" loading="lazy" onerror="this.style.display='none'">
+                <h3 class="measure-heading">Networks over crowds</h3>
+              </div>
+              <div class="measure-body">
+                <p>The gospel spreads through natural affinity groups and relational networks.</p>
+              </div>
+            </article>
+
+            <article class="measure-card reveal" style="transition-delay: 0.15s">
+              <div class="measure-media">
+                <img src="Research_Local_Leaders.jpeg" alt="Local leaders over outside experts" loading="lazy" onerror="this.style.display='none'">
+                <h3 class="measure-heading">Local leaders over outside experts</h3>
+              </div>
+              <div class="measure-body">
+                <p>Impact expands when embedded leaders are empowered to lead.</p>
+              </div>
+            </article>
+
+            <article class="measure-card reveal" style="transition-delay: 0.20s">
+              <div class="measure-media">
+                <img src="Research_A_Few.jpeg" alt="A few over the many" loading="lazy" onerror="this.style.display='none'">
+                <h3 class="measure-heading">A few over the many</h3>
+              </div>
+              <div class="measure-body">
+                <p>Deep investment in a handful of key people creates ripples that reach thousands.</p>
+              </div>
+            </article>
+
+            <article class="measure-card reveal" style="transition-delay: 0.25s">
+              <div class="measure-media">
+                <img src="Research_Flexible.jpeg" alt="Flexible structures over fixed models" loading="lazy" onerror="this.style.display='none'">
+                <h3 class="measure-heading">Flexible structures over fixed models</h3>
+              </div>
+              <div class="measure-body">
+                <p>Clear rhythms, loosely held forms, simple enough to adapt to any context.</p>
+              </div>
+            </article>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- ─── Our Posture ─── -->
+      <section class="s-light">
+        <div class="container">
+          <span class="eyebrow reveal">Our Posture</span>
+          <div class="model-layout model-layout--prose model-layout--figure-left">
+
+            <div class="model-main">
+              <h2 class="s-h2 reveal">Honest research, humbly held</h2>
+              <p class="s-intro reveal">We do not offer these findings as formulas. They are field-level patterns, offered with honesty about their limits, and intended to spark reflection, conversation, and context-specific experimentation.</p>
+              <p class="pull-quote reveal">Movements are not built from checklists. They grow where leaders discern what God is doing in their own city.</p>
+            </div>
+
+            <div class="model-figure reveal">
+              <span class="figure-note">Practitioners in conversation</span>
+              <img src="Research_Practitioners.jpeg" alt="Practitioners in conversation" loading="lazy" onerror="this.remove()">
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- ─── How We Use It ─── -->
+      <section class="s-sand">
+        <div class="container">
+          <span class="eyebrow reveal">How We Use It</span>
+          <h2 class="s-h2 reveal">Research that shapes practice</h2>
+          <p class="s-intro reveal">This is not research for the shelf. Every finding feeds directly into how we train, coach, and equip movement leaders, refining our city-focused curriculum and sharpening our strategy in real time.</p>
+
+          <div class="model-figure model-figure--full reveal">
+            <span class="figure-note">Loop diagram, Listen to Learn to Equip and repeat</span>
+            <img src="Research_Loop.jpeg" alt="A loop diagram: listen, learn, equip, repeat" loading="lazy" onerror="this.remove()">
+          </div>
+        </div>
+      </section>
+
+      <!-- ─── An Invitation ─── -->
+      <section class="s-light cta-section">
+        <div class="container">
+          <span class="eyebrow reveal">An Invitation</span>
+          <h2 class="s-h2 reveal">Read the full report.</h2>
+          <p class="cta-body reveal">Movement Insights: Phase 2 is free to download. Fifteen observations, common challenges, and emergent practices from 40 practitioners across the cities of the world. Want to talk through what these findings mean for your city or team?</p>
+          <div class="cta-actions cta-actions--pair reveal">
+            <a href="Movement_Insights_Phase_2.pdf" class="btn-primary btn-icon js-download"
+               data-filename="Movement Insights Phase 2.pdf" download>
+              <span class="t1">
+                <svg class="btn-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+                <span class="btn-label">Download the report</span>
+              </span>
+              <span class="t2" aria-hidden="true">
+                <svg class="btn-ico" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+                <span class="btn-label">Download the report</span>
+              </span>
+            </a>
+            <a href="mailto:david@twofoureight.org" class="btn-secondary">
+              <span class="t1">Start a conversation</span>
+              <span class="t2" aria-hidden="true">Start a conversation</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+    </div><!-- /#page-research -->
+
+
+    <!-- ════════════════════════════════════════
          GIVE PAGE
     ════════════════════════════════════════ -->
     <div id="page-donate" class="page">
@@ -3578,6 +4274,8 @@
             <ul>
               <li><a href="#" onclick="showPage('home'); return false;">Home</a></li>
               <li><a href="#" onclick="showPage('about'); return false;">About</a></li>
+              <li><a href="#" onclick="showPage('model'); return false;">Model</a></li>
+              <li><a href="#" onclick="showPage('research'); return false;">Research</a></li>
               <li><a href="#" onclick="showPage('donate'); return false;">Give</a></li>
               <li><a href="mailto:david@twofoureight.org">Contact</a></li>
             </ul>
@@ -3718,19 +4416,18 @@
       }
     })();
 
-    // ── Counter animation - fires when stat band enters viewport ──
-    let countersRun = false;
-
-    function runCounters() {
-      if (countersRun) return;
-      countersRun = true;
-
-      const counters = document.querySelectorAll('.stat-number[data-target]');
+    // ── Counter animation - fires when a stat band enters the viewport ──
+    // Scoped to one band at a time so each page's counters roll on their own
+    // scroll, and never while the page they sit on is hidden.
+    function runCounters(root) {
+      const counters = root.querySelectorAll('.stat-number[data-target]:not(.is-rolling)');
       const DURATION = 4500;
       const easeOut = t => 1 - Math.pow(1 - t, 3);
 
       counters.forEach((el, idx) => {
-        const target = parseInt(el.dataset.target, 10);
+        const raw    = el.dataset.target;             // "45000", "32+", "55%"
+        const target = parseInt(raw, 10);
+        const suffix = raw.replace(/[\d,.\s]/g, '');  // "+", "%", or ""
         const delay  = idx * 200;
         const digits = String(target).length;
 
@@ -3770,6 +4467,14 @@
           }
         }
 
+        // Trailing "+" or "%" rides along after the last wheel
+        if (suffix) {
+          const sfx = document.createElement('span');
+          sfx.className = 'digit-suffix';
+          sfx.textContent = suffix;
+          el.appendChild(sfx);
+        }
+
         let started = false, t0;
 
         function tick(now) {
@@ -3793,39 +4498,76 @@
       });
     }
 
-    const statBand = document.getElementById('stat-band');
-    let statObserver;
+    // Reset a band back to zero so it can roll again next time its page is shown
+    function resetCounters(root) {
+      root.querySelectorAll('.stat-number.is-rolling').forEach(el => {
+        el.classList.remove('is-rolling');
+        el.textContent = '0';
+      });
+    }
 
-    if (statBand) {
-      statObserver = new IntersectionObserver((entries) => {
+    // One observer per stat band - the home "Bigger Picture" grid and the
+    // Research methodology grid each trigger independently.
+    const statBands = [];
+
+    document.querySelectorAll('.js-counters').forEach(grid => {
+      const target = grid.closest('section') || grid;
+      const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            runCounters();
-            statObserver.unobserve(entry.target);
-          }
+          if (!entry.isIntersecting) return;
+          runCounters(grid);
+          observer.unobserve(entry.target);
         });
       }, { threshold: 0.2 });
 
-      statObserver.observe(statBand);
-    }
+      observer.observe(target);
+      statBands.push({ target, grid, observer });
+    });
 
     // ── Page switcher ──
-    function showPage(name) {
+    // Hash routing keeps all five pages linkable - #about, #model, #research, #donate.
+    const PAGES = ['home', 'about', 'model', 'research', 'donate'];
+
+    function pageFromHash() {
+      const slug = (location.hash || '').replace(/^#/, '');
+      return PAGES.includes(slug) ? slug : 'home';
+    }
+
+    function showPage(name, opts) {
+      if (!PAGES.includes(name)) name = 'home';
+      const o = opts || {};
+
       document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
       const page = document.getElementById('page-' + name);
       page.classList.add('active');
       // Highlight the current page in the nav (desktop + mobile)
       document.querySelectorAll('[data-page]').forEach(l =>
         l.classList.toggle('active', l.dataset.page === name));
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      // Keep the URL in step. history.* rather than location.hash, because
+      // assigning a hash makes the browser jump to a matching element id -
+      // and the home hero is id="home".
+      if (!o.fromHistory) {
+        const url = name === 'home' ? location.pathname + location.search : '#' + name;
+        if (o.replace) history.replaceState({ page: name }, '', url);
+        else history.pushState({ page: name }, '', url);
+      }
+
+      window.scrollTo({ top: 0, behavior: o.instant ? 'instant' : 'smooth' });
       // Observe reveals in newly shown page
       observeReveals(page);
-      // Re-arm stat counter if returning to home
-      if (name === 'home' && statBand && statObserver && countersRun) {
-        countersRun = false;
-        statObserver.observe(statBand);
-      }
+      // Re-arm any stat bands on the page being shown so they roll again
+      statBands.forEach(b => {
+        if (!page.contains(b.grid)) return;
+        resetCounters(b.grid);
+        b.observer.observe(b.target);
+      });
     }
+
+    // Browser back / forward between pages
+    window.addEventListener('popstate', () => {
+      showPage(pageFromHash(), { fromHistory: true, instant: true });
+    });
 
     // ── Video expand - scroll-driven ──
     (function () {
@@ -4474,6 +5216,77 @@
         }).observe(carousel);
       }
       goStart();
+    })();
+
+    // ── Download button ──
+    // Fetches the file so the button can report progress and failure, rather
+    // than handing off to the browser and going silent. The href stays a real
+    // download link, so anything that cannot fetch still gets the file.
+    (function () {
+      const links = document.querySelectorAll('.js-download');
+      if (!links.length) return;
+
+      const ICON = {
+        idle:  '<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/>',
+        busy:  '<path d="M21 12a9 9 0 1 1-6.219-8.56"/>',
+        error: '<path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/>'
+      };
+
+      links.forEach(link => {
+        const labels  = link.querySelectorAll('.btn-label');
+        const icons   = link.querySelectorAll('.btn-ico');
+        const idleTxt = labels[0].textContent.trim();
+        let busy = false;
+
+        // Both text layers update together - .t2 is the hover duplicate
+        function setState(state, text) {
+          labels.forEach(l => { l.textContent = text; });
+          icons.forEach(i => { i.innerHTML = ICON[state]; });
+          link.classList.toggle('is-busy', state === 'busy');
+        }
+
+        link.addEventListener('click', function (e) {
+          if (busy) { e.preventDefault(); return; }
+          // Opened from disk, or no fetch: let the browser do it natively
+          if (location.protocol === 'file:' || !window.fetch) return;
+
+          e.preventDefault();
+          busy = true;
+          link.setAttribute('aria-busy', 'true');
+          setState('busy', 'Preparing');
+
+          fetch(link.href)
+            .then(res => {
+              if (!res.ok) throw new Error(res.status);
+              return res.blob();
+            })
+            .then(blob => {
+              const url = URL.createObjectURL(blob);
+              const tmp = document.createElement('a');
+              tmp.href = url;
+              tmp.download = link.dataset.filename || 'download.pdf';
+              document.body.appendChild(tmp);
+              tmp.click();
+              tmp.remove();
+              URL.revokeObjectURL(url);
+              setState('idle', idleTxt);
+            })
+            .catch(() => {
+              setState('error', 'Download unavailable');
+              setTimeout(() => setState('idle', idleTxt), 4000);
+            })
+            .finally(() => {
+              busy = false;
+              link.removeAttribute('aria-busy');
+            });
+        });
+      });
+    })();
+
+    // ── Deep link on first load - honour #model, #research etc. ──
+    (function () {
+      const initial = pageFromHash();
+      if (initial !== 'home') showPage(initial, { replace: true, instant: true });
     })();
 
     // ── Loader → hero reveal ──

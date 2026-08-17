@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, follow">
+  <title>Page not found: Two Four Eight</title>
+
+  <!-- ════════════════════════════════════════
+       PATH ROUTER
+       The site is a single-file app that routes on the hash (#model), but the
+       pages are also published as paths (/model). Any unmatched path lands
+       here, so translate a known path into its hash and hand it back to
+       index.html before anything paints.
+
+       Host-agnostic by design: on a custom domain the site is served from the
+       root, and on a GitHub Pages project site it sits under /[repo]/. The
+       base is derived at runtime, so nothing here hardcodes either one.
+  ════════════════════════════════════════ -->
+  <script>
+    var TFE_BASE = '/';
+
+    (function () {
+      // Path segment -> page id. 'give' is the nav label, 'donate' is the id.
+      var PAGE = {
+        home:     'home',
+        about:    'about',
+        model:    'model',
+        research: 'research',
+        give:     'donate',
+        donate:   'donate'
+      };
+
+      var segments = location.pathname.split('/').filter(Boolean);
+
+      // A *.github.io project site serves this file under /[repo]/. Any other
+      // hostname (a custom domain, or localhost) serves it from the root.
+      var onProjectPages = /\.github\.io$/i.test(location.hostname) && segments.length > 0;
+      var base = onProjectPages ? '/' + segments[0] + '/' : '/';
+      var rest = onProjectPages ? segments.slice(1) : segments;
+
+      TFE_BASE = base;
+
+      // Match the deepest segment that names a page, so /model, /model/ and
+      // /model.html all resolve, and a stray prefix does not break the match.
+      var slug = null;
+      for (var i = rest.length - 1; i >= 0; i--) {
+        var key = rest[i].toLowerCase().replace(/\.html?$/, '');
+        if (PAGE[key]) { slug = PAGE[key]; break; }
+      }
+
+      if (slug) {
+        // replace(), not assign(), so the bad URL leaves no history entry
+        location.replace(base + (slug === 'home' ? '' : '#' + slug));
+      }
+    })();
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&display=swap" rel="stylesheet">
+
+  <style>
+
+    /* ════════════════════════════════════════
+       RESET
+    ════════════════════════════════════════ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--off-white);
+      color: var(--charcoal);
+      font-family: 'Inter', -apple-system, sans-serif;
+      font-weight: 400;
+      line-height: 1.7;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ════════════════════════════════════════
+       DESIGN TOKENS
+       Mirrors the :root block in index.html. Kept to the subset this page
+       actually uses rather than copied wholesale.
+    ════════════════════════════════════════ */
+    :root {
+      --slate:         #4F6375;
+      --charcoal:      #161615;
+      --earth:         #4F6375;
+      --sienna:        #8B5936;
+
+      --white:         #FFFFFF;
+      --off-white:     #FDFDFC;
+      --charcoal-deep: #0B0B0A;
+
+      --charcoal-rgb:  22, 22, 21;
+      --off-white-rgb: 253, 253, 252;
+
+      --on-light:      rgba(var(--charcoal-rgb), 0.88);
+
+      --ease-out:      cubic-bezier(0.22, 1, 0.36, 1);
+      --ease-in-out:   cubic-bezier(0.65, 0, 0.35, 1);
+      --ease-sharp:    cubic-bezier(0.76, 0, 0.24, 1);
+    }
+
+    /* ════════════════════════════════════════
+       FILM GRAIN OVERLAY
+    ════════════════════════════════════════ */
+    .grain {
+      position: fixed;
+      inset: -50%;
+      width: 200%;
+      height: 200%;
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.038;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='512' height='512' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 180px 180px;
+      animation: grain-drift 0.5s steps(2) infinite;
+    }
+
+    @keyframes grain-drift {
+      0%, 100% { transform: translate(0, 0); }
+      25%      { transform: translate(-3%, -2%); }
+      50%      { transform: translate(2%,  3%); }
+      75%      { transform: translate(-1%, 2%); }
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 clamp(1.5rem, 5vw, 6rem);
+    }
+
+    /* ════════════════════════════════════════
+       FLOATING ISLAND NAV
+       Same dock as the site. Links are real hrefs here, since showPage()
+       only exists on index.html.
+    ════════════════════════════════════════ */
+    #nav {
+      position: fixed;
+      top: 1.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1000;
+      background: rgba(15, 13, 11, 0.70);
+      backdrop-filter: blur(28px) saturate(1.4);
+      -webkit-backdrop-filter: blur(28px) saturate(1.4);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 16px;
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.08),
+        0 16px 52px rgba(0, 0, 0, 0.45);
+      white-space: nowrap;
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      gap: 1.6rem;
+      padding: 0.625rem 0.625rem 0.625rem 2rem;
+      height: 66px;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      flex-shrink: 0;
+      transition: opacity 0.22s;
+    }
+
+    .nav-logo:hover { opacity: 0.75; }
+    .nav-logo img { height: 30px; width: auto; display: block; }
+
+    .nav-divider {
+      width: 1px;
+      height: 20px;
+      background: rgba(255, 255, 255, 0.14);
+      flex-shrink: 0;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1.6rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.03em;
+      color: rgba(255, 255, 255, 0.72);
+      text-decoration: none;
+      transition: color 0.22s;
+    }
+
+    .nav-links a:hover { color: var(--white); }
+
+    .nav-cta {
+      background: var(--earth);
+      color: var(--white);
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      text-decoration: none;
+      padding: 0.88rem 1.75rem;
+      border-radius: 10px;
+      flex-shrink: 0;
+      display: inline-flex;
+      align-items: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* ════════════════════════════════════════
+       EYEBROW / SECTION LABEL
+    ════════════════════════════════════════ */
+    .eyebrow {
+      display: inline-block;
+      font-size: 0.74rem;
+      font-weight: 600;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: var(--off-white);
+      margin-bottom: 1.1rem;
+      padding: 0.38rem 0.9rem;
+      border-radius: 16px;
+      background: var(--charcoal-deep);
+    }
+
+    /* ════════════════════════════════════════
+       BUTTON + TEXT-SCROLL ANIMATION
+    ════════════════════════════════════════ */
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      background: var(--earth);
+      color: var(--white);
+      font-size: 0.88rem;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      text-decoration: none;
+      padding: 0.88rem 2.2rem;
+      border-radius: 10px;
+      overflow: hidden;
+      position: relative;
+      transition: transform 0.22s var(--ease-out);
+    }
+
+    .btn-primary .t1,
+    .nav-cta .t1 {
+      display: block;
+      transition: transform 0.42s var(--ease-sharp);
+    }
+
+    .btn-primary .t2,
+    .nav-cta .t2 {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transform: translateY(100%);
+      border-radius: inherit;
+      background: var(--charcoal);
+      color: var(--white);
+      transition: transform 0.42s var(--ease-sharp), border-radius 0.42s var(--ease-sharp);
+      pointer-events: none;
+    }
+
+    .btn-primary:hover .t1,
+    .nav-cta:hover .t1 { transform: translateY(-100%); }
+
+    .btn-primary:hover .t2,
+    .nav-cta:hover .t2 { transform: translateY(0); border-radius: 0; }
+
+    /* ════════════════════════════════════════
+       NOT FOUND
+    ════════════════════════════════════════ */
+    .nf {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      padding: 12rem 0 7rem;
+    }
+
+    .nf-h1 {
+      font-size: clamp(2.08rem, 4.16vw, 4.16rem);
+      font-weight: 400;
+      line-height: 1.04;
+      letter-spacing: -0.05em;
+      color: var(--charcoal);
+      margin-bottom: 1.5rem;
+      max-width: 700px;
+    }
+
+    .nf-lead {
+      font-size: 1rem;
+      font-weight: 400;
+      line-height: 1.9;
+      color: var(--on-light);
+      max-width: 480px;
+      margin-bottom: 2.4rem;
+    }
+
+    /* Requested path, echoed back so the visitor can see what failed */
+    .nf-path {
+      display: none;
+      font-size: 0.8rem;
+      letter-spacing: 0.01em;
+      color: rgba(var(--charcoal-rgb), 0.42);
+      margin-bottom: 2.4rem;
+      word-break: break-all;
+    }
+
+    .nf-path code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 0.82rem;
+      padding: 0.15rem 0.45rem;
+      border-radius: 6px;
+      background: rgba(var(--charcoal-rgb), 0.05);
+      border: 1px solid rgba(var(--charcoal-rgb), 0.10);
+    }
+
+    .nf-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem 2rem;
+      list-style: none;
+      margin-top: 3.5rem;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(var(--charcoal-rgb), 0.12);
+    }
+
+    .nf-links a {
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--charcoal);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(var(--charcoal-rgb), 0.22);
+      padding-bottom: 2px;
+      transition: border-color 0.22s, opacity 0.22s;
+    }
+
+    .nf-links a:hover { border-color: var(--sienna); opacity: 0.7; }
+
+    /* ════════════════════════════════════════
+       FOOTER
+       Compact strip. The full site footer is a 10-element grid and is
+       deliberately not duplicated here.
+    ════════════════════════════════════════ */
+    .nf-footer {
+      background: var(--slate);
+      padding: 2.2rem 0;
+    }
+
+    .nf-footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .nf-footer-logo img {
+      height: 26px;
+      width: auto;
+      display: block;
+      filter: brightness(0) invert(1);
+    }
+
+    .nf-footer p {
+      font-size: 0.78rem;
+      color: rgba(var(--off-white-rgb), 0.55);
+    }
+
+    /* ════════════════════════════════════════
+       RESPONSIVE
+    ════════════════════════════════════════ */
+    @media (max-width: 900px) {
+      .nav-links,
+      .nav-divider { display: none; }
+      .nav-inner   { gap: 1rem; padding: 0.5rem 0.5rem 0.5rem 1.25rem; }
+      .nf          { padding: 10rem 0 5rem; }
+    }
+
+    @media (max-width: 580px) {
+      #nav        { max-width: calc(100vw - 2rem); }
+      .nav-cta    { display: none; }
+      .nf         { padding: 9rem 0 4rem; }
+      .nf-links   { gap: 0.6rem 1.5rem; }
+      .nf-footer-inner { justify-content: flex-start; }
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <div class="grain" aria-hidden="true"></div>
+
+  <!-- ─── Nav ─── -->
+  <nav id="nav" aria-label="Main navigation">
+    <div class="nav-inner">
+
+      <a href="/" class="nav-logo" aria-label="Two Four Eight, Home">
+        <img src="/248_logo.png" alt="Two Four Eight">
+      </a>
+
+      <div class="nav-divider" aria-hidden="true"></div>
+
+      <ul class="nav-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="/#about">About</a></li>
+        <li><a href="/#model">Model</a></li>
+        <li><a href="/#research">Research</a></li>
+        <li><a href="/#donate">Give</a></li>
+      </ul>
+
+      <a href="mailto:david@twofoureight.org" class="nav-cta">
+        <span class="t1">Start a Conversation</span>
+        <span class="t2" aria-hidden="true">Start a Conversation</span>
+      </a>
+
+    </div>
+  </nav>
+
+  <!-- ─── Not found ─── -->
+  <main class="nf">
+    <div class="container">
+      <span class="eyebrow">Error 404</span>
+      <h1 class="nf-h1">That page isn't here.</h1>
+      <p class="nf-lead">The link may be out of date, or the page may have moved. Everything on the site is a click away.</p>
+
+      <p class="nf-path" id="nf-path">You asked for <code id="nf-path-value"></code></p>
+
+      <a href="/" class="btn-primary">
+        <span class="t1">Back to home</span>
+        <span class="t2" aria-hidden="true">Back to home</span>
+      </a>
+
+      <ul class="nf-links">
+        <li><a href="/#about">About</a></li>
+        <li><a href="/#model">The Model</a></li>
+        <li><a href="/#research">Research</a></li>
+        <li><a href="/#donate">Give</a></li>
+        <li><a href="mailto:david@twofoureight.org">Contact</a></li>
+      </ul>
+    </div>
+  </main>
+
+  <!-- ─── Footer ─── -->
+  <footer class="nf-footer">
+    <div class="container nf-footer-inner">
+      <a href="/" class="nf-footer-logo" aria-label="Two Four Eight, Home">
+        <img src="/248_logo.png" alt="Two Four Eight">
+      </a>
+      <p>&copy; <span id="nf-year">2026</span> Two Four Eight. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Links above are root-relative, which is correct on the site's own domain
+    // and needs no JS. On a GitHub Pages project site everything lives under
+    // /[repo]/, so prefix the internal links once. mailto: links are untouched.
+    (function () {
+      if (TFE_BASE && TFE_BASE !== '/') {
+        var prefix = TFE_BASE.replace(/\/$/, '');
+        document.querySelectorAll('a[href^="/"], img[src^="/"]').forEach(function (el) {
+          var attr = el.tagName === 'IMG' ? 'src' : 'href';
+          el.setAttribute(attr, prefix + el.getAttribute(attr));
+        });
+      }
+
+      // Echo the path that failed, so a mistyped or stale link is obvious
+      var path = location.pathname + location.search;
+      if (path && path !== '/' && path !== TFE_BASE) {
+        document.getElementById('nf-path-value').textContent = path;
+        document.getElementById('nf-path').style.display = 'block';
+      }
+
+      document.getElementById('nf-year').textContent = new Date().getFullYear();
+    })();
+  </script>
+
+</body>
+</html>
