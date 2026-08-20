@@ -145,7 +145,9 @@
       left: 50%;
       transform: translateX(-50%);
       z-index: 1000;
-      background: rgba(15, 13, 11, 0.70);
+      /* Denser than the site's dock. There is no photography behind it here,
+         so at 0.70 the glass reads as a muddy grey slab against off-white. */
+      background: rgba(11, 11, 10, 0.94);
       backdrop-filter: blur(28px) saturate(1.4);
       -webkit-backdrop-filter: blur(28px) saturate(1.4);
       border: 1px solid rgba(255, 255, 255, 0.12);
@@ -433,7 +435,7 @@
   <main class="nf">
     <div class="container">
       <span class="eyebrow">Error 404</span>
-      <h1 class="nf-h1">That page isn't here.</h1>
+      <h1 class="nf-h1">That page isn’t here.</h1>
       <p class="nf-lead">The link may be out of date, or the page may have moved. Everything on the site is a click away.</p>
 
       <p class="nf-path" id="nf-path">You asked for <code id="nf-path-value"></code></p>

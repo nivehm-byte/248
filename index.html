@@ -47,7 +47,9 @@
       --on-dark-muted: rgba(var(--sand-rgb), 0.42);
 
       --on-light:       rgba(var(--charcoal-rgb), 0.88);
-      --on-light-muted: rgba(var(--charcoal-rgb), 0.50);
+      /* 0.62, not 0.50: at 0.50 this measured 3.43:1 on a white card, below
+         AA. 0.62 gives 5.06:1 and still reads clearly as secondary copy. */
+      --on-light-muted: rgba(var(--charcoal-rgb), 0.62);
 
       --ease-out:      cubic-bezier(0.22, 1, 0.36, 1);
       --ease-in-out:   cubic-bezier(0.65, 0, 0.35, 1);
@@ -370,7 +372,8 @@
       font-weight: 500;
       letter-spacing: 0.01em;
       text-decoration: none;
-      padding: 0.85rem 1.75rem;
+      /* Inset by the border width so this matches .hero-btn-primary's height */
+      padding: calc(0.85rem - 1.5px) calc(1.75rem - 1.5px);
       border-radius: 10px;
       border: 1.5px solid rgba(255, 255, 255, 0.45);
       overflow: hidden;
@@ -755,386 +758,6 @@
       .vp-vol-group, .vp-right { display: none; }
     }
 
-    .video-placeholder {
-      width: 100%; height: 100%;
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      gap: 1.25rem;
-      background: linear-gradient(150deg, var(--charcoal-deep) 0%, var(--charcoal) 100%);
-    }
-
-    .play-ring {
-      width: 60px; height: 60px; border-radius: 50%;
-      border: 1px solid rgba(var(--sand-rgb), 0.22);
-      display: flex; align-items: center; justify-content: center;
-      color: rgba(var(--sand-rgb), 0.35);
-      font-size: 1rem; padding-left: 3px;
-    }
-
-    .video-placeholder p {
-      font-size: 0.72rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: rgba(var(--sand-rgb), 0.2);
-    }
-
-    /* ════════════════════════════════════════
-       HOVER PLAY CARD
-    ════════════════════════════════════════ */
-    .hpc-card {
-      position: relative;
-      width: 100%; height: 100%;
-      cursor: pointer;
-      border-radius: inherit;
-      overflow: hidden;
-    }
-
-    .hpc-video {
-      width: 100%; height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-
-    .hpc-overlay {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: rgba(0, 0, 0, 0);
-      border-radius: inherit;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.28s var(--ease-out), background 0.28s var(--ease-out);
-    }
-
-    .hpc-card:hover .hpc-overlay,
-    .hpc-card.paused .hpc-overlay {
-      opacity: 1;
-      pointer-events: auto;
-      background: rgba(0, 0, 0, 0.38);
-    }
-
-    .hpc-btn {
-      width: 64px; height: 64px;
-      border-radius: 50%;
-      border: 1.5px solid rgba(255, 255, 255, 0.50);
-      background: rgba(255, 255, 255, 0.10);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      display: flex; align-items: center; justify-content: center;
-      cursor: pointer;
-      color: var(--white);
-      padding: 0;
-      transition: transform 0.2s var(--ease-out), background 0.2s var(--ease-out);
-    }
-
-    .hpc-btn:hover {
-      transform: scale(1.1);
-      background: rgba(255, 255, 255, 0.18);
-    }
-
-    .hpc-icon { width: 22px; height: 22px; }
-    .hpc-icon-play { margin-left: 3px; }
-
-    .hpc-badge {
-      position: absolute;
-      bottom: 1rem; left: 1rem;
-      padding: 0.26rem 0.68rem;
-      background: rgba(0, 0, 0, 0.52);
-      backdrop-filter: blur(6px);
-      -webkit-backdrop-filter: blur(6px);
-      border-radius: 20px;
-      font-size: 0.67rem;
-      letter-spacing: 0.09em;
-      text-transform: uppercase;
-      color: rgba(255, 255, 255, 0.78);
-      opacity: 0;
-      transform: translateY(5px);
-      pointer-events: none;
-      transition: opacity 0.25s var(--ease-out), transform 0.25s var(--ease-out);
-    }
-
-    .hpc-card:hover .hpc-badge,
-    .hpc-card.playing .hpc-badge,
-    .hpc-card.paused .hpc-badge {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .hpc-placeholder {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 1.25rem;
-      background: linear-gradient(150deg, var(--charcoal-deep) 0%, var(--charcoal) 100%);
-      pointer-events: none;
-    }
-
-    /* ════════════════════════════════════════
-       THE PROBLEM - TWO-COLUMN LAYOUT
-    ════════════════════════════════════════ */
-    .prob-layout {
-      display: grid;
-      grid-template-columns: 2fr 3fr;
-      grid-template-rows: auto auto 1fr;
-      column-gap: 2rem;
-      row-gap: 0;
-      align-items: start;
-      margin-top: 2.5rem;
-    }
-
-    /* Explicit row/column placement so h2 and paragraph share row 2 */
-    .prob-layout > .eyebrow   { grid-column: 1; grid-row: 1; margin-bottom: 0.75rem; justify-self: start; }
-    .prob-layout > .s-h2      { grid-column: 1; grid-row: 2; margin-bottom: 1.5rem; }
-    .prob-layout > .s-intro   { grid-column: 2; grid-row: 2; margin: 0 0 1.5rem; }
-    .prob-layout > .prob-img  { grid-column: 1; grid-row: 3; align-self: stretch; }
-    .prob-layout > .prob-cards { grid-column: 2; grid-row: 3; }
-
-    .prob-img {
-      min-height: 260px;
-      border-radius: 14px;
-      border: 1px solid rgba(var(--charcoal-rgb), 0.10);
-      overflow: hidden;
-    }
-
-    .prob-img img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-
-    .prob-cards {
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-    }
-
-    .prob-card {
-      display: flex;
-      align-items: stretch;
-      background: var(--white);
-      border-radius: 12px;
-      overflow: hidden;
-      transition: background 0.25s var(--ease-out);
-    }
-
-    .prob-card:hover { background: rgba(var(--off-white-rgb), 0.80); }
-
-    .prob-card-vis {
-      width: 88px;
-      flex-shrink: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 1rem 0.75rem;
-      background: rgba(var(--charcoal-rgb), 0.04);
-      border-right: 1px solid rgba(var(--charcoal-rgb), 0.08);
-    }
-
-    .prob-card-body {
-      flex: 1;
-      padding: 1.4rem 1.75rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-
-    .problem-num {
-      display: block;
-      font-size: 0.62rem;
-      font-weight: 600;
-      letter-spacing: 0.14em;
-      color: var(--earth);
-      margin-bottom: 0.35rem;
-    }
-
-    .prob-card h3 {
-      font-size: 0.95rem;
-      font-weight: 600;
-      letter-spacing: -0.01em;
-      color: var(--charcoal);
-      margin-bottom: 0.4rem;
-    }
-
-    .prob-card p {
-      font-size: 0.82rem;
-      font-weight: 400;
-      line-height: 1.75;
-      color: var(--on-light-muted);
-      margin: 0;
-    }
-
-    /* ── Card 1: Race bars (Too Slow) ── */
-    .pc-race { width: 100%; display: flex; flex-direction: column; gap: 0.65rem; }
-    .pc-race-row { display: flex; flex-direction: column; gap: 0; }
-    .pc-race-track {
-      height: 4px;
-      background: rgba(var(--charcoal-rgb), 0.12);
-      border-radius: 99px;
-      overflow: hidden;
-    }
-    .pc-race-bar {
-      height: 100%;
-      width: 100%;
-      border-radius: 99px;
-      transform: scaleX(0);
-      transform-origin: left;
-    }
-    .pc-race-bar--a { background: var(--charcoal); animation: race-a 4.2s ease-in-out infinite; }
-    .pc-race-bar--b { background: var(--slate);    animation: race-b 4.2s ease-in-out infinite; }
-    @keyframes race-a {
-      0%, 5%  { transform: scaleX(0); opacity: 0; }
-      10%     { opacity: 1; }
-      62%     { transform: scaleX(1); opacity: 1; }
-      78%     { opacity: 1; }
-      90%     { opacity: 0; }
-      91%     { transform: scaleX(0); }
-      100%    { transform: scaleX(0); opacity: 0; }
-    }
-    @keyframes race-b {
-      0%, 5%  { transform: scaleX(0); opacity: 0; }
-      10%     { opacity: 1; }
-      62%     { transform: scaleX(0.20); opacity: 1; }
-      78%     { opacity: 1; }
-      90%     { opacity: 0; }
-      91%     { transform: scaleX(0); }
-      100%    { transform: scaleX(0); opacity: 0; }
-    }
-
-    /* ── Card 2: Bar chart (Too Expensive) ── */
-    .pc-bars { display: flex; align-items: flex-end; gap: 1rem; height: 56px; }
-    .pc-bar-col { display: flex; flex-direction: column; align-items: center; gap: 0; }
-    .pc-bar-wrap {
-      width: 18px;
-      height: 48px;
-      background: rgba(var(--charcoal-rgb), 0.10);
-      border-radius: 3px 3px 0 0;
-      overflow: hidden;
-      position: relative;
-    }
-    .pc-bar {
-      position: absolute;
-      bottom: 0; left: 0;
-      width: 100%; height: 100%;
-      transform: scaleY(0);
-      transform-origin: bottom;
-      border-radius: 3px 3px 0 0;
-    }
-    .pc-bar--cost  { background: var(--charcoal); animation: bar-cost  4.2s ease-in-out infinite; }
-    .pc-bar--reach { background: var(--slate);    animation: bar-reach 4.2s ease-in-out infinite; }
-    @keyframes bar-cost {
-      0%, 8%  { transform: scaleY(0); opacity: 0; }
-      14%     { opacity: 1; }
-      62%     { transform: scaleY(0.92); opacity: 1; }
-      78%     { opacity: 1; }
-      90%     { opacity: 0; }
-      91%     { transform: scaleY(0); }
-      100%    { transform: scaleY(0); opacity: 0; }
-    }
-    @keyframes bar-reach {
-      0%, 8%  { transform: scaleY(0); opacity: 0; }
-      14%     { opacity: 1; }
-      62%     { transform: scaleY(0.14); opacity: 1; }
-      78%     { opacity: 1; }
-      90%     { opacity: 0; }
-      91%     { transform: scaleY(0); }
-      100%    { transform: scaleY(0); opacity: 0; }
-    }
-
-    /* ── Card 3: Network diagram (Too Centralised) ── */
-    .pc-network { width: 64px; height: 64px; overflow: visible; }
-    .nw-line {
-      stroke: var(--charcoal);
-      stroke-width: 1.2;
-      opacity: 0.22;
-      transition: opacity 0.7s var(--ease-out);
-    }
-    .nw-spoke {
-      fill: var(--charcoal);
-      opacity: 0.28;
-      transition: opacity 0.7s var(--ease-out);
-    }
-    .nw-center {
-      fill: var(--earth);
-      opacity: 1;
-      transform-box: fill-box;
-      transform-origin: center;
-      transition: opacity 0.5s var(--ease-out), transform 0.6s var(--ease-in-out);
-    }
-    .pc-network.nw-leaving  .nw-center  { opacity: 0; transform: scale(0.2); }
-    .pc-network.nw-leaving  .nw-line    { opacity: 0.06; }
-    .pc-network.nw-collapsed .nw-center { opacity: 0; transform: scale(0); }
-    .pc-network.nw-collapsed .nw-line   { opacity: 0.06; }
-    .pc-network.nw-collapsed .nw-spoke  { opacity: 0.10; }
-
-    /* ── Card 4: Fragment layers (Too Fragile) ── */
-    .pc-frag { width: 66px; height: 40px; overflow: visible; }
-    .fr-layer {
-      fill: var(--charcoal);
-      opacity: 0.20;
-      transform-box: fill-box;
-      transform-origin: center;
-      transition: transform 0.8s var(--ease-in-out), opacity 0.8s var(--ease-in-out);
-    }
-    .pc-frag.fr-shift .fr-l1    { transform: translateX(-7px)  rotate(-1.5deg); opacity: 0.32; }
-    .pc-frag.fr-shift .fr-l2    { transform: translateX(6px);                   opacity: 0.32; }
-    .pc-frag.fr-shift .fr-l3    { transform: translateX(-4px)  rotate(1deg);    opacity: 0.32; }
-    .pc-frag.fr-collapse .fr-l1 { transform: translateX(-18px) translateY(-5px) rotate(-5deg); opacity: 0.08; }
-    .pc-frag.fr-collapse .fr-l2 { transform: translateX(14px)  translateY(2px);                opacity: 0.08; }
-    .pc-frag.fr-collapse .fr-l3 { transform: translateX(-10px) translateY(7px)  rotate(3deg);  opacity: 0.08; }
-
-    /* ── Problem section: scroll-driven sticky wrapper ── */
-    .prob-wrapper {
-      position: relative;
-      height: 500vh;
-    }
-
-    .prob-sticky {
-      position: sticky;
-      top: 0;
-      height: 100vh;
-      overflow: hidden;
-      background: var(--off-white);
-      display: flex;
-      align-items: center;
-    }
-
-    .prob-sticky .prob-layout { margin-top: 0; }
-
-    .prob-wrapper .prob-card {
-      opacity: 0;
-      transform: translateY(36px);
-      will-change: opacity, transform;
-    }
-
-    /* ════════════════════════════════════════
-       MULTIPLICATION
-    ════════════════════════════════════════ */
-    .mult-section { text-align: center; }
-    .mult-section .s-h2 { margin: 0 auto; }
-
-    .mult-img {
-      display: block;
-      max-width: 640px;
-      width: 100%;
-      height: auto;
-      margin: 2.5rem auto 2rem;
-    }
-
-    .mult-lead {
-      font-size: 1rem;
-      font-weight: 400;
-      line-height: 1.9;
-      color: rgba(var(--off-white-rgb), 0.68);
-      max-width: 580px;
-      margin: 0 auto;
-    }
-
     /* ════════════════════════════════════════
        STATEMENT (Problem + Answer merged)
     ════════════════════════════════════════ */
@@ -1262,138 +885,6 @@
       font-weight: 400;
       line-height: 1.75;
       color: var(--on-light-muted);
-    }
-
-    /* ════════════════════════════════════════
-       SOUTH AFRICA - TIMELINE STEPPER
-    ════════════════════════════════════════ */
-    .sa-timeline {
-      display: flex;
-      gap: 0;
-      margin: 3rem 0 2.5rem;
-      position: relative;
-    }
-
-    .timeline-track {
-      position: absolute;
-      top: 6px;
-      left: calc(10% + 4px);
-      right: calc(10% + 4px);
-      height: 1px;
-      background: rgba(var(--charcoal-rgb), 0.12);
-      z-index: 0;
-      border-radius: 1px;
-    }
-
-    .timeline-track-fill {
-      position: absolute;
-      left: 0; top: 0;
-      height: 100%;
-      width: 0%;
-      background: var(--earth-lt);
-      border-radius: 1px;
-      transition: width 600ms var(--ease-out);
-    }
-
-    .timeline-point {
-      flex: 1;
-      text-align: center;
-      position: relative;
-      background: none;
-      border: none;
-      cursor: pointer;
-      padding: 0;
-      font-family: inherit;
-    }
-
-    .timeline-point:focus-visible {
-      outline: 2px solid var(--earth-lt);
-      outline-offset: 6px;
-      border-radius: 6px;
-    }
-
-    .timeline-dot {
-      width: 8px; height: 8px;
-      border-radius: 50%;
-      background: rgba(var(--slate-rgb), 0.35);
-      margin: 0 auto 1rem;
-      border: 2px solid rgba(var(--slate-rgb), 0.35);
-      position: relative; z-index: 1;
-      box-shadow: none;
-      transition: background 350ms var(--ease-out),
-                  border-color 350ms var(--ease-out),
-                  box-shadow 350ms var(--ease-out),
-                  transform 350ms var(--ease-out);
-      will-change: transform, box-shadow;
-    }
-
-    .timeline-point[data-state="active"] .timeline-dot {
-      background: var(--charcoal);
-      border-color: var(--charcoal);
-      box-shadow: 0 0 0 5px rgba(var(--charcoal-rgb), 0.12);
-      transform: scale(1.3);
-    }
-
-    .timeline-point[data-state="completed"] .timeline-dot {
-      background: var(--earth-lt);
-      border-color: var(--earth-lt);
-    }
-
-    .timeline-year {
-      display: block;
-      font-size: 0.7rem;
-      font-weight: 600;
-      color: var(--on-light-muted);
-      letter-spacing: 0.06em;
-      margin-bottom: 0.35rem;
-      transition: color 350ms var(--ease-out);
-    }
-
-    .timeline-point[data-state="active"] .timeline-year   { color: var(--charcoal); }
-    .timeline-point[data-state="completed"] .timeline-year { color: var(--earth-lt); }
-
-    .timeline-label {
-      font-size: 0.78rem;
-      font-weight: 400;
-      color: var(--on-light-muted);
-      line-height: 1.5;
-      transition: color 350ms var(--ease-out);
-    }
-
-    .timeline-point[data-state="active"] .timeline-label { color: var(--charcoal); }
-
-    .story-block {
-      margin-bottom: 2.5rem;
-      padding: 2rem 2.4rem;
-      background: var(--white);
-      border: 1px solid rgba(var(--charcoal-rgb), 0.10);
-      border-radius: 12px;
-      display: grid;
-    }
-
-    .step-content {
-      grid-row: 1;
-      grid-column: 1;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 400ms var(--ease-out);
-    }
-
-    .step-content.active {
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    .step-content p {
-      font-size: 1rem;
-      font-weight: 400;
-      line-height: 1.9;
-      color: var(--on-light-muted);
-    }
-
-    .step-content .hl {
-      color: var(--charcoal);
-      font-weight: 500;
     }
 
     /* ════════════════════════════════════════
@@ -1652,213 +1143,6 @@
     }
 
     .cta-contact a:hover { color: var(--charcoal); }
-
-    /* ════════════════════════════════════════
-       AN INVITATION - CARD STACK
-    ════════════════════════════════════════ */
-    .stack-outer {
-      margin-top: 3.5rem;
-      max-width: 520px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    .stack-wrap {
-      position: relative;
-      height: 380px;
-      overflow: hidden;
-    }
-
-    .stack-card {
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      width: 100%;
-      max-width: 480px;
-      height: 300px;
-      background: var(--white);
-      border: 1px solid rgba(var(--charcoal-rgb), 0.08);
-      border-bottom: none;
-      border-radius: 14px 14px 0 0;
-      padding: 2rem 2.2rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      will-change: transform, opacity;
-      box-shadow: 0 -12px 40px rgba(var(--sand-rgb), 0.40);
-      cursor: pointer;
-    }
-
-    .stack-card-num {
-      display: block;
-      font-size: 0.62rem;
-      font-weight: 600;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--slate);
-      margin-bottom: 1rem;
-    }
-
-    .stack-card h3 {
-      font-size: clamp(1.5rem, 2.8vw, 2rem);
-      font-weight: 700;
-      letter-spacing: -0.03em;
-      color: var(--charcoal);
-      margin-bottom: 0.7rem;
-    }
-
-    .stack-card p {
-      font-size: 0.9rem;
-      font-weight: 400;
-      line-height: 1.85;
-      color: rgba(var(--charcoal-rgb), 0.55);
-    }
-
-    .stack-card-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35rem;
-      font-size: 0.82rem;
-      font-weight: 500;
-      color: var(--slate);
-      text-decoration: none;
-      transition: color 0.2s var(--ease-out), gap 0.2s var(--ease-out);
-    }
-
-    .stack-card-link:hover {
-      color: var(--charcoal);
-      gap: 0.6rem;
-    }
-
-    .stack-card-link svg {
-      width: 14px;
-      height: 14px;
-      flex-shrink: 0;
-    }
-
-    .sa-timeline-footer {
-      display: flex;
-      justify-content: flex-end;
-      margin-top: 1rem;
-    }
-
-    .stack-floor {
-      border-top: 1px solid rgba(var(--charcoal-rgb), 0.10);
-      padding: 1.25rem 0 0;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .stack-dots {
-      display: flex;
-      gap: 0.45rem;
-      align-items: center;
-    }
-
-    .stack-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: rgba(var(--charcoal-rgb), 0.18);
-      transition: background 0.35s var(--ease-out), transform 0.35s var(--ease-out);
-    }
-
-    .stack-dot.active {
-      background: var(--earth-lt);
-      transform: scale(1.3);
-    }
-
-    .stack-next-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      background: rgba(var(--charcoal-rgb), 0.06);
-      border: 1px solid rgba(var(--charcoal-rgb), 0.12);
-      color: rgba(var(--charcoal-rgb), 0.55);
-      font-family: 'Inter', sans-serif;
-      font-size: 0.82rem;
-      font-weight: 500;
-      letter-spacing: 0.02em;
-      padding: 0.65rem 1.25rem;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: background 0.2s, color 0.2s, border-color 0.2s;
-    }
-
-    .stack-next-btn:hover {
-      background: rgba(var(--charcoal-rgb), 0.10);
-      color: var(--charcoal);
-      border-color: rgba(var(--charcoal-rgb), 0.24);
-    }
-
-    .stack-next-btn svg {
-      width: 14px;
-      height: 14px;
-    }
-
-    /* ════════════════════════════════════════
-       MODEL / TEAM CARDS (3-col)
-    ════════════════════════════════════════ */
-    .model-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.5rem;
-      margin-top: 3rem;
-    }
-
-    .model-card {
-      padding: 2.4rem 2rem;
-      background: var(--white);
-      border: 1px solid rgba(var(--charcoal-rgb), 0.08);
-      border-radius: 14px;
-      position: relative;
-      overflow: hidden;
-      transition: transform 0.3s var(--ease-spring), box-shadow 0.3s;
-    }
-
-    .model-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 40px rgba(var(--charcoal-rgb), 0.09), 0 2px 8px rgba(var(--charcoal-rgb), 0.05);
-    }
-
-    .model-card::after {
-      content: '';
-      position: absolute;
-      bottom: 0; left: 0; right: 0;
-      height: 2px;
-      background: linear-gradient(to right, var(--slate), var(--sienna));
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform 0.35s var(--ease-out);
-    }
-
-    .model-card:hover::after { transform: scaleX(1); }
-
-    .model-card h3 {
-      font-size: 1.05rem;
-      font-weight: 600;
-      letter-spacing: -0.01em;
-      color: var(--charcoal);
-      margin-bottom: 0.7rem;
-    }
-
-    .model-card p {
-      font-size: 0.875rem;
-      font-weight: 400;
-      line-height: 1.85;
-      color: var(--on-light-muted);
-    }
-
-    /* ════════════════════════════════════════
-       MODEL STEPS - horizontal step list (about page)
-    ════════════════════════════════════════ */
-    .model-steps {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.25rem;
-      margin-top: 3.5rem;
-    }
 
     /* ── The Model - numbered rows + figure ── */
     .model-layout {
@@ -2473,16 +1757,6 @@
       margin-bottom: 1.1rem;
     }
 
-    .invest-period {
-      display: block;
-      font-size: 0.68rem;
-      font-weight: 600;
-      letter-spacing: 0.10em;
-      text-transform: uppercase;
-      color: rgba(var(--charcoal-rgb), 0.40);
-      margin-bottom: 1.1rem;
-    }
-
     .invest-desc {
       font-size: 0.875rem;
       font-weight: 400;
@@ -2596,65 +1870,6 @@
       font-weight: 400;
       line-height: 1.55;
       color: rgba(255, 255, 255, 0.82);
-    }
-
-    .city-cards {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.5rem;
-      margin-top: 3rem;
-    }
-
-    .city-card {
-      padding: 2.2rem 1.8rem;
-      background: var(--white);
-      border: 1px solid rgba(var(--charcoal-rgb), 0.08);
-      border-radius: 12px;
-      position: relative;
-      overflow: hidden;
-      transition: transform 0.3s var(--ease-spring), box-shadow 0.3s;
-    }
-
-    .city-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 40px rgba(var(--charcoal-rgb), 0.09), 0 2px 8px rgba(var(--charcoal-rgb), 0.05);
-    }
-
-    .city-card::after {
-      content: '';
-      position: absolute;
-      bottom: 0; left: 0; right: 0;
-      height: 2px;
-      background: linear-gradient(to right, var(--slate), var(--sienna));
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform 0.35s var(--ease-out);
-    }
-
-    .city-card:hover::after { transform: scaleX(1); }
-
-    .city-stage {
-      display: inline-block;
-      font-size: 0.64rem;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--earth-lt);
-      margin-bottom: 0.8rem;
-    }
-
-    .city-card h3 {
-      font-size: 1.3rem;
-      font-weight: 600;
-      color: var(--charcoal);
-      margin-bottom: 0.6rem;
-    }
-
-    .city-card p {
-      font-size: 0.875rem;
-      font-weight: 400;
-      color: var(--on-light-muted);
-      line-height: 1.85;
     }
 
     /* ════════════════════════════════════════
@@ -2828,129 +2043,6 @@
     }
 
     /* ════════════════════════════════════════
-       SCROLL EXPAND - VIDEO SECTION
-    ════════════════════════════════════════ */
-    .se-wrapper {
-      position: relative;
-      height: 200vh;
-    }
-
-    .se-sticky {
-      position: sticky;
-      top: 0;
-      height: 100vh;
-      overflow: hidden;
-      background: var(--charcoal-deep);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .se-bg {
-      position: absolute;
-      inset: 0;
-      z-index: 0;
-      background:
-        radial-gradient(ellipse 80% 60% at 50% 50%, rgba(var(--slate-rgb),0.13) 0%, transparent 65%),
-        var(--charcoal-deep);
-    }
-
-    .se-eyebrow {
-      position: absolute;
-      top: 2.5rem;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 4;
-      font-size: 0.68rem;
-      font-weight: 600;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: var(--on-dark-muted);
-      white-space: nowrap;
-    }
-
-    .se-media-wrap {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      border-radius: 14px;
-      overflow: hidden;
-      z-index: 1;
-      width: 300px;
-      height: 400px;
-      box-shadow: 0 0 80px rgba(0, 0, 0, 0.55);
-      will-change: width, height, border-radius;
-    }
-
-    .se-media-wrap .video-placeholder { border-radius: 0; }
-
-    .se-overlay {
-      position: absolute;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.52);
-      z-index: 2;
-      pointer-events: none;
-      will-change: opacity;
-    }
-
-    .se-title {
-      position: absolute;
-      inset: 0;
-      z-index: 3;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 0.25rem;
-      pointer-events: none;
-    }
-
-    .se-word {
-      display: block;
-      font-size: clamp(2.5rem, 5.5vw, 5.5rem);
-      font-weight: 700;
-      letter-spacing: -0.04em;
-      line-height: 1.02;
-      color: var(--white);
-      will-change: transform;
-      white-space: nowrap;
-    }
-
-    .se-hint {
-      position: absolute;
-      bottom: 2.5rem;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 4;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.6rem;
-      will-change: opacity;
-    }
-
-    .se-hint-line {
-      width: 1px;
-      height: 38px;
-      background: linear-gradient(to bottom, transparent, rgba(var(--sand-rgb), 0.38));
-      animation: se-pulse 2.2s ease-in-out infinite;
-    }
-
-    @keyframes se-pulse {
-      0%, 100% { opacity: 0.4; }
-      50%       { opacity: 0.85; }
-    }
-
-    .se-hint-text {
-      font-size: 0.58rem;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--on-dark-muted);
-      white-space: nowrap;
-    }
-
-    /* ════════════════════════════════════════
        RESPONSIVE
     ════════════════════════════════════════ */
     @media (max-width: 900px) {
@@ -2958,18 +2050,6 @@
       .nav-divider  { display: none; }
       .nav-hamburger { display: block; }
       .nav-inner    { gap: 1rem; padding: 0.5rem 0.5rem 0.5rem 1.25rem; }
-
-      .prob-wrapper               { height: auto; }
-      .prob-sticky                { position: relative; height: auto; padding: 5rem 0; }
-      .prob-wrapper .prob-card    { opacity: 1 !important; transform: none !important; }
-      .prob-layout                { grid-template-columns: 1fr; grid-template-rows: auto; }
-      .prob-layout > .eyebrow,
-      .prob-layout > .s-h2,
-      .prob-layout > .s-intro,
-      .prob-layout > .prob-img,
-      .prob-layout > .prob-cards  { grid-column: 1; grid-row: auto; }
-      .prob-layout > .s-intro     { margin-bottom: 1.5rem; }
-      .prob-img                   { min-height: 220px; }
       .measure-grid      { grid-template-columns: repeat(3, 1fr); }
       .stat-grid                       { grid-template-columns: repeat(2, 1fr); }
       .stat-item + .stat-item          { border-left: none; }
@@ -2984,8 +2064,6 @@
       .stat-grid--six .stat-item:nth-child(1),
       .stat-grid--six .stat-item:nth-child(2)    { border-top: none; margin-top: 0; }
       .members-grid      { grid-template-columns: repeat(2, 1fr); }
-      .model-grid        { grid-template-columns: repeat(2, 1fr); }
-      .model-steps       { grid-template-columns: 1fr; }
       .model-layout      { grid-template-columns: 1fr; }
       .model-layout--figure-left .model-figure { order: 0; }
       .model-layout--figure-left .model-figure-split { order: 0; }
@@ -3004,10 +2082,6 @@
       .hero-h1        { font-size: 2.24rem; }
       .hero-ctas      { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
       .nav-cta        { display: none; }
-
-      .prob-img          { min-height: 180px; }
-      .prob-layout > .s-intro { margin-bottom: 1.5rem; }
-      .model-grid        { grid-template-columns: 1fr; }
       .measure-grid      { grid-template-columns: repeat(2, 1fr); }
       .stat-grid                              { grid-template-columns: 1fr; }
       .stat-item + .stat-item                 { border-left: none; border-top: 1px solid rgba(var(--charcoal-rgb),0.12); padding-top: 2rem; margin-top: 0; }
@@ -3020,14 +2094,10 @@
       .stat-grid--six .stat-item + .stat-item  { border-top: 1px solid rgba(var(--charcoal-rgb),0.12); padding-top: 2rem; margin-top: 0; }
       .stat-grid--six .stat-item:nth-child(1)  { border-top: none; }
       .invest-grid       { grid-template-columns: 1fr; }
-      .city-cards        { grid-template-columns: 1fr; }
       .members-grid      { grid-template-columns: 1fr; }
       .model-figure--full { aspect-ratio: 3 / 2; border-radius: 14px; }
       .pull-quote        { padding: 1.3rem 1.35rem 1.4rem; border-radius: 14px; }
       .cta-engage        { flex-direction: column; align-items: center; }
-      .sa-timeline       { flex-wrap: wrap; gap: 1.5rem; }
-      .timeline-track    { display: none; }
-      .timeline-point    { flex: 0 0 40%; }
       .video-wrap        { border-radius: 10px; }
 
     }
@@ -3192,7 +2262,7 @@
       <section class="s-sand statement">
         <div class="container">
           <h2 class="statement-h2 reveal">
-            The world's cities are growing faster than our strategies to reach them.
+            The world’s cities are growing faster than our strategies to reach them.
             <span class="statement-accent">We need movements. Not just ministries.</span>
           </h2>
         </div>
@@ -3276,7 +2346,7 @@
         <div class="container">
           <span class="eyebrow reveal">An Invitation</span>
           <h2 class="s-h2 reveal">Thirty minutes to change the trajectory of a city.</h2>
-          <p class="cta-body reveal">We'd welcome 30 minutes to share what we're seeing in cities and hear what matters to you.</p>
+          <p class="cta-body reveal">We’d welcome 30 minutes to share what we’re seeing in cities and hear what matters to you.</p>
 
           <div class="cta-actions reveal">
             <a href="mailto:david@twofoureight.org" class="btn-primary">
@@ -3313,7 +2383,7 @@
 
             <div class="model-main">
               <h2 class="s-h2 reveal">Healthy Leaders Build Strong Movements</h2>
-              <p class="s-intro reveal">We don't move fast and hope for the best. We go deep, acting as catalyst and coach, igniting what couldn't start without us - then guiding it to maturity.</p>
+              <p class="s-intro reveal">We don’t move fast and hope for the best. We go deep, acting as catalyst and coach, igniting what couldn’t start without us, then guiding it to maturity.</p>
 
               <p class="model-lead-in reveal">Every potential movement leader gets:</p>
 
@@ -3322,7 +2392,7 @@
                   <span class="model-num">1.</span>
                   <div class="model-row-text">
                     <h3>A Movement Guide</h3>
-                    <p>An experienced practitioner who walks alongside them for the long haul - coaching through real challenges, on the ground, as they happen.</p>
+                    <p>An experienced practitioner who walks alongside them for the long haul, coaching through real challenges, on the ground, as they happen.</p>
                   </div>
                 </div>
 
@@ -3464,7 +2534,7 @@
               </article>
 
               <article class="testi-card reveal" style="transition-delay: 0.20s">
-                <p class="testi-quote">"We work in South Africa's townships, vibrant yet violent, full of character yet challenging. Two Four Eight have been faithful friends and partners, always there when needed. Together, we're learning daily how to introduce Jesus more effectively to our people."</p>
+                <p class="testi-quote">"We work in South Africa’s townships, vibrant yet violent, full of character yet challenging. Two Four Eight have been faithful friends and partners, always there when needed. Together, we’re learning daily how to introduce Jesus more effectively to our people."</p>
                 <div class="testi-person">
                   <img class="testi-avatar" src="testi-4.jpg" alt="Loyiso" loading="lazy" onerror="this.style.display='none'">
                   <div>
@@ -3629,7 +2699,7 @@
         <div class="container">
           <span class="eyebrow reveal">An Invitation</span>
           <h2 class="s-h2 reveal">Thirty minutes to change the trajectory of a city.</h2>
-          <p class="cta-body reveal">We'd welcome 30 minutes to share what we're seeing in cities and hear what matters to you.</p>
+          <p class="cta-body reveal">We’d welcome 30 minutes to share what we’re seeing in cities and hear what matters to you.</p>
           <div class="cta-actions reveal">
             <a href="mailto:david@twofoureight.org" class="btn-primary">
               <span class="t1">Start a conversation</span>
@@ -3858,7 +2928,7 @@
 
             <div class="model-main">
               <h2 class="s-h2 reveal">Why this research matters</h2>
-              <p class="s-intro reveal">Urbanisation is outpacing the church's ability to adapt. Movement leaders on the ground are navigating complexity, transience, and diversity that older models were never built for, often with little more than instinct and imported strategies.</p>
+              <p class="s-intro reveal">Urbanisation is outpacing the church’s ability to adapt. Movement leaders on the ground are navigating complexity, transience, and diversity that older models were never built for, often with little more than instinct and imported strategies.</p>
               <p class="s-intro reveal">These leaders do not need another theory. They need grounded insight from practitioners who are actually seeing disciples multiply in cities. Better research means better decisions on the ground.</p>
             </div>
 
@@ -3882,7 +2952,7 @@
         <div class="container">
           <span class="eyebrow reveal">The Project</span>
           <h2 class="s-h2 reveal">The Movement Insights research</h2>
-          <p class="s-intro reveal">A multi-year listening project studying how God is multiplying disciples in the world's cities. Our strategy is to align with what God is actually doing.</p>
+          <p class="s-intro reveal">A multi-year listening project studying how God is multiplying disciples in the world’s cities. Our strategy is to align with what God is actually doing.</p>
 
           <p class="pull-quote reveal">For you to study movements in cities, you must listen to its stories.</p>
 
@@ -3899,7 +2969,7 @@
           <div class="stat-band-header">
             <span class="eyebrow reveal">The Methodology</span>
             <h2 class="s-h2 reveal">How we listened.</h2>
-            <p class="stat-band-body reveal">Over four years, we conducted in-depth interviews with practitioners seeing real multiplication in some of the world's most complex urban environments, including cities marked by persecution, instability, and active conflict. Every interview was transcribed, coded, cross-analysed, and checked back with the practitioners themselves.</p>
+            <p class="stat-band-body reveal">Over four years, we conducted in-depth interviews with practitioners seeing real multiplication in some of the world’s most complex urban environments, including cities marked by persecution, instability, and active conflict. Every interview was transcribed, coded, cross-analysed, and checked back with the practitioners themselves.</p>
           </div>
 
           <div class="stat-grid stat-grid--six js-counters">
@@ -3935,7 +3005,7 @@
       <section class="s-sand">
         <div class="container">
           <span class="eyebrow reveal">What We Found</span>
-          <h2 class="s-h2 reveal">What's working in cities</h2>
+          <h2 class="s-h2 reveal">What’s working in cities</h2>
           <p class="s-intro reveal">Fifteen patterns surfaced again and again across continents. The full report unpacks all fifteen, with the practitioners' own voices, common challenges, and emerging practices. Five are highlighted here.</p>
 
           <div class="measure-grid">
@@ -4067,7 +3137,7 @@
       <div class="s-slate donate-header">
         <div class="container">
           <span class="eyebrow">Invest</span>
-          <h2 class="s-h2">Invest in what's already working</h2>
+          <h2 class="s-h2">Invest in what’s already working</h2>
           <p>You are not funding a program. You are funding a multiplier: a system that outlasts and outgrows our involvement.</p>
         </div>
       </div>
@@ -4087,7 +3157,7 @@
                   <span class="model-num">1.</span>
                   <div class="model-row-text">
                     <h3>Leverage</h3>
-                    <p>You're funding a multiplier. A system that outlasts and outgrows our involvement. Addition reaches hundreds. Multiplication reaches cities.</p>
+                    <p>You’re funding a multiplier. A system that outlasts and outgrows our involvement. Addition reaches hundreds. Multiplication reaches cities.</p>
                   </div>
                 </div>
 
@@ -4129,15 +3199,15 @@
           <h2 class="s-h2 reveal">What your giving strengthens</h2>
           <div class="invest-grid">
             <div class="invest-card reveal" style="transition-delay: 0.05s">
-              <span class="invest-amount">$5&nbsp;000</span>
+              <span class="invest-amount">$5,000</span>
               <p class="invest-desc">Funds the development of 2-3 Movement Leaders for a year, each growing movements of multiple Faith Communities.</p>
             </div>
             <div class="invest-card featured reveal" style="transition-delay: 0.10s">
-              <span class="invest-amount">$25&nbsp;000</span>
+              <span class="invest-amount">$25,000</span>
               <p class="invest-desc">Funds the full coaching infrastructure over a year for one early-stage city growing into a mature movement.</p>
             </div>
             <div class="invest-card reveal" style="transition-delay: 0.15s">
-              <span class="invest-amount">$50&nbsp;000</span>
+              <span class="invest-amount">$50,000</span>
               <p class="invest-desc">Funds a Venture: launching a new local organisation with capacity to reach multiple cities and raise up new Movement Guides.</p>
             </div>
           </div>
@@ -4205,7 +3275,7 @@
         <div class="container">
           <span class="eyebrow reveal">An Invitation</span>
           <h2 class="s-h2 reveal">Thirty minutes to change the trajectory of a city.</h2>
-          <p class="cta-body reveal">We'd welcome 30 minutes to share what we're seeing in cities and hear what matters to you.</p>
+          <p class="cta-body reveal">We’d welcome 30 minutes to share what we’re seeing in cities and hear what matters to you.</p>
           <div class="cta-actions reveal">
             <a href="mailto:david@twofoureight.org" class="btn-primary">
               <span class="t1">Start a conversation</span>
@@ -4348,73 +3418,6 @@
       root.querySelectorAll('.reveal:not(.in)').forEach(el => revealObserver.observe(el));
     }
 
-    // ── Problem section: scroll-driven card reveal ──
-    (function () {
-      var wrapper = document.getElementById('prob-wrapper');
-      if (!wrapper) return;
-      var cards = Array.from(wrapper.querySelectorAll('.prob-card'));
-      if (!cards.length) return;
-      var N = cards.length;
-
-      function probUpdate() {
-        if (window.innerWidth <= 900) {
-          cards.forEach(function (c) { c.style.opacity = ''; c.style.transform = ''; });
-          return;
-        }
-        var rect         = wrapper.getBoundingClientRect();
-        var scrollBudget = wrapper.offsetHeight - window.innerHeight;
-        if (scrollBudget <= 0) return;
-        var scrolled  = Math.max(0, -rect.top);
-        var progress  = Math.min(1, scrolled / scrollBudget);
-
-        cards.forEach(function (card, i) {
-          var start = i / N;
-          var end   = start + 0.18;
-          var p     = Math.max(0, Math.min(1, (progress - start) / (end - start)));
-          card.style.opacity   = p;
-          card.style.transform = 'translateY(' + ((1 - p) * 36) + 'px)';
-        });
-      }
-
-      window.addEventListener('scroll', probUpdate, { passive: true });
-      window.addEventListener('resize', probUpdate, { passive: true });
-      probUpdate();
-    })();
-
-    // ── Problem card animations: network collapse + layer fragment ──
-    (function() {
-      const net = document.querySelector('.pc-network');
-      if (net) {
-        function cycleNet() {
-          net.className = 'pc-network';
-          setTimeout(() => {
-            net.classList.add('nw-leaving');
-            setTimeout(() => {
-              net.classList.remove('nw-leaving');
-              net.classList.add('nw-collapsed');
-              setTimeout(cycleNet, 1400);
-            }, 800);
-          }, 2800);
-        }
-        setTimeout(cycleNet, 600);
-      }
-
-      const frag = document.querySelector('.pc-frag');
-      if (frag) {
-        function cycleFrag() {
-          frag.className = 'pc-frag';
-          setTimeout(() => {
-            frag.classList.add('fr-shift');
-            setTimeout(() => {
-              frag.classList.remove('fr-shift');
-              frag.classList.add('fr-collapse');
-              setTimeout(cycleFrag, 1200);
-            }, 900);
-          }, 2200);
-        }
-        setTimeout(cycleFrag, 1200);
-      }
-    })();
 
     // ── Counter animation - fires when a stat band enters the viewport ──
     // Scoped to one band at a time so each page's counters roll on their own
@@ -4569,419 +3572,6 @@
       showPage(pageFromHash(), { fromHistory: true, instant: true });
     });
 
-    // ── Video expand - scroll-driven ──
-    (function () {
-      const wrapper = document.getElementById('se-wrapper');
-      if (!wrapper) return;
-
-      const media   = document.getElementById('se-media');
-      const overlay = document.getElementById('se-overlay');
-      const wordL   = document.getElementById('se-word-l');
-      const wordR   = document.getElementById('se-word-r');
-      const hint    = document.getElementById('se-hint');
-
-      let isMobile = window.innerWidth < 768;
-      window.addEventListener('resize', () => { isMobile = window.innerWidth < 768; }, { passive: true });
-
-      function seUpdate() {
-        // Only run when home page is active
-        if (!document.getElementById('page-home').classList.contains('active')) return;
-
-        const rect       = wrapper.getBoundingClientRect();
-        const scrollRange = wrapper.offsetHeight - window.innerHeight;
-        if (scrollRange <= 0) return;
-
-        const progress = Math.max(0, Math.min(1, -rect.top / scrollRange));
-
-        const w = Math.min(300 + progress * (isMobile ? 650 : 1250), window.innerWidth);
-        const h = Math.min(400 + progress * (window.innerHeight - 400), window.innerHeight);
-        const tx     = progress * (isMobile ? 150 : 130);
-        const radius = (1 - progress) * 14;
-
-        media.style.width        = w + 'px';
-        media.style.height       = h + 'px';
-        media.style.borderRadius = radius + 'px';
-        overlay.style.opacity    = String(Math.max(0, 0.52 - progress * 0.52));
-        wordL.style.transform    = `translateX(-${tx}vw)`;
-        wordR.style.transform    = `translateX(${tx}vw)`;
-        hint.style.opacity       = String(Math.max(0, 1 - progress * 5));
-      }
-
-      window.addEventListener('scroll', seUpdate, { passive: true });
-      seUpdate();
-    })();
-
-    // ── South Africa hover-play card ──
-    (function () {
-      const card        = document.getElementById('sa-video-card');
-      const btn         = document.getElementById('sa-hpc-btn');
-      if (!card || !btn) return;
-
-      const video       = document.getElementById('sa-video');
-      const badge       = document.getElementById('sa-hpc-badge');
-      const placeholder = document.getElementById('sa-hpc-placeholder');
-      const iconPlay    = btn.querySelector('.hpc-icon-play');
-      const iconPause   = btn.querySelector('.hpc-icon-pause');
-
-      let userStarted = false;
-
-      function hasSrc() {
-        return video.src && video.src !== window.location.href && video.src !== '';
-      }
-
-      function setIcons(playing) {
-        iconPlay.style.display  = playing ? 'none' : '';
-        iconPause.style.display = playing ? '' : 'none';
-      }
-
-      // Show placeholder only when there's no real src
-      function syncPlaceholder() {
-        placeholder.style.display = hasSrc() ? 'none' : '';
-      }
-      syncPlaceholder();
-
-      card.addEventListener('mouseenter', () => {
-        if (!hasSrc()) return;
-        if (!userStarted && video.paused) {
-          video.muted = true;
-          video.play().catch(() => {});
-        }
-      });
-
-      card.addEventListener('mouseleave', () => {
-        if (!userStarted && !video.paused) {
-          video.pause();
-        }
-      });
-
-      btn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        if (!hasSrc()) return;
-        if (video.paused) {
-          video.muted = false;
-          userStarted = true;
-          video.play().catch(() => {});
-        } else {
-          video.pause();
-        }
-      });
-
-      video.addEventListener('play', () => {
-        card.classList.add('playing');
-        card.classList.remove('paused');
-        setIcons(true);
-        badge.textContent = 'Playing';
-      });
-
-      video.addEventListener('pause', () => {
-        card.classList.remove('playing');
-        card.classList.add('paused');
-        setIcons(false);
-        badge.textContent = 'Paused';
-      });
-
-      video.addEventListener('ended', () => {
-        card.classList.remove('playing', 'paused');
-        userStarted = false;
-        setIcons(false);
-        badge.textContent = '';
-      });
-    })();
-
-    // ── South Africa timeline stepper ──
-    (function () {
-      const stepper   = document.getElementById('sa-stepper');
-      const trackFill = document.getElementById('sa-track-fill');
-      const nextBtn   = document.getElementById('sa-next');
-      if (!stepper || !trackFill) return;
-
-      const points   = Array.from(stepper.querySelectorAll('.timeline-point'));
-      const contents = Array.from(document.querySelectorAll('.step-content[data-step]'));
-      if (!points.length) return;
-
-      const FILL_WIDTHS = ['0%', '25%', '50%', '75%', '100%'];
-      var currentStep = 1;
-
-      function update(step) {
-        currentStep = step;
-        points.forEach(function (pt, i) {
-          var s = i + 1;
-          pt.dataset.state = s < step ? 'completed' : s === step ? 'active' : 'inactive';
-          pt.setAttribute('aria-selected', s === step ? 'true' : 'false');
-          pt.setAttribute('tabindex', s === step ? '0' : '-1');
-        });
-        trackFill.style.width = FILL_WIDTHS[step - 1];
-        contents.forEach(function (c) {
-          c.classList.toggle('active', parseInt(c.dataset.step, 10) === step);
-        });
-      }
-
-      points.forEach(function (pt, i) {
-        pt.addEventListener('click', function () { update(i + 1); });
-        pt.addEventListener('keydown', function (e) {
-          if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
-            e.preventDefault();
-            points[(i + 1) % points.length].focus();
-          } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
-            e.preventDefault();
-            points[(i - 1 + points.length) % points.length].focus();
-          } else if (e.key === 'Home') {
-            e.preventDefault();
-            points[0].focus();
-          } else if (e.key === 'End') {
-            e.preventDefault();
-            points[points.length - 1].focus();
-          } else if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            update(i + 1);
-          }
-        });
-      });
-
-      if (nextBtn) {
-        nextBtn.addEventListener('click', function () {
-          update((currentStep % points.length) + 1);
-        });
-      }
-
-      update(1);
-    })();
-
-    // ── An Invitation card stack ──
-    (function () {
-      const wrap    = document.getElementById('inv-stack');
-      const nextBtn = document.getElementById('inv-next');
-      if (!wrap || !nextBtn) return;
-
-      const cards = Array.from(wrap.querySelectorAll('.stack-card'));
-      const dots  = Array.from(document.querySelectorAll('.stack-dot'));
-      if (cards.length < 3) return;
-
-      const pos = [
-        { y: '12px',  scale: 1,    z: 3 },
-        { y: '-16px', scale: 0.95, z: 2 },
-        { y: '-44px', scale: 0.90, z: 1 },
-      ];
-
-      let order = [0, 1, 2];
-      let busy  = false;
-
-      function place(card, p, animate) {
-        card.style.transition = animate
-          ? 'transform 0.85s cubic-bezier(0.22, 1, 0.36, 1)'
-          : 'none';
-        card.style.transform  = `translateX(-50%) translateY(${p.y}) scale(${p.scale})`;
-        card.style.zIndex     = p.z;
-      }
-
-      function refreshDots() {
-        dots.forEach((d, i) => d.classList.toggle('active', i === order[0]));
-      }
-
-      // Set initial positions without animation
-      order.forEach((ci, pi) => place(cards[ci], pos[pi], false));
-      refreshDots();
-
-      function cycle() {
-        if (busy) return;
-        busy = true;
-
-        const [fi, mi, bi] = order;
-        const front = cards[fi], mid = cards[mi], back = cards[bi];
-
-        // Front card exits downward
-        front.style.transition = 'transform 0.55s cubic-bezier(0.22, 1, 0.36, 1)';
-        front.style.transform  = `translateX(-50%) translateY(380px) scale(1)`;
-        front.style.zIndex     = '10';
-
-        // Remaining two cards shift forward
-        place(mid,  pos[0], true);
-        place(back, pos[1], true);
-
-        // After exit: recycle front card as new back
-        setTimeout(() => {
-          // Teleport off-screen (no transition), invisible
-          front.style.transition = 'none';
-          front.style.opacity    = '0';
-          front.style.transform  = `translateX(-50%) translateY(-44px) scale(0.9)`;
-          front.style.zIndex     = '1';
-
-          // Force reflow so next transition registers the change
-          front.getBoundingClientRect();
-
-          // Fade back in at the back position
-          front.style.transition = 'opacity 0.45s cubic-bezier(0.22, 1, 0.36, 1)';
-          front.style.opacity    = '1';
-
-          order = [mi, bi, fi];
-          refreshDots();
-
-          setTimeout(() => { busy = false; }, 450);
-        }, 560);
-      }
-
-      nextBtn.addEventListener('click', cycle);
-
-      // Clicking the front card (not its link) also cycles
-      cards.forEach(card => {
-        card.addEventListener('click', e => {
-          if (e.target.closest('a')) return;
-          cycle();
-        });
-      });
-    })();
-
-    // ── An Invitation card stack - About page ──
-    (function () {
-      const wrap    = document.getElementById('inv-stack-about');
-      const nextBtn = document.getElementById('inv-next-about');
-      if (!wrap || !nextBtn) return;
-
-      const cards = Array.from(wrap.querySelectorAll('.stack-card'));
-      const dots  = Array.from(wrap.closest('.stack-outer').querySelectorAll('.stack-dot'));
-      if (cards.length < 3) return;
-
-      const pos = [
-        { y: '12px',  scale: 1,    z: 3 },
-        { y: '-16px', scale: 0.95, z: 2 },
-        { y: '-44px', scale: 0.90, z: 1 },
-      ];
-
-      let order = [0, 1, 2];
-      let busy  = false;
-
-      function place(card, p, animate) {
-        card.style.transition = animate
-          ? 'transform 0.85s cubic-bezier(0.22, 1, 0.36, 1)'
-          : 'none';
-        card.style.transform  = `translateX(-50%) translateY(${p.y}) scale(${p.scale})`;
-        card.style.zIndex     = p.z;
-      }
-
-      function refreshDots() {
-        dots.forEach((d, i) => d.classList.toggle('active', i === order[0]));
-      }
-
-      order.forEach((ci, pi) => place(cards[ci], pos[pi], false));
-      refreshDots();
-
-      function cycle() {
-        if (busy) return;
-        busy = true;
-
-        const [fi, mi, bi] = order;
-        const front = cards[fi], mid = cards[mi], back = cards[bi];
-
-        front.style.transition = 'transform 0.55s cubic-bezier(0.22, 1, 0.36, 1)';
-        front.style.transform  = `translateX(-50%) translateY(380px) scale(1)`;
-        front.style.zIndex     = '10';
-
-        place(mid,  pos[0], true);
-        place(back, pos[1], true);
-
-        setTimeout(() => {
-          front.style.transition = 'none';
-          front.style.opacity    = '0';
-          front.style.transform  = `translateX(-50%) translateY(-44px) scale(0.9)`;
-          front.style.zIndex     = '1';
-
-          front.getBoundingClientRect();
-
-          front.style.transition = 'opacity 0.45s cubic-bezier(0.22, 1, 0.36, 1)';
-          front.style.opacity    = '1';
-
-          order = [mi, bi, fi];
-          refreshDots();
-
-          setTimeout(() => { busy = false; }, 450);
-        }, 560);
-      }
-
-      nextBtn.addEventListener('click', cycle);
-
-      cards.forEach(card => {
-        card.addEventListener('click', e => {
-          if (e.target.closest('a')) return;
-          cycle();
-        });
-      });
-    })();
-
-    // ── An Invitation card stack - Give page ──
-    (function () {
-      const wrap    = document.getElementById('inv-stack-give');
-      const nextBtn = document.getElementById('inv-next-give');
-      if (!wrap || !nextBtn) return;
-
-      const cards = Array.from(wrap.querySelectorAll('.stack-card'));
-      const dots  = Array.from(wrap.closest('.stack-outer').querySelectorAll('.stack-dot'));
-      if (cards.length < 3) return;
-
-      const pos = [
-        { y: '12px',  scale: 1,    z: 3 },
-        { y: '-16px', scale: 0.95, z: 2 },
-        { y: '-44px', scale: 0.90, z: 1 },
-      ];
-
-      let order = [0, 1, 2];
-      let busy  = false;
-
-      function place(card, p, animate) {
-        card.style.transition = animate
-          ? 'transform 0.85s cubic-bezier(0.22, 1, 0.36, 1)'
-          : 'none';
-        card.style.transform  = `translateX(-50%) translateY(${p.y}) scale(${p.scale})`;
-        card.style.zIndex     = p.z;
-      }
-
-      function refreshDots() {
-        dots.forEach((d, i) => d.classList.toggle('active', i === order[0]));
-      }
-
-      order.forEach((ci, pi) => place(cards[ci], pos[pi], false));
-      refreshDots();
-
-      function cycle() {
-        if (busy) return;
-        busy = true;
-
-        const [fi, mi, bi] = order;
-        const front = cards[fi], mid = cards[mi], back = cards[bi];
-
-        front.style.transition = 'transform 0.55s cubic-bezier(0.22, 1, 0.36, 1)';
-        front.style.transform  = `translateX(-50%) translateY(380px) scale(1)`;
-        front.style.zIndex     = '10';
-
-        place(mid,  pos[0], true);
-        place(back, pos[1], true);
-
-        setTimeout(() => {
-          front.style.transition = 'none';
-          front.style.opacity    = '0';
-          front.style.transform  = `translateX(-50%) translateY(-44px) scale(0.9)`;
-          front.style.zIndex     = '1';
-
-          front.getBoundingClientRect();
-
-          front.style.transition = 'opacity 0.45s cubic-bezier(0.22, 1, 0.36, 1)';
-          front.style.opacity    = '1';
-
-          order = [mi, bi, fi];
-          refreshDots();
-
-          setTimeout(() => { busy = false; }, 450);
-        }, 560);
-      }
-
-      nextBtn.addEventListener('click', cycle);
-
-      cards.forEach(card => {
-        card.addEventListener('click', e => {
-          if (e.target.closest('a')) return;
-          cycle();
-        });
-      });
-    })();
 
     // ── Custom video player (home page content videos) ──
     (function () {
