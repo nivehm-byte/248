@@ -873,6 +873,20 @@
       box-shadow: 0 6px 18px rgba(var(--charcoal-rgb), 0.28);
     }
 
+    /* ── Phrase labels (Research "What We Found") ──
+       About's five signs are single words, so their plates are always one line.
+       These labels are full phrases and wrap to different depths, which left
+       the plates visibly uneven. Reserve the height of the longest label so
+       every plate matches; shorter ones simply carry the slack below their
+       text, since the plate is bottom-anchored and the text sits at the top.
+       --label-lines is the one number to change if the copy grows. */
+    .measure-grid--phrase-labels { --label-lines: 4; }
+
+    .measure-grid--phrase-labels .measure-heading {
+      /* 1.1em == one line box at this font-size; 1.24rem == vertical padding */
+      min-height: calc(var(--label-lines) * 1.1em + 1.24rem);
+    }
+
     /* ── Text container below the image (fills remaining card height) ── */
     .measure-body {
       flex: 1;
@@ -1314,12 +1328,14 @@
        convention) with a sienna accent rule.
     ════════════════════════════════════════ */
     .pull-quote {
+      --pq-rule:        var(--sienna);
+      --pq-rule-len:    2.2rem;
+      --pq-rule-weight: 2px;
+      --pq-rule-offset: 0.34em;   /* aligns the vertical rule to the first line */
+
+      position: relative;
       max-width: 560px;
       margin: 2rem 0 0;
-      padding: 1.5rem 1.7rem 1.6rem;
-      background: var(--white);
-      border: 1px solid rgba(var(--charcoal-rgb), 0.10);
-      border-radius: 16px;
       font-size: clamp(1.02rem, 1.5vw, 1.22rem);
       font-weight: 400;
       letter-spacing: -0.03em;
@@ -1327,17 +1343,38 @@
       color: var(--charcoal);
     }
 
+    .pull-quote--wide { max-width: 720px; }
+
+    /* Default - the quote is stacked above or below a full-width figure, so the
+       rule sits above it and reads as an eyebrow. */
     .pull-quote::before {
       content: '';
       display: block;
-      width: 2.2rem;
-      height: 2px;
+      width: var(--pq-rule-len);
+      height: var(--pq-rule-weight);
       margin-bottom: 1.05rem;
-      border-radius: 2px;
-      background: var(--sienna);
+      border-radius: var(--pq-rule-weight);
+      background: var(--pq-rule);
     }
 
-    .pull-quote--wide { max-width: 720px; }
+    /* Beside a figure in a prose row - the rule turns vertical and moves to the
+       left of the text. Driven by layout context rather than a per-instance
+       class, so any new quote picks up the correct orientation on its own. */
+    .model-layout--prose .pull-quote { padding-left: 1.4rem; }
+
+    .model-layout--prose .pull-quote::before {
+      position: absolute;
+      left: 0;
+      top: var(--pq-rule-offset);
+      width: var(--pq-rule-weight);
+      height: var(--pq-rule-len);
+      margin-bottom: 0;
+    }
+
+    /* Sienna measures only ~2.2:1 against the 60% tints, so the rule all but
+       disappears on a band - and on the sienna band it is sienna on sienna.
+       Charcoal gets it back to ~7.2:1 without changing the mark. */
+    .s-band .pull-quote { --pq-rule: var(--charcoal); }
 
 
     /* ════════════════════════════════════════
@@ -2096,7 +2133,6 @@
       .invest-grid       { grid-template-columns: 1fr; }
       .members-grid      { grid-template-columns: 1fr; }
       .model-figure--full { aspect-ratio: 3 / 2; border-radius: 14px; }
-      .pull-quote        { padding: 1.3rem 1.35rem 1.4rem; border-radius: 14px; }
       .cta-engage        { flex-direction: column; align-items: center; }
       .video-wrap        { border-radius: 10px; }
 
@@ -2721,7 +2757,7 @@
       <div class="model-header">
         <div class="container">
           <span class="eyebrow">The Model</span>
-          <h1>The gospel at the speed of the city.</h1>
+          <h1>The gospel at the speed<br>of the city.</h1>
           <p>Cities move 24 hours a day. The gospel must move with them, through ordinary people, in everyday relationships, everywhere at once.</p>
         </div>
       </div>
@@ -2802,12 +2838,12 @@
             </div>
           </div>
 
-          <p class="pull-quote pull-quote--wide reveal">Each community takes the shape of its context. The DNA stays the same. The goal is that no one in the city is more than a relationship away from a community of Jesus followers.</p>
-
           <div class="model-figure model-figure--full reveal">
             <span class="figure-note">City map with diverse community nodes lighting up across segments</span>
             <img src="Model_City_Map.jpeg" alt="Communities lighting up across every segment of the city" loading="lazy" onerror="this.remove()">
           </div>
+
+          <p class="pull-quote pull-quote--wide reveal">Each community takes the shape of its context. The DNA stays the same. The goal is that no one in the city is more than a relationship away from a community of Jesus followers.</p>
         </div>
       </section>
 
@@ -3008,7 +3044,7 @@
           <h2 class="s-h2 reveal">What’s working in cities</h2>
           <p class="s-intro reveal">Fifteen patterns surfaced again and again across continents. The full report unpacks all fifteen, with the practitioners' own voices, common challenges, and emerging practices. Five are highlighted here.</p>
 
-          <div class="measure-grid">
+          <div class="measure-grid measure-grid--phrase-labels">
 
             <article class="measure-card reveal" style="transition-delay: 0.05s">
               <div class="measure-media">
@@ -3509,12 +3545,19 @@
       });
     }
 
-    // One observer per stat band - the home "Bigger Picture" grid and the
-    // Research methodology grid each trigger independently.
+    // One observer per stat band, each triggering independently.
+    //
+    // The observed element is the grid itself, not its section. Watching the
+    // section meant a band could cross the threshold while its numbers were
+    // still below the fold: on Research, "The Need" sits in the right-hand
+    // column of a section that starts just under the 82vh hero, so at a 900px
+    // viewport the section was 25% visible while the figures were still at the
+    // fold - the 4.5s roll was over before it came into view, and whether that
+    // happened at all depended on window height. Observing the grid ties the
+    // animation to the numbers actually being on screen.
     const statBands = [];
 
     document.querySelectorAll('.js-counters').forEach(grid => {
-      const target = grid.closest('section') || grid;
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (!entry.isIntersecting) return;
@@ -3523,11 +3566,37 @@
         });
       }, { threshold: 0.2 });
 
-      observer.observe(target);
-      statBands.push({ target, grid, observer });
+      observer.observe(grid);
+      statBands.push({ grid, observer });
     });
 
     // ── Page switcher ──
+    // ── Phrase-label plates ──
+    // The CSS reserves four lines so the plates are equal without JS, but the
+    // labels wrap differently as the cards change width: four lines at 5-up,
+    // only two at 3-up. Measure the tallest label and match the rest to it, so
+    // the deepest plate is always snug and only the shorter ones carry slack.
+    function syncPhraseLabels() {
+      document.querySelectorAll('.measure-grid--phrase-labels').forEach(grid => {
+        const heads = grid.querySelectorAll('.measure-heading');
+        if (!heads.length) return;
+
+        // Release the reservation to read each label's natural height
+        heads.forEach(h => { h.style.minHeight = '0px'; });
+
+        let tallest = 0;
+        heads.forEach(h => { tallest = Math.max(tallest, h.getBoundingClientRect().height); });
+
+        // Zero means the page is still display:none - leave the CSS baseline alone
+        if (!tallest) { heads.forEach(h => { h.style.minHeight = ''; }); return; }
+        heads.forEach(h => { h.style.minHeight = tallest + 'px'; });
+      });
+    }
+
+    window.addEventListener('resize', syncPhraseLabels, { passive: true });
+    // Webfonts land after first paint and change how the labels wrap
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(syncPhraseLabels);
+
     // Hash routing keeps all five pages linkable - #about, #model, #research, #donate.
     const PAGES = ['home', 'about', 'model', 'research', 'donate'];
 
@@ -3563,8 +3632,10 @@
       statBands.forEach(b => {
         if (!page.contains(b.grid)) return;
         resetCounters(b.grid);
-        b.observer.observe(b.target);
+        b.observer.observe(b.grid);
       });
+      // Labels can only be measured once the page has layout
+      syncPhraseLabels();
     }
 
     // Browser back / forward between pages
