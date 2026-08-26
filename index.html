@@ -3142,8 +3142,14 @@
           <h2 class="s-h2 reveal">Read the full report.</h2>
           <p class="cta-body reveal">Movement Insights: Phase 2 is free to download. Fifteen observations, common challenges, and emergent practices from 40 practitioners across the cities of the world. Want to talk through what these findings mean for your city or team?</p>
           <div class="cta-actions cta-actions--pair reveal">
-            <a href="Movement_Insights_Phase_2.pdf" class="btn-primary btn-icon js-download"
-               data-filename="Movement Insights Phase 2.pdf" download>
+            <!-- Native download, not the js-download handler: the report is 46 MB, and
+                 fetching it to a blob would hold ~92 MB transiently and show an
+                 indeterminate spinner for the whole transfer. The browser streams it
+                 and gives a real progress bar. Re-add the js-download class if the
+                 file is ever slimmed down. -->
+            <a href="Movement_Insights_Phase_2.pdf" class="btn-primary btn-icon"
+               data-filename="Movement Insights Phase 2 V1.2.pdf"
+               download="Movement Insights Phase 2 V1.2.pdf">
               <span class="t1">
                 <svg class="btn-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
                 <span class="btn-label">Download the report</span>

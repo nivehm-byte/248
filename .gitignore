@@ -1,1 +1,6 @@
 .DS_Store
+
+# Source assets: full-resolution originals kept locally only. The site serves the
+# web-sized derivatives in the repo root (Model_*.jpeg), so committing ~36 MB of
+# masters would bloat every clone for no benefit. Keep these backed up elsewhere.
+The Model Page/
