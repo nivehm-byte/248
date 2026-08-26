@@ -1226,6 +1226,7 @@
     }
 
     .model-figure {
+      position: relative;
       border-radius: 20px;
       background: rgba(var(--charcoal-rgb), 0.045);
       border: 1px solid rgba(var(--charcoal-rgb), 0.10);
@@ -1244,6 +1245,7 @@
     }
 
     .model-figure img {
+      position: relative;   /* paints above the absolute note behind it */
       width: 100%;
       height: 100%;
       object-fit: cover;
@@ -1312,8 +1314,15 @@
 
     /* Sits behind the photo - stays visible while an asset is still outstanding */
     .model-figure .figure-note {
+      /* Absolute, not a flex item: in flow it took a share of the row and
+         pushed the image out past the container's edge, where overflow:hidden
+         clipped it. Only --full escaped that, because its img is absolute. */
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: calc(100% - 3rem);
       max-width: 32ch;
-      padding: 0 1.5rem;
       font-size: 0.78rem;
       font-weight: 500;
       letter-spacing: 0.04em;
