@@ -873,20 +873,6 @@
       box-shadow: 0 6px 18px rgba(var(--charcoal-rgb), 0.28);
     }
 
-    /* ── Phrase labels (Research "What We Found") ──
-       About's five signs are single words, so their plates are always one line.
-       These labels are full phrases and wrap to different depths, which left
-       the plates visibly uneven. Reserve the height of the longest label so
-       every plate matches; shorter ones simply carry the slack below their
-       text, since the plate is bottom-anchored and the text sits at the top.
-       --label-lines is the one number to change if the copy grows. */
-    .measure-grid--phrase-labels { --label-lines: 4; }
-
-    .measure-grid--phrase-labels .measure-heading {
-      /* 1.1em == one line box at this font-size; 1.24rem == vertical padding */
-      min-height: calc(var(--label-lines) * 1.1em + 1.24rem);
-    }
-
     /* ── Text container below the image (fills remaining card height) ── */
     .measure-body {
       flex: 1;
@@ -895,6 +881,47 @@
     .measure-body p {
       margin: 0;
       padding: 1.15rem 1.25rem 1.35rem;
+      font-size: 0.875rem;
+      font-weight: 400;
+      line-height: 1.75;
+      color: var(--on-light-muted);
+    }
+
+    /* ════════════════════════════════════════
+       ICON ROW
+       Research "What We Found". Replaces the .measure-card treatment: those
+       cards were built for About's portrait photographs with a slate plate
+       over the bottom third, and these assets are line-art icons on a pale
+       disc, which left the plate floating across flat artwork. The icon is
+       clipped to a circle so its square background never shows against the
+       section tint.
+    ════════════════════════════════════════ */
+    .icon-row {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: clamp(1.5rem, 3vw, 2.6rem);
+      margin-top: 3rem;
+      list-style: none;
+    }
+
+    .icon-row-ico {
+      display: block;
+      width: 84px;
+      height: 84px;
+      border-radius: 50%;
+      margin-bottom: 1.15rem;
+    }
+
+    .icon-row h3 {
+      font-size: 1rem;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+      line-height: 1.3;
+      color: var(--charcoal);
+      margin-bottom: 0.5rem;
+    }
+
+    .icon-row p {
       font-size: 0.875rem;
       font-weight: 400;
       line-height: 1.75;
@@ -1311,6 +1338,16 @@
       position: absolute;
       inset: 0;
     }
+
+    /* Artwork that already sits on its own light ground needs no frame - the
+       tint and hairline exist to hold the shape of a missing photo. Also swaps
+       cover for contain so a diagram can never be cropped. */
+    .model-figure--bare {
+      background: none;
+      border: none;
+    }
+
+    .model-figure--bare img { object-fit: contain; }
 
     /* Sits behind the photo - stays visible while an asset is still outstanding */
     .model-figure .figure-note {
@@ -2097,6 +2134,7 @@
       .nav-hamburger { display: block; }
       .nav-inner    { gap: 1rem; padding: 0.5rem 0.5rem 0.5rem 1.25rem; }
       .measure-grid      { grid-template-columns: repeat(3, 1fr); }
+      .icon-row          { grid-template-columns: repeat(3, 1fr); }
       .stat-grid                       { grid-template-columns: repeat(2, 1fr); }
       .stat-item + .stat-item          { border-left: none; }
       .stat-item:nth-child(2)          { border-left: 1px solid rgba(var(--charcoal-rgb),0.14); }
@@ -2129,6 +2167,8 @@
       .hero-ctas      { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
       .nav-cta        { display: none; }
       .measure-grid      { grid-template-columns: repeat(2, 1fr); }
+      .icon-row          { grid-template-columns: repeat(2, 1fr); }
+      .icon-row-ico      { width: 68px; height: 68px; }
       .stat-grid                              { grid-template-columns: 1fr; }
       .stat-item + .stat-item                 { border-left: none; border-top: 1px solid rgba(var(--charcoal-rgb),0.12); padding-top: 2rem; margin-top: 0; }
       .stat-item:nth-child(2),
@@ -3053,59 +3093,33 @@
           <h2 class="s-h2 reveal">What’s working in cities</h2>
           <p class="s-intro reveal">Fifteen patterns surfaced again and again across continents. The full report unpacks all fifteen, with the practitioners' own voices, common challenges, and emerging practices. Five are highlighted here.</p>
 
-          <div class="measure-grid measure-grid--phrase-labels">
-
-            <article class="measure-card reveal" style="transition-delay: 0.05s">
-              <div class="measure-media">
-                <img src="Research_Discovery.jpeg" alt="Discovery over lecture" loading="lazy" onerror="this.style.display='none'">
-                <h3 class="measure-heading">Discovery over lecture</h3>
-              </div>
-              <div class="measure-body">
-                <p>Disciple-making grows where people discover Scripture together and respond in obedience.</p>
-              </div>
-            </article>
-
-            <article class="measure-card reveal" style="transition-delay: 0.10s">
-              <div class="measure-media">
-                <img src="Research_Networks.jpeg" alt="Networks over crowds" loading="lazy" onerror="this.style.display='none'">
-                <h3 class="measure-heading">Networks over crowds</h3>
-              </div>
-              <div class="measure-body">
-                <p>The gospel spreads through natural affinity groups and relational networks.</p>
-              </div>
-            </article>
-
-            <article class="measure-card reveal" style="transition-delay: 0.15s">
-              <div class="measure-media">
-                <img src="Research_Local_Leaders.jpeg" alt="Local leaders over outside experts" loading="lazy" onerror="this.style.display='none'">
-                <h3 class="measure-heading">Local leaders over outside experts</h3>
-              </div>
-              <div class="measure-body">
-                <p>Impact expands when embedded leaders are empowered to lead.</p>
-              </div>
-            </article>
-
-            <article class="measure-card reveal" style="transition-delay: 0.20s">
-              <div class="measure-media">
-                <img src="Research_A_Few.jpeg" alt="A few over the many" loading="lazy" onerror="this.style.display='none'">
-                <h3 class="measure-heading">A few over the many</h3>
-              </div>
-              <div class="measure-body">
-                <p>Deep investment in a handful of key people creates ripples that reach thousands.</p>
-              </div>
-            </article>
-
-            <article class="measure-card reveal" style="transition-delay: 0.25s">
-              <div class="measure-media">
-                <img src="Research_Flexible.jpeg" alt="Flexible structures over fixed models" loading="lazy" onerror="this.style.display='none'">
-                <h3 class="measure-heading">Flexible structures over fixed models</h3>
-              </div>
-              <div class="measure-body">
-                <p>Clear rhythms, loosely held forms, simple enough to adapt to any context.</p>
-              </div>
-            </article>
-
-          </div>
+          <ul class="icon-row">
+            <li class="reveal" style="transition-delay: 0.05s">
+              <img class="icon-row-ico" src="Research_Discovery.jpeg" alt="An open book with a seedling growing from it" loading="lazy" onerror="this.style.display='none'">
+              <h3>Discovery over lecture</h3>
+              <p>Disciple-making grows where people discover Scripture together and respond in obedience.</p>
+            </li>
+            <li class="reveal" style="transition-delay: 0.10s">
+              <img class="icon-row-ico" src="Research_Networks.jpeg" alt="Three figures linked in a network" loading="lazy" onerror="this.style.display='none'">
+              <h3>Networks over crowds</h3>
+              <p>The gospel spreads through natural affinity groups and relational networks.</p>
+            </li>
+            <li class="reveal" style="transition-delay: 0.15s">
+              <img class="icon-row-ico" src="Research_Local_Leaders.jpeg" alt="A local leader standing with an arrow pointing down to them" loading="lazy" onerror="this.style.display='none'">
+              <h3>Local leaders over outside experts</h3>
+              <p>Impact expands when embedded leaders are empowered to lead.</p>
+            </li>
+            <li class="reveal" style="transition-delay: 0.20s">
+              <img class="icon-row-ico" src="Research_A_Few.jpeg" alt="A small cluster of dots rippling outward" loading="lazy" onerror="this.style.display='none'">
+              <h3>A few over the many</h3>
+              <p>Deep investment in a handful of key people creates ripples that reach thousands.</p>
+            </li>
+            <li class="reveal" style="transition-delay: 0.25s">
+              <img class="icon-row-ico" src="Research_Flexible.jpeg" alt="Four nodes joined by a dashed, flexible outline" loading="lazy" onerror="this.style.display='none'">
+              <h3>Flexible structures over fixed models</h3>
+              <p>Clear rhythms, loosely held forms, simple enough to adapt to any context.</p>
+            </li>
+          </ul>
         </div>
       </section>
 
@@ -3137,7 +3151,7 @@
           <h2 class="s-h2 reveal">Research that shapes practice</h2>
           <p class="s-intro reveal">This is not research for the shelf. Every finding feeds directly into how we train, coach, and equip movement leaders, refining our city-focused curriculum and sharpening our strategy in real time.</p>
 
-          <div class="model-figure model-figure--full reveal">
+          <div class="model-figure model-figure--full model-figure--bare reveal">
             <span class="figure-note">Loop diagram, Listen to Learn to Equip and repeat</span>
             <img src="Research_Loop.png" alt="A loop diagram: listen, learn, equip, repeat" loading="lazy" onerror="this.remove()">
           </div>
@@ -3586,31 +3600,31 @@
     });
 
     // ── Page switcher ──
-    // ── Phrase-label plates ──
-    // The CSS reserves four lines so the plates are equal without JS, but the
-    // labels wrap differently as the cards change width: four lines at 5-up,
-    // only two at 3-up. Measure the tallest label and match the rest to it, so
-    // the deepest plate is always snug and only the shorter ones carry slack.
-    function syncPhraseLabels() {
-      document.querySelectorAll('.measure-grid--phrase-labels').forEach(grid => {
-        const heads = grid.querySelectorAll('.measure-heading');
+    // ── Icon row headings ──
+    // The five labels are phrases that wrap to different depths, and they wrap
+    // differently as the columns change: deeper at 5-up than at 3-up. Left
+    // ragged, the body copy would start at a different height in each column.
+    // Measure the tallest heading and match the rest to it, so the deepest one
+    // stays snug and only the shorter ones carry slack.
+    function syncIconHeadings() {
+      document.querySelectorAll('.icon-row').forEach(row => {
+        const heads = row.querySelectorAll('h3');
         if (!heads.length) return;
 
-        // Release the reservation to read each label's natural height
         heads.forEach(h => { h.style.minHeight = '0px'; });
 
         let tallest = 0;
         heads.forEach(h => { tallest = Math.max(tallest, h.getBoundingClientRect().height); });
 
-        // Zero means the page is still display:none - leave the CSS baseline alone
+        // Zero means the page is still display:none - nothing to measure yet
         if (!tallest) { heads.forEach(h => { h.style.minHeight = ''; }); return; }
         heads.forEach(h => { h.style.minHeight = tallest + 'px'; });
       });
     }
 
-    window.addEventListener('resize', syncPhraseLabels, { passive: true });
+    window.addEventListener('resize', syncIconHeadings, { passive: true });
     // Webfonts land after first paint and change how the labels wrap
-    if (document.fonts && document.fonts.ready) document.fonts.ready.then(syncPhraseLabels);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(syncIconHeadings);
 
     // Hash routing keeps all five pages linkable - #about, #model, #research, #donate.
     const PAGES = ['home', 'about', 'model', 'research', 'donate'];
@@ -3650,7 +3664,7 @@
         b.observer.observe(b.grid);
       });
       // Labels can only be measured once the page has layout
-      syncPhraseLabels();
+      syncIconHeadings();
     }
 
     // Browser back / forward between pages
