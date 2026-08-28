@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex">
+<title>Archived section: Our Team (About page)</title>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════════════════════════════════
+     ARCHIVED SECTION - OUR TEAM
+     Pulled from index.html on 2026-08-28 so the site could launch without it.
+
+     WHY: the grid holds 18 member cards and only one photo exists
+     (headshot.jpg, David). The other 17 fail silently via onerror, so the
+     section rendered as a row of empty frames. Parked until the photos land.
+
+     THIS FILE IS NOT SERVED. It is a holding pen, kept out of the live
+     build. Nothing links to it and it carries noindex.
+
+     ── TO REINSTATE ────────────────────────────────────────────────────────
+     1. Drop the 17 photos into the project root. Filenames are FirstName.jpg
+        exactly as referenced in the markup below, David being the exception
+        at headshot.jpg.
+     2. Paste BLOCK A into index.html's <style>, immediately before the
+        "ABOUT HEADER" banner (that is where it came from).
+     3. Paste BLOCK B into the two responsive queries - the repeat(2, 1fr)
+        line goes in @media (max-width: 900px), the 1fr line in
+        @media (max-width: 580px).
+     4. Paste BLOCK C into #page-about, between the Testimonials section and
+        the "An Invitation" CTA.
+     5. Re-check the About colour rhythm. With this section gone, Testimonials
+        and the CTA are both off-white and sit adjacent. This section was the
+        sand band that separated them, so putting it back restores the
+        alternation on its own.
+
+     ── STILL OUTSTANDING WHEN THIS GOES BACK ───────────────────────────────
+     The styling pass that was parked before launch:
+       - the h2 is roughly 3x longer than any other on the site
+       - the reveal stagger reaches 0.72s across 18 cards, so the bottom row
+         visibly lags behind the top. Shorten the step or restart per row.
+     ═══════════════════════════════════════════════════════════════════════ -->
+
+
+<!-- ══════════════════ BLOCK A - CSS ══════════════════ -->
+<!--
+    /* ════════════════════════════════════════
+       MEMBERS GRID (4-col)
+    ════════════════════════════════════════ */
+    .members-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+      margin-top: 3rem;
+      align-items: start;
+    }
+
+    .member-card {
+      position: relative;
+      overflow: hidden;
+      height: 22rem;
+      padding: 1.6rem 1.5rem;
+      background: var(--charcoal);
+      border: 1px solid rgba(var(--charcoal-rgb), 0.08);
+      border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      transition: transform 0.3s var(--ease-spring), box-shadow 0.3s;
+    }
+
+    .member-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 18px 44px rgba(var(--charcoal-rgb), 0.22), 0 4px 12px rgba(var(--charcoal-rgb), 0.12);
+    }
+
+    .member-photo {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top;
+      z-index: 0;
+      transition: transform 0.6s var(--ease-out);
+    }
+
+    .member-card:hover .member-photo { transform: scale(1.06); }
+
+    .member-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background: linear-gradient(to top, rgba(15, 13, 11, 0.92) 0%, rgba(15, 13, 11, 0.55) 38%, rgba(15, 13, 11, 0.08) 78%);
+    }
+
+    .member-info {
+      position: relative;
+      z-index: 2;
+    }
+
+    .member-card h3 {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 0.2rem;
+    }
+
+    .member-role {
+      display: block;
+      font-size: 0.66rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.72);
+      /* Reserve two lines so a wrapping role never lifts the name above it */
+      line-height: 1.5;
+      min-height: 3em;
+      margin-bottom: 0.7rem;
+    }
+
+    .member-card p {
+      font-size: 0.845rem;
+      font-weight: 400;
+      line-height: 1.7;
+      color: rgba(255, 255, 255, 0.82);
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      transform: translateY(10px);
+      transition: max-height 0.5s var(--ease-out), opacity 0.4s ease, transform 0.5s var(--ease-out);
+    }
+
+    .member-card:hover p {
+      max-height: 200px;
+      opacity: 1;
+      transform: translateY(0);
+    }
+-->
+
+
+<!-- ══════════════════ BLOCK B - RESPONSIVE ══════════════════ -->
+<!--
+    @media (max-width: 900px) {
+      .members-grid      { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 580px) {
+      .members-grid      { grid-template-columns: 1fr; }
+    }
+-->
+
+
+<!-- ══════════════════ BLOCK C - MARKUP ══════════════════ -->
+<!--
+      <section class="s-sand">
+        <div class="container">
+          <span class="eyebrow reveal">Our Team</span>
+          <h2 class="s-h2 reveal">Our co-ordination team of 18 serves a tribe of 28 Movement Guides, 12 Township trainers and two incubation projects. Together, we serve movement leaders in cities worldwide.</h2>
+          <p class="s-intro reveal">We keep overhead low and coaching capacity high. The co-ordinating team builds the tools and supports the work being done by thousands of volunteers worldwide.</p>
+          <div class="members-grid">
+            <div class="member-card reveal" style="transition-delay: 0.04s">
+              <img class="member-photo" src="headshot.jpg" alt="David Broodryk" loading="lazy" onerror="this.style.display='none'">
+              <div class="member-info">
+                <h3>David Broodryk</h3>
+                <span class="member-role">Visionary Leader</span>
+              </div>
+            </div>
+            <div class="member-card reveal" style="transition-delay: 0.08s">
+              <img class="member-photo" src="Marko.jpg" alt="Marko Pretorius" loading="lazy" onerror="this.style.display='none'">
+              <div class="member-info">
+                <h3>Marko Pretorius</h3>
+                <span class="member-role">City Catalysts Leadership Whisperer</span>
+              </div>
+            </div>
+            <div class="member-card reveal" style="transition-delay: 0.12s">
+              <img class="member-photo" src="Michael.jpg" alt="Michael Sherwin" loading="lazy" onerror="this.style.display='none'">
+              <div class="member-info">
+                <h3>Michael Sherwin</h3>
+                <span class="member-role">Integration Maestro</span>
+              </div>
+            </div>
+            <div class="member-card reveal" style="transition-delay: 0.16s">
+              <img class="member-photo" src="Ghibeau.jpg" alt="Ghibeau Gerber" loading="lazy" onerror="this.style.display='none'">
+              <div class="member-info">
+                <h3>Ghibeau Gerber</h3>
+                <span class="member-role">Operations Manager</span>
+              </div>
+            </div>
+            <div class="member-card reveal" style="transition-delay: 0.20s">
+              <img class="member-photo" src="Loyiso.jpg" alt="Loyiso Mato" loading="lazy" onerror="this.style.display='none'">
+              <div class="member-info">
+                <h3>Loyiso Mato</h3>
+                <span class="member-role">KASI Pioneer</span>
+              </div>
+            </div>
+            <div class="member-card reveal" style="transition-delay: 0.24s">
+              <img class="member-photo" src="Soraja.jpg" alt="Soraja van Greunen" loading="lazy" onerror="this.style.display='none'">
+              <div class="member-info">
+                <h3>Soraja van Greunen</h3>
+                <span class="member-role">Logistics Connoisseur</span>
+              </div>
+            </div>
+            <div class="member-card reveal" style="transition-delay: 0.28s">
+              <img class="member-photo" src="Michelle.jpg" alt="Michelle Broodryk" loading="lazy" onerror="this.style.display='none'">
+              <div class="member-info">
+                <h3>Michelle Broodryk</h3>
+                <span class="member-role">Co-ordination and Umfundi Visionary</span>
+              </div>
+            </div>
+            <div class="member-card reveal" style="transition-delay: 0.32s">
+              <img class="member-photo" src="Phumeza.jpg" alt="Phumeza Mato" loading="lazy" onerror="this.style.display='none'">
+              <div class="member-info">
+                <h3>Phumeza Mato</h3>
+                <span class="member-role">Co-ordination and Story Telling</span>
+              </div>
+            </div>
+            <div class="member-card reveal" style="transition-delay: 0.36s">
+              <img class="member-photo" src="Dumisani.jpg" alt="Dumisani Mkwanazi" loading="lazy" onerror="this.style.display='none'">
+              <div class="member-info">
+                <h3>Dumisani Mkwanazi</h3>
+                <span class="member-role">Zululand Co-ordinator</span>
+              </div>
+            </div>
+            <div class="member-card reveal" style="transition-delay: 0.40s">
+              <img class="member-photo" src="Khanya.jpg" alt="Khanya" loading="lazy" onerror="this.style.display='none'">
+              <div class="member-info">
+                <h3>Khanya</h3>
+                <span class="member-role">Umfundi Education</span>
+              </div>
+            </div>
+            <div class="member-card reveal" style="transition-delay: 0.44s">
+              <img class="member-photo" src="Innocent.jpg" alt="Innocent" loading="lazy" onerror="this.style.display='none'">
+              <div class="member-info">
+                <h3>Innocent</h3>
+                <span class="member-role">KASI Trainer</span>
+              </div>
+            </div>
+            <div class="member-card reveal" style="transition-delay: 0.48s">
+              <img class="member-photo" src="Brad.jpg" alt="Brad Sprague" loading="lazy" onerror="this.style.display='none'">
+              <div class="member-info">
+                <h3>Brad Sprague</h3>
+                <span class="member-role">Relationship Manager</span>
+              </div>
+            </div>
+            <div class="member-card reveal" style="transition-delay: 0.52s">
+              <img class="member-photo" src="Lourens.jpg" alt="Lourens de Klerk" loading="lazy" onerror="this.style.display='none'">
+              <div class="member-info">
+                <h3>Lourens de Klerk</h3>
+                <span class="member-role">Board Member</span>
+              </div>
+            </div>
+            <div class="member-card reveal" style="transition-delay: 0.56s">
+              <img class="member-photo" src="Tebogo.jpg" alt="Tebogo Ramatsui" loading="lazy" onerror="this.style.display='none'">
+              <div class="member-info">
+                <h3>Tebogo Ramatsui</h3>
+                <span class="member-role">Two Four Eight Board Member</span>
+              </div>
+            </div>
+            <div class="member-card reveal" style="transition-delay: 0.60s">
+              <img class="member-photo" src="Darren.jpg" alt="Darren Ross" loading="lazy" onerror="this.style.display='none'">
+              <div class="member-info">
+                <h3>Darren Ross</h3>
+                <span class="member-role">Two Four Eight Board Member</span>
+              </div>
+            </div>
+            <div class="member-card reveal" style="transition-delay: 0.64s">
+              <img class="member-photo" src="Jeremy.jpg" alt="Jeremy Sieberhagen" loading="lazy" onerror="this.style.display='none'">
+              <div class="member-info">
+                <h3>Jeremy Sieberhagen</h3>
+                <span class="member-role">KASI Board Member</span>
+              </div>
+            </div>
+            <div class="member-card reveal" style="transition-delay: 0.68s">
+              <img class="member-photo" src="Veronica.jpg" alt="Veronica Wilmington" loading="lazy" onerror="this.style.display='none'">
+              <div class="member-info">
+                <h3>Veronica Wilmington</h3>
+                <span class="member-role">Umfundi Board Member</span>
+              </div>
+            </div>
+            <div class="member-card reveal" style="transition-delay: 0.72s">
+              <img class="member-photo" src="Corne.jpg" alt="Corn&eacute; du Plessis" loading="lazy" onerror="this.style.display='none'">
+              <div class="member-info">
+                <h3>Corn&eacute; du Plessis</h3>
+                <span class="member-role">Umfundi Board Member</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+-->
+
+</body>
+</html>
