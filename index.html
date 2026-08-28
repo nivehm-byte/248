@@ -802,9 +802,16 @@
 
     .icon-row-ico {
       display: block;
-      width: 84px;
-      height: 84px;
+      /* 94 - (2 x 5px border) keeps the artwork itself at the original 84px */
+      width: 94px;
+      height: 94px;
+      border: 5px solid var(--white);
       border-radius: 50%;
+      background: var(--white);
+      /* The white ring alone measures 1.1:1 against the sand section, so it
+         would not read. The hairline outside it is the same one .model-num
+         uses on its circles, and is what actually defines the edge. */
+      box-shadow: 0 0 0 1px rgba(var(--charcoal-rgb), 0.10);
       margin-bottom: 1.15rem;
     }
 
@@ -2064,7 +2071,7 @@
       .nav-cta        { display: none; }
       .measure-grid      { grid-template-columns: repeat(2, 1fr); }
       .icon-row          { grid-template-columns: repeat(2, 1fr); }
-      .icon-row-ico      { width: 68px; height: 68px; }
+      .icon-row-ico      { width: 78px; height: 78px; }   /* art stays 68px inside the ring */
       .stat-grid                              { grid-template-columns: 1fr; }
       .stat-item + .stat-item                 { border-left: none; border-top: 1px solid rgba(var(--charcoal-rgb),0.12); padding-top: 2rem; margin-top: 0; }
       .stat-item:nth-child(2),
