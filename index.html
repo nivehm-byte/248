@@ -653,110 +653,6 @@
 
     .video-wrap--full { max-width: 100%; margin: 2.5rem 0 0; }
 
-    /* ── Custom player controls (home page content videos) ── */
-    .video-wrap--player { position: relative; }
-    .video-wrap--player > video { cursor: pointer; }
-
-    .vp-controls {
-      position: absolute;
-      left: 50%;
-      bottom: 0.85rem;
-      width: calc(100% - 1.7rem);
-      max-width: 34rem;
-      padding: 0.8rem 0.95rem;
-      background: rgba(17, 17, 17, 0.60);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-radius: 16px;
-      opacity: 0;
-      filter: blur(6px);
-      transform: translate(-50%, 14px);
-      pointer-events: none;
-      transition: opacity 0.45s var(--ease-out), transform 0.45s var(--ease-out), filter 0.45s var(--ease-out);
-    }
-
-    .video-wrap--player:hover .vp-controls,
-    .video-wrap--player:focus-within .vp-controls,
-    .video-wrap--player.is-paused .vp-controls {
-      opacity: 1;
-      filter: blur(0);
-      transform: translate(-50%, 0);
-      pointer-events: auto;
-    }
-
-    .vp-time-row {
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-      margin-bottom: 0.55rem;
-    }
-
-    .vp-time {
-      flex-shrink: 0;
-      font-size: 0.72rem;
-      color: var(--off-white);
-      font-variant-numeric: tabular-nums;
-    }
-
-    .vp-slider {
-      position: relative;
-      height: 4px;
-      background: rgba(255, 255, 255, 0.20);
-      border-radius: 999px;
-      cursor: pointer;
-    }
-
-    .vp-seek { flex: 1; }
-
-    .vp-slider-fill {
-      position: absolute;
-      top: 0; left: 0;
-      height: 100%;
-      width: 0%;
-      background: var(--off-white);
-      border-radius: 999px;
-    }
-
-    .vp-btn-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 0.5rem;
-    }
-
-    .vp-left { display: flex; align-items: center; gap: 0.7rem; }
-    .vp-vol-group { display: flex; align-items: center; gap: 0.4rem; }
-    .vp-vol { width: 5rem; }
-    .vp-right { display: flex; align-items: center; gap: 0.1rem; }
-
-    .vp-btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      width: 2rem; height: 2rem;
-      padding: 0;
-      background: none;
-      border: none;
-      border-radius: 8px;
-      color: var(--off-white);
-      font-family: inherit;
-      font-size: 0.72rem;
-      font-weight: 500;
-      cursor: pointer;
-      transition: background 0.2s var(--ease-out), transform 0.12s var(--ease-out);
-    }
-
-    .vp-btn:hover { background: rgba(17, 17, 17, 0.82); }
-    .vp-btn:active { transform: scale(0.9); }
-    .vp-btn svg { width: 18px; height: 18px; display: block; }
-
-    .vp-speed { width: auto; min-width: 1.9rem; padding: 0 0.3rem; }
-    .vp-speed.active { background: rgba(17, 17, 17, 0.82); }
-
-    @media (max-width: 580px) {
-      .vp-vol-group, .vp-right { display: none; }
-    }
 
     /* ════════════════════════════════════════
        STATEMENT (Problem + Answer merged)
@@ -2307,7 +2203,7 @@
       <section class="s-light">
         <div class="container">
           <h2 class="s-h2 reveal" style="text-align: center;">Why Cities are the next Frontier</h2>
-          <div class="video-wrap video-wrap--full video-wrap--player reveal">
+          <div class="video-wrap video-wrap--full reveal">
             <video
               src="hero-video.m4v"
               muted
@@ -2317,28 +2213,6 @@
               preload="auto"
               style="width:100%;height:100%;object-fit:cover;display:block;"
             ></video>
-            <div class="vp-controls">
-              <div class="vp-time-row">
-                <span class="vp-time vp-current">0:00</span>
-                <div class="vp-slider vp-seek"><div class="vp-slider-fill"></div></div>
-                <span class="vp-time vp-duration">0:00</span>
-              </div>
-              <div class="vp-btn-row">
-                <div class="vp-left">
-                  <button class="vp-btn vp-play" type="button" aria-label="Pause"></button>
-                  <div class="vp-vol-group">
-                    <button class="vp-btn vp-mute" type="button" aria-label="Unmute"></button>
-                    <div class="vp-slider vp-vol"><div class="vp-slider-fill"></div></div>
-                  </div>
-                </div>
-                <div class="vp-right">
-                  <button class="vp-btn vp-speed" type="button" data-speed="0.5">0.5x</button>
-                  <button class="vp-btn vp-speed active" type="button" data-speed="1">1x</button>
-                  <button class="vp-btn vp-speed" type="button" data-speed="1.5">1.5x</button>
-                  <button class="vp-btn vp-speed" type="button" data-speed="2">2x</button>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </section>
@@ -2360,7 +2234,7 @@
           <h2 class="s-h2 reveal">South Africa: since 2018.</h2>
           <p class="s-intro reveal">Seven years and a model that works. In 2019, we began investing in the first leaders across South African townships. Today the movement is self-led and multiplying on its own.</p>
 
-          <div class="video-wrap video-wrap--full video-wrap--player">
+          <div class="video-wrap video-wrap--full">
             <video
               src="hero-video.m4v"
               muted
@@ -2370,28 +2244,6 @@
               preload="auto"
               style="width:100%;height:100%;object-fit:cover;display:block;"
             ></video>
-            <div class="vp-controls">
-              <div class="vp-time-row">
-                <span class="vp-time vp-current">0:00</span>
-                <div class="vp-slider vp-seek"><div class="vp-slider-fill"></div></div>
-                <span class="vp-time vp-duration">0:00</span>
-              </div>
-              <div class="vp-btn-row">
-                <div class="vp-left">
-                  <button class="vp-btn vp-play" type="button" aria-label="Pause"></button>
-                  <div class="vp-vol-group">
-                    <button class="vp-btn vp-mute" type="button" aria-label="Unmute"></button>
-                    <div class="vp-slider vp-vol"><div class="vp-slider-fill"></div></div>
-                  </div>
-                </div>
-                <div class="vp-right">
-                  <button class="vp-btn vp-speed" type="button" data-speed="0.5">0.5x</button>
-                  <button class="vp-btn vp-speed active" type="button" data-speed="1">1x</button>
-                  <button class="vp-btn vp-speed" type="button" data-speed="1.5">1.5x</button>
-                  <button class="vp-btn vp-speed" type="button" data-speed="2">2x</button>
-                </div>
-              </div>
-            </div>
           </div>
 
         </div>
@@ -3673,91 +3525,6 @@
     });
 
 
-    // ── Custom video player (home page content videos) ──
-    (function () {
-      const players = document.querySelectorAll('.video-wrap--player');
-      if (!players.length) return;
-
-      const ICON = {
-        play:  '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="6 4 20 12 6 20 6 4"/></svg>',
-        pause: '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/></svg>',
-        vol2:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>',
-        vol1:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>',
-        mute:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>'
-      };
-
-      const fmt = s => {
-        if (!isFinite(s)) return '0:00';
-        const m = Math.floor(s / 60);
-        const r = Math.floor(s % 60);
-        return m + ':' + String(r).padStart(2, '0');
-      };
-
-      players.forEach(player => {
-        const video    = player.querySelector('video');
-        if (!video) return;
-        const playBtn  = player.querySelector('.vp-play');
-        const muteBtn  = player.querySelector('.vp-mute');
-        const seek     = player.querySelector('.vp-seek');
-        const seekFill = player.querySelector('.vp-seek .vp-slider-fill');
-        const volSld   = player.querySelector('.vp-vol');
-        const volFill  = player.querySelector('.vp-vol .vp-slider-fill');
-        const curEl    = player.querySelector('.vp-current');
-        const durEl    = player.querySelector('.vp-duration');
-        const speedBtns = player.querySelectorAll('.vp-speed');
-
-        function syncPlay() {
-          playBtn.innerHTML = video.paused ? ICON.play : ICON.pause;
-          playBtn.setAttribute('aria-label', video.paused ? 'Play' : 'Pause');
-          player.classList.toggle('is-paused', video.paused);
-        }
-        function syncVol() {
-          const v = video.muted ? 0 : video.volume;
-          volFill.style.width = (v * 100) + '%';
-          muteBtn.innerHTML = v === 0 ? ICON.mute : (v > 0.5 ? ICON.vol2 : ICON.vol1);
-          muteBtn.setAttribute('aria-label', video.muted ? 'Unmute' : 'Mute');
-        }
-        function togglePlay() { video.paused ? video.play() : video.pause(); }
-
-        const pct = (el, e) => {
-          const rect = el.getBoundingClientRect();
-          return Math.min(Math.max((e.clientX - rect.left) / rect.width, 0), 1);
-        };
-
-        video.addEventListener('click', togglePlay);
-        playBtn.addEventListener('click', togglePlay);
-        video.addEventListener('play', syncPlay);
-        video.addEventListener('pause', syncPlay);
-
-        video.addEventListener('timeupdate', () => {
-          const p = video.duration ? (video.currentTime / video.duration) * 100 : 0;
-          seekFill.style.width = (isFinite(p) ? p : 0) + '%';
-          curEl.textContent = fmt(video.currentTime);
-          durEl.textContent = fmt(video.duration);
-        });
-        video.addEventListener('loadedmetadata', () => { durEl.textContent = fmt(video.duration); });
-
-        seek.addEventListener('click', e => {
-          if (video.duration) video.currentTime = pct(seek, e) * video.duration;
-        });
-        muteBtn.addEventListener('click', () => { video.muted = !video.muted; syncVol(); });
-        volSld.addEventListener('click', e => {
-          const v = pct(volSld, e);
-          video.volume = v;
-          video.muted = v === 0;
-          syncVol();
-        });
-        speedBtns.forEach(btn => {
-          btn.addEventListener('click', () => {
-            video.playbackRate = parseFloat(btn.dataset.speed);
-            speedBtns.forEach(b => b.classList.toggle('active', b === btn));
-          });
-        });
-
-        syncPlay();
-        syncVol();
-      });
-    })();
 
     // ── Live Opportunities - pill-driven looping image carousel ──
     (function () {
