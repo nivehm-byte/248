@@ -224,6 +224,9 @@
       cursor: pointer;
       padding: 0.4rem 0.25rem;
       margin-right: 0.5rem;
+      /* Bars stay 18px wide; only the tappable box grows to 44px */
+      min-width: 44px;
+      min-height: 44px;
     }
 
     .nav-hamburger span {
@@ -1913,6 +1916,10 @@
       color: rgba(var(--off-white-rgb), 0.85);
       text-decoration: none;
       transition: color 0.18s;
+      /* 44px hit area - the type stays put, only the target grows */
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
     }
 
     .footer-main-links a:hover { color: var(--off-white); }
@@ -1928,6 +1935,9 @@
       color: rgba(var(--off-white-rgb), 0.55);
       text-decoration: none;
       transition: color 0.18s;
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
     }
 
     .footer-legal-links a:hover { color: rgba(var(--off-white-rgb), 0.80); }
@@ -1960,7 +1970,7 @@
     @media (max-width: 900px) {
       .nav-links,
       .nav-divider  { display: none; }
-      .nav-hamburger { display: block; }
+      .nav-hamburger { display: grid; place-content: center; }
       .nav-inner    { gap: 1rem; padding: 0.5rem 0.5rem 0.5rem 1.25rem; }
       .measure-grid      { grid-template-columns: repeat(3, 1fr); }
       .icon-row          { grid-template-columns: repeat(3, 1fr); }
