@@ -3590,7 +3590,23 @@
       lv.addEventListener('timeupdate', () => {
         if (lv.duration && lv.currentTime >= lv.duration - 0.15) exitLoader();
       });
-      fallback = setTimeout(exitLoader, 15000);
+
+      // The autoplay attribute alone is not enough, and worse, it gives us no
+      // signal when it is refused. iOS Low Power Mode blocks autoplay even for
+      // muted video; the element then just sits there wearing a native play
+      // button while 'ended', 'timeupdate' and 'error' all stay silent, so the
+      // only way out used to be the timeout below. Drive playback explicitly
+      // and, if it is refused, skip the loader rather than show a dead frame.
+      lv.muted = true;        // the property, not just the attribute - WebKit checks this
+      lv.playsInline = true;
+      const started = lv.play();
+      if (started && typeof started.catch === 'function') {
+        started.catch(() => exitLoader());
+      }
+
+      // Last resort only, now that refusal is handled above: covers a video that
+      // is still buffering on a slow connection. The clip itself runs 2.2s.
+      fallback = setTimeout(exitLoader, 6000);
     })();
 
   </script>
